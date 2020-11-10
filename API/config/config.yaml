@@ -1,0 +1,11 @@
+# YAML Config for production
+default: &defaults
+  user: pfcadmin
+
+production:
+    database: premierfc 
+    <<: *defaults
+
+development:
+    database: premierfc_test
+    <<: *defaults

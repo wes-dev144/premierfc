@@ -1,0 +1,8 @@
+__pycache__
+test.py
+*.pyc
+.vscode
+DATABASE_INFO.yaml
+env
+.env
+migrations
