@@ -6,3 +6,4 @@ DATABASE_INFO.yaml
 env
 .env
 migrations
+node_modules

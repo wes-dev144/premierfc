@@ -1,7 +1,7 @@
 #!/bin/env
 from utils import *
-from app import init_app
-from database.database import db
+from run import init_app
+from database import db
 
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand

@@ -1,0 +1,1 @@
+emulator -avd Pixel_4_API_29
