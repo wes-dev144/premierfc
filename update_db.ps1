@@ -1,4 +1,5 @@
 if (Test-Path migrations){
+    echo "removing"
     rm -Recurse -Confirm:$false -Force migrations
 }
 

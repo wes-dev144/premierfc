@@ -3,9 +3,8 @@ import bcrypt
 
 class Password(db.Model):
     __tablename__ = "passwords"
-    id = db.Column(db.Integer(), primary_key=True)
     uid = db.Column(db.String(8), db.ForeignKey('users.uid'))
-    pwd_hash = db.Column(db.String(64))
+    pwd_hash = db.Column(db.String(128), primary_key=True)
 
     def __init__(self, uid, pwd_hash):
         self.uid = uid
