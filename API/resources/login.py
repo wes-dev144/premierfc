@@ -22,8 +22,8 @@ class Login(Resource):
                 schema = UserSchema()
                 auth_token = self.generate_token(user.uid)
                 return {"user_data": schema.dump(user), "auth_token": auth_token}
-            else:
-                return json_message("Invalid Email/Password"), 401
+        return json_message("Invalid Email/Password"), 401
+
     
     def generate_token(self, uid):
         return jwt.encode({'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, os.environ.get("API_KEY"))

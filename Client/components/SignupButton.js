@@ -1,10 +1,11 @@
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import {View, Text, Button, StyleSheet, TouchableOpacity} from 'react-native';
 
-const SignupButton = (props) => {
+const SignupButton = ({navigation, ...rest}) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('SignUp')}>
         <Text style={styles.text}>Sign Up</Text>
       </TouchableOpacity>
     </View>

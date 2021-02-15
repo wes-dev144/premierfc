@@ -1,10 +1,12 @@
 import React from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 
-const EmailInput = (props) => {
+const EmailInput = ({placeholder, ...rest}) => {
+  const onChange = textValue => rest.getEmailInput(textValue)
   return (
     <View style={styles.container}>
-        <TextInput style={styles.input} placeholder={props.placeholder} placeholderTextColor={'darkslategrey'}/>
+        <TextInput style={styles.input} placeholder={placeholder} 
+                  placeholderTextColor={'darkslategrey'} onChangeText={onChange}/>
     </View>
   );
 };
