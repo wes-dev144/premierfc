@@ -4,26 +4,33 @@ import bcrypt
 import jwt
 
 class Login(Resource):
-    def get(self, uid):
-        user = User.query.filter(User.uid == uid).first()
+    @validate_json('id_token')
+    def get(self, user_id):
+        data = request.get_json()
+        user = User.query.filter(User._user_id == user_id).first()
         if user:
-            auth_token = self.generate_token(uid)
+            auth_token = self.generate_token(user.api_key)
             return {"auth_token": auth_token}
         else:
             return json_message("Unregistered UID"), 401
 
-    @validate_json('email', 'passwd')
+    @validate_json('email')
     def post(self):
         data = request.get_json()
         user = User.query.filter(User.email == data['email']).first()
         if user:
-            pwd = Password.query.filter(Password.uid == user.uid).first()
-            if bcrypt.checkpw(data['passwd'].encode('utf-8'), pwd.pwd_hash.encode('utf-8')):
-                schema = UserSchema()
-                auth_token = self.generate_token(user.uid)
-                return {"user_data": schema.dump(user), "auth_token": auth_token}
+            schema = UserSchema()
+            auth_token = self.generate_token(user.api_key)
+            return {"user_data": schema.dump(user), "auth_token": auth_token}
         return json_message("Invalid Email/Password"), 401
 
-    
-    def generate_token(self, uid):
-        return jwt.encode({'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, os.environ.get("API_KEY"))
+    def generate_token(self, api_key):
+        return jwt.encode({'api_key': api_key, 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, os.environ.get("PRIVATE_KEY"))
+
+class ApiKey(Resource):
+    def get(self):
+        key = APIKey.query.first()
+        if key:
+            return {"public_api_key": key.key}
+        else:
+            return json_message("Unable to retrieve API Key"), 404
