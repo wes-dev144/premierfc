@@ -1,7 +1,7 @@
 from . import *
 
 class UserInfo(Resource):
-    @verify_token
+    #@verify_token
     def get(self, user_id):
         user = User.query.filter(User._user_id == user_id).first()
         if user:
@@ -56,7 +56,7 @@ class UserInfo(Resource):
 class UsersList(Resource):
     def get(self):
         data = request.get_json()
-        query_limit = 50
+        query_limit = 5
         offset = 0
         if data:
             if 'query_limit' in data:
@@ -70,3 +70,7 @@ class UsersList(Resource):
             return schema.dump(users)
         else:
             return json_message("No Users Found"), 404
+    def post(self):  
+        return json_message("HAHA you suck"), 404
+    def delete(self):  
+        return json_message("HAHA you suck in delete"), 404
