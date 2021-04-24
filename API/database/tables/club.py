@@ -2,9 +2,9 @@ from database import *
 from database.tables.locations import get_city_state
 from utils.utils import random_id
 
-class Group(db.Model):
-    __tablename__ = "ugroup"
-    _group_id = db.Column('group_id', db.String(8), index=True, nullable=False, primary_key=True)
+class Club(db.Model):
+    __tablename__ = "club"
+    _club_id = db.Column('club_id', db.String(8), index=True, nullable=False, primary_key=True)
     name = db.Column(db.String(8))
     user_id = db.Column('user_id', db.String(8), db.ForeignKey('users.user_id'), nullable=False)
     _city_state_id = db.Column('city_state_id', db.Integer, db.ForeignKey('city_state.city_state_id'), nullable=False)
@@ -12,18 +12,18 @@ class Group(db.Model):
 
 
     def __init__(self, name, city, state):
-        self.set_group_id()
+        self.set_club_id()
         self.name = name
         self._city = city
         self._state = state
         self.set_city_state_id()
 
     @property
-    def group_id(self):
-        return self._group_id
+    def club_id(self):
+        return self._club_id
 
-    def set_group_id(self):
-        self._group_id = random_id(8)
+    def set_club_id(self):
+        self._club_id = random_id(8)
 
     @property
     def get_name(self):
@@ -62,7 +62,7 @@ class Group(db.Model):
         return self._date_created
 
     def __repr__(self):
-        schema = GroupSchema()
+        schema = ClubSchema()
         attributes = schema.dump(self)
         attributes_string = "<" + type(self).__name__ + ".__repr__("
         for key, value in attributes.items():
@@ -71,6 +71,6 @@ class Group(db.Model):
         attributes_string = attributes_string.strip().strip(",") + ")>"
         return attributes_string
 
-class GroupSchema(ma.SQLAlchemyAutoSchema):
+class ClubSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        model = Group
+        model = Club
