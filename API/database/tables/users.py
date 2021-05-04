@@ -24,7 +24,6 @@ class User(db.Model):
         self._city = city
         self._state = state
         self.set_city_state_id()
-        #self.user_role = 
         self.set_api_key()
 
     @property

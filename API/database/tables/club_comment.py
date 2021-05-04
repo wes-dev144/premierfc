@@ -8,7 +8,7 @@ class ClubComment(db.Model):
     _club_id = db.Column('club_id', db.String(8), db.ForeignKey('club.club_id'), nullable=False)
     _user_id = db.Column('user_id', db.String(8), db.ForeignKey('users.user_id'), nullable=False)
     _comment = db.Column(db.Text)
-    _date = db.Column('date_created', db.DateTime, default=db.func.now())
+    _publish = db.Column('publish_date', db.DateTime, default=db.func.now())
 
     def __init__(self, user, club, comment):
         self.set_club_comment_id()
@@ -19,12 +19,12 @@ class ClubComment(db.Model):
     def club_comment_id(self):
         return self._club_comment_id
 
-    def set_club_comment_id(self):
+    def set_comment_id(self):
         self._club_id = random_id(8)
     
     @property
-    def date_created(self):
-        return self._date_created
+    def publish_date(self):
+        return self._publish_date
 
     @property
     def comment(self):

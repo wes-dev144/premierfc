@@ -9,7 +9,8 @@ class Club(db.Model):
     user_id = db.Column('user_id', db.String(8), db.ForeignKey('users.user_id'), nullable=False)
     _city_state_id = db.Column('city_state_id', db.Integer, db.ForeignKey('city_state.city_state_id'), nullable=False)
     _date_created = db.Column('date_created', db.DateTime, default=db.func.now())
-
+    _last_accessed = db.Column('last_accessed', db.DateTime, default=db.func.now())
+    _club_status = db.Column('club_status', db.String(8))
 
     def __init__(self, name, city, state):
         self.set_club_id()
@@ -17,6 +18,19 @@ class Club(db.Model):
         self._city = city
         self._state = state
         self.set_city_state_id()
+        self._last_accessed()
+        self.club_status = 'active'
+
+    @property
+    def get_last_accessed(self):
+        return self._last_accessed
+
+    @property
+    def get_club_status(self):
+        return self._club_status
+
+    def last_accessed(self):
+        self._last_accessed = db.func.now()
 
     @property
     def club_id(self):
