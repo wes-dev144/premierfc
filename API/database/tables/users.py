@@ -17,7 +17,6 @@ class User(db.Model):
 
     def __init__(self, first_name, last_name, email, dob, city, state):
         self.set_user_id()
-        self.set_api_key()
         self.email = email
         self.first_name = first_name
         self.last_name = last_name
@@ -25,6 +24,7 @@ class User(db.Model):
         self._city = city
         self._state = state
         self.set_city_state_id()
+        self.set_api_key()
 
     @property
     def city(self):

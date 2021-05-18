@@ -1,7 +1,6 @@
 from . import *
 
 class UserInfo(Resource):
-    @verify_token
     def get(self, user_id):
         user = User.query.filter(User._user_id == user_id).first()
         if user:
@@ -70,3 +69,7 @@ class UsersList(Resource):
             return schema.dump(users)
         else:
             return json_message("No Users Found"), 404
+    def post(self):  
+        return json_message("please specify user and information"), 404
+    def delete(self):  
+        return json_message("please provide valid user to delete"), 404
