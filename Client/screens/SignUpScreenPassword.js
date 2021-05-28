@@ -1,14 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, ImageBackground, StyleSheet} from 'react-native';
+import PasswordInput from '../components/PasswordInput';
+import ContinueButtonUser from '../components/ContinueButtonUser';
 
-const SignUpScreen = ({navigation}) => {
+const SignUpScreenPassword = ({navigation}) => {
+  const [passwd, getPasswdInput] = useState('');
+
   return (
     <View style={styles.container}>
-      <ImageBackground source={require('../assets/images/login-screen2.jpg')} style={styles.image}>
+      <ImageBackground source={require('../assets/images/white-screen.jpg')} style={styles.image}>
         <View style={styles.header}>
-            <Text style={styles.text}>{'PremiereFC'}</Text>
+            <Text style={styles.text}>{'Nutmeg'}</Text>
             <Text style={styles.subtext}>{'Game On'}</Text>
         </View>
+        <PasswordInput placeholder='Create Your Password' getPasswdInput={getPasswdInput}/>
+        <ContinueButtonUser navigation={navigation}/>
       </ImageBackground>
     </View>
   );
@@ -33,17 +39,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    color: 'springgreen',
-    fontSize: 60,
+    color: 'lawngreen',
+    fontSize: 85,
     fontFamily: 'Quantum'
   },
   subtext: {
     padding: 5,
-    color: 'springgreen',
+    color: 'lawngreen',
     fontSize: 30,
     fontFamily: 'Azonix'
   }
 
 });
 
-export default SignUpScreen;
+export default SignUpScreenPassword;

@@ -2,11 +2,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import {View, Text, Button, StyleSheet, TouchableOpacity} from 'react-native';
 
-const SignupButton = ({navigation, ...rest}) => {
+const ContinueButton = ({navigation, ...rest}) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('SignUpEmail')}>
-        <Text style={styles.text}>Sign Up</Text>
+      <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('SignUpUser')}>
+        <Text style={styles.text}>Continue</Text>
       </TouchableOpacity>
     </View>
   );
@@ -30,4 +30,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SignupButton;
+export default ContinueButton;

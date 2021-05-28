@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 
-const EmailInput = ({placeholder, ...rest}) => {
-  const onChange = textValue => rest.getEmailInput(textValue)
+const NameInput = ({placeholder, ...rest}) => {
+  const onChange = textValue => rest.getNameInput(textValue)
   return (
     <View style={styles.container}>
         <TextInput style={styles.input} placeholder={placeholder} 
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default EmailInput;
+export default NameInput;
