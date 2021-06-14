@@ -1,6 +1,11 @@
 from database import *
 from database.tables.locations import get_city_state
 from utils.utils import random_id
+from enum import Enum
+
+class UserRoles(Enum):
+    ORGANIZER = "Organizer"
+    PLAYER = "Player"
 
 class User(db.Model):
     __tablename__ = "users"
@@ -14,8 +19,9 @@ class User(db.Model):
     _last_updated = db.Column('last_updated', db.DateTime, default=db.func.now(), onupdate=db.func.now())
     _last_logged_in = db.Column('last_logged_in', db.DateTime, default=db.func.now())
     _date_created = db.Column('date_created', db.DateTime, default=db.func.now())
+    user_role = db.Column(db.Enum(UserRoles), default=UserRoles.PLAYER, nullable=False)
 
-    def __init__(self, first_name, last_name, email, dob, city, state):
+    def __init__(self, first_name, last_name, email, dob, city, state, role):
         self.set_user_id()
         self.email = email
         self.first_name = first_name
@@ -25,6 +31,7 @@ class User(db.Model):
         self._state = state
         self.set_city_state_id()
         self.set_api_key()
+        self.player()
 
     @property
     def city(self):
@@ -88,6 +95,16 @@ class User(db.Model):
     @date_of_birth.setter
     def date_of_birth(self, dob):
         self._date_of_birth = datetime.datetime.strptime(dob, '%Y-%m-%d')
+
+    @property
+    def user_role(self):
+        return self.user_role
+
+    def organizer(self):
+        self.user_role = UserRoles.ORGANIZER
+
+    def player(self):
+        self.user_role = UserRoles.PLAYER
 
     def __repr__(self):
         schema = UserSchema()
