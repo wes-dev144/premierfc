@@ -5,17 +5,13 @@ const LoginButton = (props) => {
   console.log(props.email)
   console.log(props.passwd)
   const apiLogin = () => {
-    fetch('http://192.168.50.162:5000/api/login',
+    fetch('https://72dc582f-60cb-40f1-baf3-74ae16d52d22.mock.pstmn.io/api/test',
           {
-            method: 'POST',
+            method: 'GET',
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              email: props.email,
-              passwd: props.passwd
-            })
+            }
           })
           .then(response => {
             const statusCode = response.status;
@@ -45,18 +41,19 @@ const LoginButton = (props) => {
 
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: "springgreen",
+    backgroundColor: "lawngreen",
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 10,
-    height: 40
+    borderRadius: 15,
+    height: 50
   },
   text: {
     color: 'black',
     fontSize: 20,
+    fontWeight: 'bold',
   },
   container: {
-    padding: 4
+    padding: 20
   }
 });
 

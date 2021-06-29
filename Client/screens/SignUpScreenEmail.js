@@ -1,14 +1,10 @@
 import React, {useState} from 'react';
 import {View, Text, ImageBackground, StyleSheet} from 'react-native';
 import EmailInput from '../components/EmailInput';
-import LoginButton from '../components/LoginButton';
-import PasswordInput from '../components/PasswordInput'
-import SignupButton from '../components/SignupButton';
+import ContinueButtonPassword from '../components/ContinueButtonPassword';
 
-const LoginScreen = ({navigation}) => {
-    const [email, getEmailInput] = useState('');
-    const [passwd, getPasswdInput] = useState('');
-    const [authVerified, setAuth] = useState(true)
+const SignUpScreenEmail = ({navigation}) => {
+  const [email, getEmailInput] = useState('');
 
   return (
     <View style={styles.container}>
@@ -17,10 +13,8 @@ const LoginScreen = ({navigation}) => {
             <Text style={styles.text}>{'Nutmeg'}</Text>
             <Text style={styles.subtext}>{'Game On'}</Text>
         </View>
-        <EmailInput placeholder='Email' getEmailInput={getEmailInput}/>
-        <PasswordInput placeholder='Password' getPasswdInput={getPasswdInput}/>
-        <LoginButton email={email} passwd={passwd} setAuth={setAuth}/>
-        <SignupButton navigation={navigation}/>
+        <EmailInput placeholder="What's Your Email?" getEmailInput={getEmailInput}/>
+        <ContinueButtonPassword navigation={navigation}/>
       </ImageBackground>
     </View>
   );
@@ -58,4 +52,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default LoginScreen;
+export default SignUpScreenEmail;

@@ -16,12 +16,12 @@ const styles = StyleSheet.create({
     height: 40,
     width: '100%',
     fontSize: 16,
-    backgroundColor: 'rgba(255,255,255,0.4)',
+    backgroundColor: 'ghostwhite',
     padding: 8,
     borderRadius: 10
   },
   container: {
-    flex: 0.15,
+    flex: 0.1,
     padding: 4
   }
 });

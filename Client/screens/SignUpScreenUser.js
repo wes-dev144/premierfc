@@ -1,14 +1,10 @@
 import React, {useState} from 'react';
 import {View, Text, ImageBackground, StyleSheet} from 'react-native';
-import EmailInput from '../components/EmailInput';
-import LoginButton from '../components/LoginButton';
-import PasswordInput from '../components/PasswordInput'
-import SignupButton from '../components/SignupButton';
+import NameInput from '../components/NameInput';
+import ContinueButton from '../components/ContinueButton';
 
-const LoginScreen = ({navigation}) => {
-    const [email, getEmailInput] = useState('');
-    const [passwd, getPasswdInput] = useState('');
-    const [authVerified, setAuth] = useState(true)
+const SignUpScreenUser = ({navigation}) => {
+  const [name, getNameInput] = useState('');
 
   return (
     <View style={styles.container}>
@@ -16,11 +12,10 @@ const LoginScreen = ({navigation}) => {
         <View style={styles.header}>
             <Text style={styles.text}>{'Nutmeg'}</Text>
             <Text style={styles.subtext}>{'Game On'}</Text>
+            <Text style={styles.subtext2}>{'Tell Us About Yourself'}</Text>
         </View>
-        <EmailInput placeholder='Email' getEmailInput={getEmailInput}/>
-        <PasswordInput placeholder='Password' getPasswdInput={getPasswdInput}/>
-        <LoginButton email={email} passwd={passwd} setAuth={setAuth}/>
-        <SignupButton navigation={navigation}/>
+        <NameInput placeholder="What's Your Name?" getNameInput={getNameInput}/>
+        <ContinueButton navigation={navigation}/>
       </ImageBackground>
     </View>
   );
@@ -54,8 +49,15 @@ const styles = StyleSheet.create({
     color: 'lawngreen',
     fontSize: 30,
     fontFamily: 'Azonix'
+  },
+  subtext2: {
+    position: 'absolute',
+    top: 220,
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'black',
   }
 
 });
 
-export default LoginScreen;
+export default SignUpScreenUser;
