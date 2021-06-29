@@ -19,7 +19,7 @@ const LoginScreen = ({navigation}) => {
         </View>
         <EmailInput placeholder='Email' getEmailInput={getEmailInput}/>
         <PasswordInput placeholder='Password' getPasswdInput={getPasswdInput}/>
-        <LoginButton email={email} passwd={passwd} setAuth={setAuth}/>
+        <LoginButton email={email} passwd={passwd} navigation={navigation}/>
         <SignupButton navigation={navigation}/>
       </ImageBackground>
     </View>
