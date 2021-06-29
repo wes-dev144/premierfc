@@ -2,33 +2,32 @@ from database import *
 from database.tables.locations import get_city_state
 from utils.utils import random_id
 
-class ClubComment(db.Model):
-    __tablename__ = "club_comment"
-    _club_comment_id = db.Column('club_comment_id', db.String(8), index=True, nullable=False, primary_key=True)
-    _club_id = db.Column('club_id', db.String(8), db.ForeignKey('club.club_id'), nullable=False)
+class GameComment(db.Model):
+    __tablename__ = "game_comment"
+    _game_comment_id = db.Column('game_comment_id', db.String(8), index=True, nullable=False, primary_key=True)
+    _game_id = db.Column('game_id', db.String(8), db.ForeignKey('games.game_id'), nullable=False)
     _user_id = db.Column('user_id', db.String(8), db.ForeignKey('users.user_id'), nullable=False)
     _comment = db.Column(db.Text)
     _publish_date = db.Column('publish_date', db.DateTime, default=db.func.now())
     _publish_time = db.Column('publish_time', db.DateTime, default=db.func.now())
 
-    def __init__(self, user, club, comment):
-        self.set_club_comment_id()
+    def __init__(self, user, game, comment):
+        self.set_comment_id()
         self.comment = comment
-        self.set_city_state_id()
         self._user_id = user.user_id()
-        self._club_id = club.club_id()
+        self._game_id = game.game_id()
 
     @property
-    def club_comment_id(self):
-        return self._club_comment_id
+    def game_comment_id(self):
+        return self._game_comment_id
 
     def set_comment_id(self):
-        self._club_comment_id = random_id(8)
+        self._game_comment_id = random_id(8)
     
     @property
     def publish_date(self):
         return self._publish_date
-
+    
     @property
     def publish_time(self):
         return self._publish_time
@@ -38,15 +37,15 @@ class ClubComment(db.Model):
         return self.comment
 
     @property
-    def club_id(self):
-        return self._club_id
+    def game_id(self):
+        return self._game_id
 
     @property
     def user_id(self):
         return self._user_id
 
     def __repr__(self):
-        schema = ClubCommentSchema()
+        schema = GameCommentSchema()
         attributes = schema.dump(self)
         attributes_string = "<" + type(self).__name__ + ".__repr__("
         for key, value in attributes.items():
@@ -55,6 +54,6 @@ class ClubComment(db.Model):
         attributes_string = attributes_string.strip().strip(",") + ")>"
         return attributes_string
 
-class ClubCommentSchema(ma.SQLAlchemyAutoSchema):
+class GameCommentSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        model = ClubComment
+        model = GameComment
