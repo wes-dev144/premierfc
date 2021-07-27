@@ -1,10 +1,14 @@
 import React from 'react';
+import * as GlobalActions from '../actions/GlobalStoreActions';
 import {View, TextInput, StyleSheet} from 'react-native';
-import lightTheme from '../themes/LightTheme';
 import colors from '../themes/Colors';
 
-const EmailInput = ({placeholder, ...rest}) => {
-  const onChange = textValue => rest.getEmailInput(textValue)
+const updateInfo = (updatedValue, key) => {
+  GlobalActions.setData(key, updatedValue)
+};
+
+const UserInfoInput = ({placeholder, ...rest}) => {
+  const onChange = (text) => updateInfo(text, rest.storeKey)
   return (
     <View style={styles.container}>
         <TextInput style={styles.input} placeholder={placeholder} 
@@ -18,6 +22,9 @@ const styles = StyleSheet.create({
     height: 40,
     width: '100%',
     fontSize: 16,
+    backgroundColor: 'white',
+    color: 'black',
+    opacity: 0.75,
     padding: 8,
     borderBottomWidth: 0.5
   },
@@ -26,4 +33,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default EmailInput;
+export default UserInfoInput;

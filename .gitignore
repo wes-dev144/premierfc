@@ -7,3 +7,8 @@ env
 .env
 migrations
 node_modules
+*.ttf
+*.otf
+*.jpg
+*.svg
+*.png

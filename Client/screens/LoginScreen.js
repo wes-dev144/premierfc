@@ -1,61 +1,66 @@
-import React, {useState} from 'react';
-import {View, Text, ImageBackground, StyleSheet} from 'react-native';
-import EmailInput from '../components/EmailInput';
-import LoginButton from '../components/LoginButton';
-import PasswordInput from '../components/PasswordInput'
-import SignupButton from '../components/SignupButton';
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
+
+import NavigationButton from '../components/NavigationButton';
+
+import UserInfoInput from '../components/UserInfoInput';
+import lightTheme from '../themes/LightTheme';
+import {LogoNameBackground} from '../themes/Backgrounds';
+import * as GlobalActions from '../actions/GlobalStoreActions';
+import key from "../constants/StoreKeys";
+import Api from '../api/Api';
+import userInfoStore from '../stores/UserInfoStore';
+import { auth } from '../api/firebase';
+
+const Login = (props) => {
+  email = userInfoStore.getData(key.EMAIL)
+  passwd = userInfoStore.getData(key.PASSWD)
+  console.log("Logging in as", email, passwd)
+
+  auth.signInWithEmailAndPassword(email, passwd)
+    .catch((error) => {
+      var errorMessage = error.message;
+      alert(errorMessage)
+    });
+};
 
 const LoginScreen = ({navigation}) => {
-    const [email, getEmailInput] = useState('');
-    const [passwd, getPasswdInput] = useState('');
-    const [authVerified, setAuth] = useState(true)
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log("Successfully Logged in")
+        email = userInfoStore.getData(key.EMAIL)
+        passwd = userInfoStore.getData(key.PASSWD)
+        loginInfo = {email: email, passwd: passwd}
+        Api.request('POST', 'api/login', loginInfo).then((response) => {
+          for (let [respKey, value] of Object.entries(response.data)) {
+            GlobalActions.setData(respKey, value)
+          }
+          GlobalActions.setData(key.UID, user.uid)
+          GlobalActions.setData(key.NAME, user.displayName)
+          navigation.navigate('Chat')
+        });
+      } else {
+        console.log("Error Logging in!!!!")
+      }
+    });
+    return () => unsubscribe() 
+  }, [])
 
   return (
-    <View style={styles.container}>
-      <ImageBackground source={require('../assets/images/white-screen.jpg')} style={styles.image}>
-        <View style={styles.header}>
-            <Text style={styles.text}>{'Nutmeg'}</Text>
-            <Text style={styles.subtext}>{'Game On'}</Text>
+    <View style={[{flex: 1}, lightTheme.background]}>
+        <LogoNameBackground />
+        <View style={{flex: .25}}>
+          <UserInfoInput placeholder="Email" storeKey={key.EMAIL}/>
+          <UserInfoInput placeholder="Password" storeKey={key.PASSWD}/>
         </View>
-        <EmailInput placeholder='Email' getEmailInput={getEmailInput}/>
-        <PasswordInput placeholder='Password' getPasswdInput={getPasswdInput}/>
-        <LoginButton email={email} passwd={passwd} setAuth={setAuth}/>
-        <SignupButton navigation={navigation}/>
-      </ImageBackground>
+        <View style={{flex: .35}}>
+          <NavigationButton func={Login} navigation={navigation} nextScreen={null} buttonName='Login'/>
+          <NavigationButton func={null} navigation={navigation} nextScreen='SignUpEmail' buttonName='Sign Up'/>
+        </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  button: {
-    flex: 0.01
-  },
-  image: {
-    flex: 1,
-    width: '100%',
-    resizeMode: 'cover'
-  },
-  header: {
-    flex: .45,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    color: 'lawngreen',
-    fontSize: 85,
-    fontFamily: 'Quantum'
-  },
-  subtext: {
-    padding: 5,
-    color: 'lawngreen',
-    fontSize: 30,
-    fontFamily: 'Azonix'
-  }
-
-});
 
 export default LoginScreen;
