@@ -78,6 +78,129 @@
 		<string>aqua.ttf</string>
 		<string>MANIFESTO.ttf</string>
 		<string>Modeka.otf</string>
+		<string>manifesto.ttf</string>
+		<string>modeka.otf</string>
+		<string>Passageway.otf</string>
+		<string>PassagewayBold-YBgv.otf</string>
+		<string>PassagewayBoldItalic-reYA.otf</string>
+		<string>PassagewayBoldSuperitalic-Mwyr.otf</string>
+		<string>PassagewayItalic-K2yp.otf</string>
+		<string>PassagewayLight-2qrK.otf</string>
+		<string>PassagewayLightItalic-ve2O.otf</string>
+		<string>Swansea-q3pd.ttf</string>
+		<string>SwanseaBold-D0ox.ttf</string>
+		<string>SwanseaBoldItalic-p3Dv.ttf</string>
+		<string>SwanseaItalic-AwqD.ttf</string>
+		<string>WaukeganLdo-ax19.ttf</string>
+		<string>WaukeganLdoBlack-Eael.ttf</string>
+		<string>WaukeganLdoBlackOblique-OV93.ttf</string>
+		<string>WaukeganLdoBold-ZVeK.ttf</string>
+		<string>WaukeganLdoBoldOblique-3zrz.ttf</string>
+		<string>WaukeganLdoExtended-x3lR.ttf</string>
+		<string>WaukeganLdoExtendedBlack-p7OZ.ttf</string>
+		<string>WaukeganLdoExtendedBlackOblique-DO80.ttf</string>
+		<string>WaukeganLdoExtendedBold-AL1m.ttf</string>
+		<string>WaukeganLdoExtendedBoldOblique-qZD0.ttf</string>
+		<string>WaukeganLdoExtendedOblique-VGeV.ttf</string>
+		<string>WaukeganLdoOblique-JRvn.ttf</string>
+		<string>AtomicMd-3zXDZ.ttf</string>
+		<string>AtomicMd-OVJ4A.otf</string>
+		<string>Glametrix-oj9A.otf</string>
+		<string>GlametrixBold-4dW6.otf</string>
+		<string>GlametrixLight-0zjo.otf</string>
+		<string>Timeburner-xJB8.ttf</string>
+		<string>TimeburnerBold-peGR.ttf</string>
+		<string>DroidSans-4Eg4.ttf</string>
+		<string>DroidSansBold-00dd.ttf</string>
+		<string>FallingSky-JKwK.otf</string>
+		<string>FallingSkyBlack-GYXA.otf</string>
+		<string>FallingSkyBlackOblique-j37y.otf</string>
+		<string>FallingSkyBold-zemL.otf</string>
+		<string>FallingSkyBoldOblique-5zmv.otf</string>
+		<string>FallingSkyBoldplus-6GZ1.otf</string>
+		<string>FallingSkyBoldplusOblique-yxmV.otf</string>
+		<string>FallingSkyCondensed-9qm2.otf</string>
+		<string>FallingSkyCondensedOblique-leLw.otf</string>
+		<string>FallingSkyCondensedOutline-n5XO.otf</string>
+		<string>FallingSkyCondensedOutlineOblique-1qZv.otf</string>
+		<string>FallingSkyExtended-RLdE.otf</string>
+		<string>FallingSkyExtendedOblique-BnYw.otf</string>
+		<string>FallingSkyExtendedOutline-8qjn.otf</string>
+		<string>FallingSkyExtendedOutlineOblique-YBO2.otf</string>
+		<string>FallingSkyExtrabold-redB.otf</string>
+		<string>FallingSkyExtraboldOblique-MwdP.otf</string>
+		<string>FallingSkyLight-K2EX.otf</string>
+		<string>FallingSkyLightOblique-2q3o.otf</string>
+		<string>FallingSkyMedium-ved9.otf</string>
+		<string>FallingSkyMediumOblique-leLD.otf</string>
+		<string>FallingSkyOblique-n5XV.otf</string>
+		<string>FallingSkyOutline-1qZ0.otf</string>
+		<string>FallingSkyOutlineOblique-RLdV.otf</string>
+		<string>FallingSkySemibold-Bn7B.otf</string>
+		<string>FallingSkySemiboldOblique-8q7M.otf</string>
+		<string>OpenSans-Bold.ttf</string>
+		<string>OpenSans-BoldItalic.ttf</string>
+		<string>OpenSans-ExtraBold.ttf</string>
+		<string>OpenSans-ExtraBoldItalic.ttf</string>
+		<string>OpenSans-Italic.ttf</string>
+		<string>OpenSans-Light.ttf</string>
+		<string>OpenSans-LightItalic.ttf</string>
+		<string>OpenSans-Regular.ttf</string>
+		<string>OpenSans-SemiBold.ttf</string>
+		<string>OpenSans-SemiBoldItalic.ttf</string>
+		<string>RobotoBlack-Powx.ttf</string>
+		<string>RobotoBlackItalic-LmMD.ttf</string>
+		<string>RobotoBold-Xdoj.ttf</string>
+		<string>RobotoBoldCondensed-gmVP.ttf</string>
+		<string>RobotoBoldCondensedItalic-o38a.ttf</string>
+		<string>RobotoBoldItalic-4e0x.ttf</string>
+		<string>RobotoCondensed-0GXR.ttf</string>
+		<string>RobotoCondensedItalic-e5A6.ttf</string>
+		<string>RobotoItalic-W0gE.ttf</string>
+		<string>RobotoLight-aW3R.ttf</string>
+		<string>RobotoLightItalic-E9nn.ttf</string>
+		<string>RobotoMedium-Owv4.ttf</string>
+		<string>RobotoMediumItalic-ZW0m.ttf</string>
+		<string>RobotoRegular-3m4L.ttf</string>
+		<string>RobotoThin-xjmK.ttf</string>
+		<string>RobotoThinItalic-pqYK.ttf</string>
+		<string>Timeburner.ttf</string>
+		<string>TitilliumWeb-1eq2.ttf</string>
+		<string>TitilliumWebblack-RBLA.ttf</string>
+		<string>TitilliumWebbold-B1nd.ttf</string>
+		<string>TitilliumWebboldItalic-8xqg.ttf</string>
+		<string>TitilliumWebitalic-YvBO.ttf</string>
+		<string>TitilliumWeblight-r5ey.ttf</string>
+		<string>TitilliumWeblightItalic-M7wJ.ttf</string>
+		<string>TitilliumWebsemibold-Kv2y.ttf</string>
+		<string>TitilliumWebsemiboldItalic-2dqd.ttf</string>
+		<string>TitilliumWebthin-vjeE.ttf</string>
+		<string>TitilliumWebthinItalic-ljeq.ttf</string>
+		<string>Aqum.otf</string>
+		<string>Aqum.ttf</string>
+		<string>Facon.ttf</string>
+		<string>Nexa Bold.otf</string>
+		<string>Nexa Light.otf</string>
+		<string>Practice-font-Mono.otf</string>
+		<string>Practice-font.otf</string>
+		<string>Ubuntu-B.ttf</string>
+		<string>Ubuntu-BI.ttf</string>
+		<string>Ubuntu-C.ttf</string>
+		<string>Ubuntu-L.ttf</string>
+		<string>Ubuntu-LI.ttf</string>
+		<string>Ubuntu-M.ttf</string>
+		<string>Ubuntu-MI.ttf</string>
+		<string>Ubuntu-R.ttf</string>
+		<string>Ubuntu-RI.ttf</string>
+		<string>Proxima Nova Alt Bold.otf</string>
+		<string>Proxima Nova Alt Light.otf</string>
+		<string>Proxima Nova Alt Thin.otf</string>
+		<string>Proxima Nova Black.otf</string>
+		<string>Proxima Nova Bold.otf</string>
+		<string>Proxima Nova Extrabold.otf</string>
+		<string>Proxima Nova Thin.otf</string>
+		<string>ProximaNova-Regular.otf</string>
+		<string>regular.otf</string>
 	</array>
 </dict>
 </plist>

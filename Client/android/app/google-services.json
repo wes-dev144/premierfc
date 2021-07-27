@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "539295714480",
+    "project_id": "maestri-chat-dev",
+    "storage_bucket": "maestri-chat-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539295714480:android:33bf4371d5959a7a75ff75",
+        "android_client_info": {
+          "package_name": "com.client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "539295714480-1b3r7mope5rjo8kanr503mlgs9b8r7h4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZN4IkWqoGw7_KdIFRVah1viBJka6mgfE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "539295714480-1b3r7mope5rjo8kanr503mlgs9b8r7h4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

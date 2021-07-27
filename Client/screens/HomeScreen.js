@@ -1,29 +1,48 @@
 import React, {useState} from 'react';
-import {View, Text, ImageBackground, StyleSheet} from 'react-native';
-import GlobalStore from '../stores/GlobalDataStore';
+import {View, Text, ImageBackground, StyleSheet, ScrollView} from 'react-native';
+import GameInfoBox from '../components/GameInfoBox';
+import ClubInfoBox from '../components/ClubsBox';
+import lightTheme from '../themes/LightTheme';
+import colors from '../themes/Colors';
+import {LogoBackground} from '../themes/Backgrounds';
 
 const HomeScreen = (navigation) => {
-    // const [data, setData] = useState('');
-    var alldata = GlobalStore.getAllData()
-    console.log("CHANGED DATA", alldata.USER_INFO.SOME_DATA)
-
     return (
-    <View style={styles.container}>
-        <ImageBackground source={require('../assets/images/login-screen2.jpg')} style={styles.image}>
-        <View style={styles.header}>
-            <Text style={styles.text}>{'PremiereFC'}</Text>
-            <Text style={styles.subtext}>{'Game On'}</Text>
+      <View style={[styles.container, lightTheme.background]}>
+        <View style={styles.gameview}>
+          <LogoBackground imgOpacity={0.5}/>
+          <Text style={[styles.text, lightTheme.standardFontD]}>Upcoming Games</Text>
+          <ScrollView style={[styles.games]}>
+            <GameInfoBox club='NYCFooty' time='7:00PM-9:00PM' location='Brooklyn Bridge Pier 5'/>
+            <GameInfoBox club='NYCFooty' time='7:00PM-9:00PM' location='Brooklyn Bridge Pier 5'/>
+            <GameInfoBox club='NYCFooty' time='7:00PM-9:00PM' location='Brooklyn Bridge Pier 5'/>
+            <GameInfoBox club='NYCFooty' time='7:00PM-9:00PM' location='Brooklyn Bridge Pier 5'/>
+            <GameInfoBox club='LongIslandFC' time='5:30PM-8:30PM' location='Queens College Soccer Field'/>
+            <GameInfoBox club='TikiTakFC' time='7:00AM-9:00AM' location='Long Island City High School'/>
+            <GameInfoBox club='NYURec' time='4:00PM-6:00PM' location='Brooklyn Bridge Pier 5'/>
+            <GameInfoBox club='SBUFutsal' time='3:00PM-5:00PM' location='SBU Rec Center'/>
+            <GameInfoBox club='SBUD1Soccer' time='1:00PM-3:00PM' location='South P Lot'/>
+          </ScrollView>
+
         </View>
-        <Text style={styles.subtext}>{alldata.USER_INFO.SOME_DATA}</Text>
-        </ImageBackground>
-    </View>
+        <View style={styles.gameview}>
+        <Text style={[styles.text, lightTheme.standardFontD]}>Clubs</Text>
+          <ScrollView style={[styles.games, {flex:1}]}>
+            <ClubInfoBox club='SBUD1Soccer' location='Stony Brook, NY' club_numbers={600}/>
+            <ClubInfoBox club='SBUFutsal' location='Stony Brook, NY' club_numbers={242}/>
+            <ClubInfoBox club='NYURec' location='New York, NY' club_numbers={321}/>
+            <ClubInfoBox club='LongIslandFC' location='Ronkonkoma, NY' club_numbers={501}/>
+            <ClubInfoBox club='NYCFooty' location='New York, NY' club_numbers={501}/>
+            <ClubInfoBox club='TikiTakFC' location='Ronkonkoma, NY' club_numbers={501}/>
+          </ScrollView>
+        </View>
+      </View>
     );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
   },
   button: {
     flex: 0.01
@@ -33,21 +52,25 @@ const styles = StyleSheet.create({
     width: '100%',
     resizeMode: 'cover'
   },
-  header: {
-    flex: .45,
-    justifyContent: 'center',
-    alignItems: 'center',
+  gameview: {
+    flex: .5,
   },
-  text: {
-    color: 'springgreen',
-    fontSize: 60,
-    fontFamily: 'Quantum'
+  games: {
+    width: '100%',
+    borderRadius: 6
   },
   subtext: {
     padding: 5,
     color: 'springgreen',
     fontSize: 30,
     fontFamily: 'Azonix'
+  },
+  text: {
+    textAlign: 'left',
+    fontSize: 25,
+    padding: 10,
+    marginTop: 20
+    
   }
 
 });

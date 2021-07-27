@@ -1,11 +1,11 @@
 import dispatcher from "../dispatcher";
 import actionType from "../constants/ActionTypes";
 
-export function getData(key, data) {
+export function getData(key) {
+    console.log('GET Action Called', key)
     dispatcher.dispatch({
         type: actionType.GET,
-        storeKey: key,
-        data: data
+        storeKey: key
     });
 }
 
