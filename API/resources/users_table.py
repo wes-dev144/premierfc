@@ -1,3 +1,4 @@
+from sqlalchemy.orm import relationship
 from . import *
 
 class UserInfo(Resource):
@@ -51,6 +52,33 @@ class UserInfo(Resource):
             return json_message("Updated User")
         else:
             return json_message("User Not Found"), 404
+
+class UserRelationship(Resource):
+    def get(self, primary_user, secondary_user):
+        relationship = UserRelationship.query.filter(UserRelationship.primary_user == primary_user, UserRelationship.secondary_user == secondary_user).first()
+        if relationship:
+            schema = UserSchema()
+            return schema.dump(relationship)
+        else:
+            return json_message("Relationship Not Found"), 404
+
+    @validate_json('primary_user', 'secondary_user', 'relationship')
+    def post(self):
+        data = request.get_json()
+        try:
+            relationship = UserRelationship(data['primary_user'], data['secondary_user'], data['relationship'])
+            #inverse_relationship = UserRelationship(data['secondary_user'], data['primary_user'], data['relationship'])
+        except ValueError as e:
+            return json_message("Invalid Data format", e), 400
+        except:
+            return json_message("Invalid Data format"), 400
+
+        db.session.add(relationship)
+        #db.session.add(inverse_relationship)
+        db.session.commit()        
+        return json_message("Added: " + relationship.__repr__())
+
+#TODO: dump all relationships for one user
 
 class UsersList(Resource):
     def get(self):
