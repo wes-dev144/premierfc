@@ -1,59 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import React, { useState, useContext } from 'react';
+import { View, StyleSheet } from 'react-native';
+import {TextInput} from 'react-native-paper';
 
 import NavigationButton from '../components/NavigationButton';
-
-import UserInfoInput from '../components/UserInfoInput';
 import lightTheme from '../themes/LightTheme';
 import {LogoNameBackground} from '../themes/Backgrounds';
-import * as GlobalActions from '../actions/GlobalStoreActions';
-import key from "../constants/StoreKeys";
-import Api from '../api/Api';
-import userInfoStore from '../stores/UserInfoStore';
-import { auth } from '../api/firebase';
 
-const Login = (props) => {
-  email = userInfoStore.getData(key.EMAIL)
-  passwd = userInfoStore.getData(key.PASSWD)
-  console.log("Logging in as", email, passwd)
-
-  auth.signInWithEmailAndPassword(email, passwd)
-    .catch((error) => {
-      var errorMessage = error.message;
-      alert(errorMessage)
-    });
-};
+import field from "../constants/InputStoreFields";
+import * as Actions from '../actions/StoreActions';
+import InputStore from "../stores/InputStore";
+import {AuthContext} from '../navigation/AuthProvider';
 
 const LoginScreen = ({navigation}) => {
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        console.log("Successfully Logged in")
-        email = userInfoStore.getData(key.EMAIL)
-        passwd = userInfoStore.getData(key.PASSWD)
-        loginInfo = {email: email, passwd: passwd}
-        Api.request('POST', 'api/login', loginInfo).then((response) => {
-          for (let [respKey, value] of Object.entries(response.data)) {
-            GlobalActions.setData(respKey, value)
-          }
-          GlobalActions.setData(key.UID, user.uid)
-          GlobalActions.setData(key.NAME, user.displayName)
-          navigation.navigate('Chat')
-        });
-      } else {
-        console.log("Error Logging in!!!!")
-      }
-    });
-    return () => unsubscribe() 
-  }, [])
-
+  const {login} = useContext(AuthContext);
+  const [passwd, setPasswd] = useState("")
+  const [email, setEmail] = useState("")
+  const Login = () => {
+    console.log("Testing inputstore()")
+    Actions.InputStore().update(field.EMAIL, email)
+    Actions.InputStore().update(field.PASSWD, passwd)
+    console.log("Logging in as", email, passwd)
+    login(email, passwd)
+  };
   return (
     <View style={[{flex: 1}, lightTheme.background]}>
         <LogoNameBackground />
         <View style={{flex: .25}}>
-          <UserInfoInput placeholder="Email" storeKey={key.EMAIL}/>
-          <UserInfoInput placeholder="Password" storeKey={key.PASSWD}/>
+          <TextInput style={styles.input} label="Email" onChangeText={setEmail}/>
+          <TextInput style={styles.input} label="Password" secureTextEntry right={<TextInput.Icon name="eye"/>} onChangeText={setPasswd}/>
         </View>
         <View style={{flex: .35}}>
           <NavigationButton func={Login} navigation={navigation} nextScreen={null} buttonName='Login'/>
@@ -62,5 +36,14 @@ const LoginScreen = ({navigation}) => {
     </View>
   );
 };
-
+const styles = StyleSheet.create({
+  input: {
+    height: 60,
+    width: '100%',
+    backgroundColor: 'white',
+    fontSize: 16,
+    opacity: 0.75,
+    marginBottom: 10
+  }
+});
 export default LoginScreen;

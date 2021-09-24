@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Routes from './Routes';
-
+import { AuthProvider } from './AuthProvider';
 const Providers = () => {
     return (
-        <Routes/>
+        <AuthProvider>
+            <Routes/>
+        </AuthProvider>
     );
 }
 

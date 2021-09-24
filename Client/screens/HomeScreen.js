@@ -1,16 +1,48 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, ImageBackground, StyleSheet, ScrollView} from 'react-native';
 import GameInfoBox from '../components/GameInfoBox';
 import ClubInfoBox from '../components/ClubsBox';
+import NavigationBox from '../components/NavigationBox';
 import lightTheme from '../themes/LightTheme';
 import colors from '../themes/Colors';
 import {LogoBackground} from '../themes/Backgrounds';
+import ClubStore from '../stores/ClubStore';
+import field from "../constants/InputStoreFields";
+import Api from '../api/Api';
+// import { db, auth } from '../api/firebase';
+const getClubInfo = (props) => {
+  console.log(props)
+  console.log("api", props.club_id)
+  Api.request('GET', 'api/club/' + props.club_id).then((response) => {
+    console.log("CLUB INFO", response.data)
+    // GlobalActions.setData(response.club_id, response.club_info)
+  });
+}
 
-const HomeScreen = (navigation) => {
+const onChange = () => {
+  data = ClubStore.getClubs()
+  setClubs(data)
+}
+
+const getUserClubs = (clubs, navigation) => {
+  var clubData = Object.values(clubs)
+  return clubData.map((club) => {
+    return <ClubInfoBox key={club.id} club={club.name} location={club.location.string()} func={null} 
+        club_numbers={club.members.length} club_id={club.id} navigation={navigation} nextScreen="ClubChat"/>
+  })
+}
+
+const HomeScreen = ({navigation}) => {
+    [clubs, setClubs] = useState({})
+    useEffect(() => {
+      ClubStore.addChangeListener(onChange);
+      return () => ClubStore.removeChangeListener(onChange);
+    }, []);
+    console.log('Current clubs', clubs)
     return (
       <View style={[styles.container, lightTheme.background]}>
         <View style={styles.gameview}>
-          <LogoBackground imgOpacity={0.5}/>
+          {/* <LogoBackground imgOpacity={0.5}/> */}
           <Text style={[styles.text, lightTheme.standardFontD]}>Upcoming Games</Text>
           <ScrollView style={[styles.games]}>
             <GameInfoBox club='NYCFooty' time='7:00PM-9:00PM' location='Brooklyn Bridge Pier 5'/>
@@ -28,12 +60,16 @@ const HomeScreen = (navigation) => {
         <View style={styles.gameview}>
         <Text style={[styles.text, lightTheme.standardFontD]}>Clubs</Text>
           <ScrollView style={[styles.games, {flex:1}]}>
-            <ClubInfoBox club='SBUD1Soccer' location='Stony Brook, NY' club_numbers={600}/>
-            <ClubInfoBox club='SBUFutsal' location='Stony Brook, NY' club_numbers={242}/>
-            <ClubInfoBox club='NYURec' location='New York, NY' club_numbers={321}/>
-            <ClubInfoBox club='LongIslandFC' location='Ronkonkoma, NY' club_numbers={501}/>
-            <ClubInfoBox club='NYCFooty' location='New York, NY' club_numbers={501}/>
-            <ClubInfoBox club='TikiTakFC' location='Ronkonkoma, NY' club_numbers={501}/>
+            {/* <NavigationBox func={getClubInfo} navigation={navigation}>
+              <ClubBox club='SBUD1Soccer' location='Stony Brook, NY' club_numbers='120'/>
+            </NavigationBox> */}
+            {/* <ClubInfoBox club='SBUD1Soccer' location='Stony Brook, NY' func={getClubInfo} club_numbers={600} club_id="aaa123" navigation={navigation} nextScreen="ClubChat"/>
+            <ClubInfoBox club='SBUFutsal' location='Stony Brook, NY' club_numbers={242} club_id="b1243" navigation={navigation} nextScreen="ClubChat"/>
+            <ClubInfoBox club='NYURec' location='New York, NY' club_numbers={321} club_id="aaa123" navigation={navigation} nextScreen="ClubChat"/>
+            <ClubInfoBox club='LongIslandFC' location='Ronkonkoma, NY' club_numbers={501} club_id="b1243"/>
+            <ClubInfoBox club='NYCFooty' location='New York, NY' club_numbers={501} club_id="b1243"/>
+            <ClubInfoBox club='TikiTakFC' location='Ronkonkoma, NY' club_numbers={501} club_id="b1243"/> */}
+            {clubs ? getUserClubs(clubs, navigation) : null}
           </ScrollView>
         </View>
       </View>
@@ -58,6 +94,12 @@ const styles = StyleSheet.create({
   games: {
     width: '100%',
     borderRadius: 6
+  },
+  club: {
+    color: 'black',
+    fontSize: 20,
+    textAlign: 'left',
+    fontWeight: 'bold',
   },
   subtext: {
     padding: 5,

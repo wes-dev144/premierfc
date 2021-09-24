@@ -162,6 +162,14 @@
 		E21D7EB428B74D318416E190 /* Proxima Nova Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 83C1D5548B1D4772A0461B2B /* Proxima Nova Thin.otf */; };
 		499F6812F8EC4B6FB134F1F5 /* ProximaNova-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2EC53A61B9C948F3AE4A77DD /* ProximaNova-Regular.otf */; };
 		9637DE93E7824357A7F6B2A0 /* regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6480EA480C2B4CD7A1D0D0F6 /* regular.otf */; };
+		BCE4B67EA70D4A3584735139 /* Blanka-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FB1817DA791B4221903D3A4B /* Blanka-Regular.ttf */; };
+		BF31B54C9E2D46E2AB79D557 /* bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = B21692C69A0D4F7B8847CCE6 /* bold.otf */; };
+		742F718E9302457ABEB99B3A /* light.otf in Resources */ = {isa = PBXBuildFile; fileRef = AFD192B4C27F48C19B1809BE /* light.otf */; };
+		4F3C6F6C93C843BD8AEB7008 /* medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9E8B79BC985C4213A6FFCE28 /* medium.otf */; };
+		3E758C62AF624065852C3746 /* ONEDAY.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8110AF2EB52543F3ADB22C31 /* ONEDAY.ttf */; };
+		94B8B9AFBF2B4A2C8DCCC186 /* Passageway-8qzz.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3AA65E3E60C64F43B024AAB5 /* Passageway-8qzz.otf */; };
+		41B2926B2EE7497C8B4F842B /* semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A605603AF3F340EF97FEB963 /* semibold.otf */; };
+		64F9D9BDE6464BA096163FBE /* thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = A332D791F4BA443FA30D7401 /* thin.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -343,6 +351,14 @@
 		83C1D5548B1D4772A0461B2B /* Proxima Nova Thin.otf */ = {isa = PBXFileReference; name = "Proxima Nova Thin.otf"; path = "../assets/fonts/Proxima Nova Thin.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		2EC53A61B9C948F3AE4A77DD /* ProximaNova-Regular.otf */ = {isa = PBXFileReference; name = "ProximaNova-Regular.otf"; path = "../assets/fonts/ProximaNova-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		6480EA480C2B4CD7A1D0D0F6 /* regular.otf */ = {isa = PBXFileReference; name = "regular.otf"; path = "../assets/fonts/regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FB1817DA791B4221903D3A4B /* Blanka-Regular.ttf */ = {isa = PBXFileReference; name = "Blanka-Regular.ttf"; path = "../assets/fonts/Blanka-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B21692C69A0D4F7B8847CCE6 /* bold.otf */ = {isa = PBXFileReference; name = "bold.otf"; path = "../assets/fonts/bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AFD192B4C27F48C19B1809BE /* light.otf */ = {isa = PBXFileReference; name = "light.otf"; path = "../assets/fonts/light.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9E8B79BC985C4213A6FFCE28 /* medium.otf */ = {isa = PBXFileReference; name = "medium.otf"; path = "../assets/fonts/medium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8110AF2EB52543F3ADB22C31 /* ONEDAY.ttf */ = {isa = PBXFileReference; name = "ONEDAY.ttf"; path = "../assets/fonts/ONEDAY.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3AA65E3E60C64F43B024AAB5 /* Passageway-8qzz.otf */ = {isa = PBXFileReference; name = "Passageway-8qzz.otf"; path = "../assets/fonts/Passageway-8qzz.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A605603AF3F340EF97FEB963 /* semibold.otf */ = {isa = PBXFileReference; name = "semibold.otf"; path = "../assets/fonts/semibold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A332D791F4BA443FA30D7401 /* thin.otf */ = {isa = PBXFileReference; name = "thin.otf"; path = "../assets/fonts/thin.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -599,6 +615,14 @@
 				83C1D5548B1D4772A0461B2B /* Proxima Nova Thin.otf */,
 				2EC53A61B9C948F3AE4A77DD /* ProximaNova-Regular.otf */,
 				6480EA480C2B4CD7A1D0D0F6 /* regular.otf */,
+				FB1817DA791B4221903D3A4B /* Blanka-Regular.ttf */,
+				B21692C69A0D4F7B8847CCE6 /* bold.otf */,
+				AFD192B4C27F48C19B1809BE /* light.otf */,
+				9E8B79BC985C4213A6FFCE28 /* medium.otf */,
+				8110AF2EB52543F3ADB22C31 /* ONEDAY.ttf */,
+				3AA65E3E60C64F43B024AAB5 /* Passageway-8qzz.otf */,
+				A605603AF3F340EF97FEB963 /* semibold.otf */,
+				A332D791F4BA443FA30D7401 /* thin.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -888,6 +912,14 @@
 				E21D7EB428B74D318416E190 /* Proxima Nova Thin.otf in Resources */,
 				499F6812F8EC4B6FB134F1F5 /* ProximaNova-Regular.otf in Resources */,
 				9637DE93E7824357A7F6B2A0 /* regular.otf in Resources */,
+				BCE4B67EA70D4A3584735139 /* Blanka-Regular.ttf in Resources */,
+				BF31B54C9E2D46E2AB79D557 /* bold.otf in Resources */,
+				742F718E9302457ABEB99B3A /* light.otf in Resources */,
+				4F3C6F6C93C843BD8AEB7008 /* medium.otf in Resources */,
+				3E758C62AF624065852C3746 /* ONEDAY.ttf in Resources */,
+				94B8B9AFBF2B4A2C8DCCC186 /* Passageway-8qzz.otf in Resources */,
+				41B2926B2EE7497C8B4F842B /* semibold.otf in Resources */,
+				64F9D9BDE6464BA096163FBE /* thin.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

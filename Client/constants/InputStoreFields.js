@@ -5,5 +5,8 @@ export default {
     EMAIL: "EMAIL",
     PASSWD: "PASSWD",
     NAME: "NAME",
-    UID: "UID"
+    UID: "UID",
+    DOB: "DOB",
+    ZIP: "ZIP",
+    USER_CLUBS: "USER_CLUBS"
 }

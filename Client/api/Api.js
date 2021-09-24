@@ -1,9 +1,4 @@
-// import React from 'react';
-
-// import apiType from '../constants/ApiTypes';
-// import dispatcher from "../dispatcher";
 import axios from 'axios';
-
 
 class Api{
     constructor() {
@@ -18,13 +13,14 @@ class Api{
             data: data
         })
         .then((response) => {
+            if (typeof(response.data) != 'object') {
+                console.log("WARNING API DATA IS NOT AN OBJECT")
+            }
+            
             return response
         });
-        console.log('GIVING DATA', this.response.data)
         return this.response
     };
-
 }
-
 
 export default new Api();

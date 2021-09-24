@@ -9,7 +9,7 @@ const LogoNameBackground = ({imgOpacity=1}) => {
     return (
         <View style={styles.header}>
             <Text style={[styles.text, lightTheme.primaryFont]}>Maestri</Text>
-            <Text style={[styles.subtext, lightTheme.secondaryFont]}>Let's Play</Text>
+            <Text style={[styles.subtext, lightTheme.primaryFont]}>Let's Play</Text>
             <AppLogo style={[styles.image, {opacity:imgOpacity}]}/>
         </View>
 

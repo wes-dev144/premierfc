@@ -14,7 +14,9 @@ const firebaseConfig = {
 
 
 let app;
-YellowBox.ignoreWarnings(['Setting a timer for a long period of time'])
+YellowBox.ignoreWarnings(['Setting a timer for a long period of time', 
+                            'componentWillMount has been renamed',
+                            'componentWillReceiveProps has been renamed'])
 
 // Initialize Firebase
 if (firebase.apps.length == 0) {

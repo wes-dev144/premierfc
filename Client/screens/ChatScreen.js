@@ -2,23 +2,19 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
-import key from "../constants/StoreKeys";
+
 import lightTheme from '../themes/LightTheme';
 import NavigationButton from '../components/NavigationButton';
-import { db, auth } from '../api/firebase';
-import userInfoStore from '../stores/UserInfoStore';
-
-const SignOff = (props) => {
-  auth.signOut()
-}
+import { db } from '../api/firebase';
+import UserStore from '../stores/UserStore';
+import UpcomingGameBox from '../components/UpcomingGameBox';
 
 const ChatScreen = ({navigation}) => {
-  const uid = userInfoStore.getData(key.UID)
-  const name = userInfoStore.getData(key.NAME)
+  const uid = UserStore.getUID()
+  const name = UserStore.getName()
   const user = {_id: uid, name: name}
   const [messages, setMessages] = useState([])
   const chatsRef = db.collection('messages')
-  console.log(userInfoStore.getData('dob'))
 
   useEffect(() => {
     const unsubscribe = chatsRef.onSnapshot((querySnapshot) => {
@@ -38,6 +34,7 @@ const ChatScreen = ({navigation}) => {
 
   const appendMessages = useCallback(
     (messages) => {
+        console.log(messages)
         setMessages((previousMessages) => GiftedChat.append(previousMessages, messages))
     },
     [messages]
@@ -50,7 +47,7 @@ const ChatScreen = ({navigation}) => {
 
   return (
     <View style={[{flex: 1}, lightTheme.background]}>
-        <NavigationButton func={SignOff} navigation={navigation} nextScreen='Login' buttonName='Log Out'/>
+        <UpcomingGameBox />
         <GiftedChat messages={messages} user={user} onSend={handleSend}/>
     </View>
 )};

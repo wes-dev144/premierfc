@@ -3,15 +3,14 @@ import LoginScreen from '../screens/LoginScreen';
 import SignUpScreenEmail from '../screens/SignUpScreenEmail'
 import SignUpScreenPassword from '../screens/SignUpScreenPassword'
 import SignUpScreenUser from '../screens/SignUpScreenUser'
-import HomeScreen from '../screens/HomeScreen'
-import ChatScreen from '../screens/ChatScreen'
+
 import {createStackNavigator} from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
-const routeName = 'Login'
+
 const AuthStack = () => {
     return (
-        <Stack.Navigator initialRouteName={routeName}>
+        <Stack.Navigator initialRouteName={'Login'}>
             <Stack.Screen
                 name="Login"
                 component={LoginScreen}
@@ -30,16 +29,6 @@ const AuthStack = () => {
              <Stack.Screen
                 name="SignUpUser"
                 component={SignUpScreenUser}
-                options={{header: () => null}}
-            />
-            <Stack.Screen
-                name="Home"
-                component={HomeScreen}
-                options={{header: () => null}}
-            />
-            <Stack.Screen
-                name="Chat"
-                component={ChatScreen}
                 options={{header: () => null}}
             />
         </Stack.Navigator>
