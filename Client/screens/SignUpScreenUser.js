@@ -1,38 +1,28 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import UserInfoInput from '../components/UserInfoInput';
+import StoreInput from '../components/StoreInput';
 import lightTheme from '../themes/LightTheme';
 import NavigationButton from '../components/NavigationButton';
 import {LogoNameBackground} from '../themes/Backgrounds';
-import storeKey from "../constants/StoreKeys";
-import { auth } from "../api/firebase";
-import userInfoStore from '../stores/UserInfoStore';
-
-const registerUser = () => {
-  const signupInfo = userInfoStore.getData(storeKey.SIGNUP_INFO)
-  console.log(signupInfo)
-  const email = signupInfo.email
-  const passwd = signupInfo.passwd
-
-  auth.createUserWithEmailAndPassword(email, passwd).then((userCredential) => {
-    var user = userCredential.user;
-    user.updateProfile({
-      displayName: signupInfo.name
-    })
-  })
-}
-
+import field from "../constants/InputStoreFields";
+import {AuthContext} from '../navigation/AuthProvider';
+import InputStore from '../stores/InputStore';
 const SignUpScreenUser = ({navigation}) => {
-
+  const {register} = useContext(AuthContext);
+  const Register = () => {    
+    const email = InputStore.get(field.EMAIL)
+    const passwd = InputStore.get(field.PASSWD)
+    register(email, passwd)
+  }
   return (
     <View style={[{flex: 1}, lightTheme.background]}>
         <LogoNameBackground imgOpacity={0.75}/>
         <Text style={styles.subtext}>{'Tell Us About Yourself'}</Text>
         <View style={{flex: 1}}>
-          <UserInfoInput placeholder="What's your name" signupKey="name" storeKey={storeKey.SIGNUP_INFO}/>
-          <UserInfoInput placeholder="Date of Birth" signupKey="dob" storeKey={storeKey.SIGNUP_INFO}/>
-          <UserInfoInput placeholder="Zip Code" signupKey="zipCode" storeKey={storeKey.SIGNUP_INFO}/>
-          <NavigationButton func={registerUser} navigation={navigation} nextScreen='Login' buttonName='Submit'/>
+          <StoreInput placeholder="What's your name" signupKey="name" field={field.NAME}/>
+          <StoreInput placeholder="Date of Birth" signupKey="dob" field={field.DOB}/>
+          <StoreInput placeholder="Zip Code" signupKey="zipCode" field={field.ZIP}/>
+          <NavigationButton func={Register} navigation={navigation} nextScreen={null} buttonName='Submit'/>
         </View>
     </View>
   );

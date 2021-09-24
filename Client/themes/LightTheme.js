@@ -18,7 +18,7 @@ const lightTheme = StyleSheet.create({
         fontFamily: 'Facon'
     },
     secondaryFont: {
-        fontFamily: 'DroidSans-4Eg4'
+        fontFamily: 'FallingSkyOblique-n5XV'
     },
     standardFontD: {
         fontFamily: 'TimeBurner',
