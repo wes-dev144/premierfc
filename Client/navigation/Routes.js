@@ -4,13 +4,12 @@ import { AuthContext } from './AuthProvider';
 import { auth } from '../api/firebase';
 import Api from '../api/Api';
 import * as Actions from '../actions/StoreActions';
-import field from '../constants/InputStoreFields';
-import actions from '../constants/ActionConstants';
 import AuthStack from './AuthStack';
 import AppStack from './AppStack';
 import Club from '../classes/Clubs';
 import Location from '../classes/Locations';
 import User from '../classes/Users';
+import event from '../constants/Events';
 
 const Routes = () => {
     const {user, setUser} = useContext(AuthContext);
@@ -27,22 +26,7 @@ const Routes = () => {
                 Actions.UserStore().setState(response.data["state"])
             });
             Api.request('GET', 'api/user/' + user.uid + "/clubs").then((response) => {
-                for (var club of response.data["query"]) {
-                    var members = []
-                    var members_list = club["members"]
-                    const location = new Location(club["zip"], club["city"], club["state"])
-                    for (var user of members_list) {
-                        members.push(new User(user['uid'], user["name"], user["avatar"]))
-                    }
-                    Actions.ClubStore().addClub(
-                        club["id"], new Club(club["id"], 
-                                                club["club_name"],
-                                                members,
-                                                location,
-                                                club["owner"],
-                                                club["games"]
-                                    ))
-                }
+                Actions.RequestStore().updateStore(response.data, event.REQ_INIT_DATA)
             });
 
           } else {

@@ -66,3 +66,16 @@ export const ClubStore = () => {
         addClub
     }
 }
+
+export const RequestStore = () => {
+    const updateStore = (response, event) => {
+        dispatcher.dispatch({
+            type: actions.API_RESPONSE,
+            response: response,
+            event: event
+        });
+    }
+    return {
+        updateStore
+    }
+}

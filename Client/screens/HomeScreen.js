@@ -6,37 +6,42 @@ import NavigationBox from '../components/NavigationBox';
 import lightTheme from '../themes/LightTheme';
 import colors from '../themes/Colors';
 import {LogoBackground} from '../themes/Backgrounds';
-import ClubStore from '../stores/ClubStore';
-import field from "../constants/InputStoreFields";
+import * as Actions from '../actions/StoreActions';
+import RequestStore from '../stores/RequestsStore';
+import event from '../constants/Events';
 import Api from '../api/Api';
+import { getLocationString } from '../utils/util';
+
 // import { db, auth } from '../api/firebase';
 const getClubInfo = (props) => {
   console.log(props)
   console.log("api", props.club_id)
   Api.request('GET', 'api/club/' + props.club_id).then((response) => {
     console.log("CLUB INFO", response.data)
+    Actions.RequestStore().updateStore(response.data, event.GET_CLUB_INFO)
     // GlobalActions.setData(response.club_id, response.club_info)
   });
 }
 
 const onChange = () => {
-  data = ClubStore.getClubs()
-  setClubs(data)
+  data = RequestStore.getData(event.REQ_INIT_DATA)
+  console.log(data)
+  setClubs(data['clubs'])
 }
 
 const getUserClubs = (clubs, navigation) => {
-  var clubData = Object.values(clubs)
-  return clubData.map((club) => {
-    return <ClubInfoBox key={club.id} club={club.name} location={club.location.string()} func={null} 
+  // var clubData = Object.values(clubs)
+  return clubs.map((club) => {
+    return <ClubInfoBox key={club.id} club={club.club_name} location={getLocationString(club)} func={getClubInfo} 
         club_numbers={club.members.length} club_id={club.id} navigation={navigation} nextScreen="ClubChat"/>
   })
 }
 
 const HomeScreen = ({navigation}) => {
-    [clubs, setClubs] = useState({})
+    [clubs, setClubs] = useState([])
     useEffect(() => {
-      ClubStore.addChangeListener(onChange);
-      return () => ClubStore.removeChangeListener(onChange);
+      RequestStore.addListener(onChange, event.REQ_INIT_DATA);
+      return () => RequestStore.removeListener(onChange, event.REQ_INIT_DATA);
     }, []);
     console.log('Current clubs', clubs)
     return (
