@@ -1,8 +1,6 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, Text, View} from 'react-native';
 import { runAndNavigate } from '../utils/navigation';
-import NavigationBox from './NavigationBox';
-import { Avatar } from 'react-native-paper';
 
 const NotificationBox = ({func, ...rest}) => {
   return (

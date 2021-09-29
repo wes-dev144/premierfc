@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import {StyleSheet, View, Text, ScrollView} from 'react-native';
-import { runAndNavigate } from '../utils/navigation';
 import { ExpandableListView } from 'react-native-expandable-listview';
-import NavigationBox from './NavigationBox';
-import { Divider } from 'react-native-paper';
 import Colors from '../themes/Colors';
+
 const RowDivider = ({numberDividers}) => {
   var numbersList = []
   for (let i = 0; i < numberDividers; i++){
@@ -42,8 +40,7 @@ const Row = ({rowContents, textAlginment='center', fontWeight='normal'}, key) =>
   )
 }
 
-const UpcomingGameBox = ({func, ...rest}) => {
-  const [listDataSource, setListDataSource] = useState([])
+const UpcomingGameBox = React.memo(({func, ...rest}) => {
   const handleItemClick = ({index}) => {
     console.log(index);
   };
@@ -113,7 +110,7 @@ const UpcomingGameBox = ({func, ...rest}) => {
       onItemClick={handleItemClick}
     />
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

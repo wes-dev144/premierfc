@@ -1,5 +1,5 @@
 import {EventEmitter} from 'events'
-import actions from '../constants/ActionConstants';
+import actions from '../constants/Actions';
 import dispatcher from "../dispatcher";
 
 class RequestStore extends EventEmitter {
@@ -14,11 +14,11 @@ class RequestStore extends EventEmitter {
         this.emit(event);
     }
 
-    addListener(callback, event){
+    subscribe(callback, event){
         this.on(event, callback)
     }
 
-    removeListener(callback, event){
+    unsubscribe(callback, event){
         this.removeListener(event, callback)
     }
 

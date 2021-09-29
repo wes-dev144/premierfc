@@ -1,33 +1,32 @@
 // @refresh reset
 import React, { useState, useEffect, useCallback } from 'react';
 import { View } from 'react-native';
-import { GiftedChat } from 'react-native-gifted-chat';
+// import { GiftedChat } from 'react-native-gifted-chat';
 
 import lightTheme from '../themes/LightTheme';
-import NavigationButton from '../components/NavigationButton';
 import RequestStore from '../stores/RequestsStore';
 import event from '../constants/Events';
 import { db } from '../api/firebase';
-import UserStore from '../stores/UserStore';
+
 import UpcomingGameBox from '../components/UpcomingGameBox';
 
 const ChatScreen = ({navigation}) => {
-  const uid = UserStore.getUID()
-  const name = UserStore.getName()
+  const user_info = RequestStore.getData(event.REQ_USER_DATA)
+  const uid = user_info.uid
+  const name = user_info.name
   const user = {_id: uid, name: name}
   const [messages, setMessages] = useState([])
   const [chatsRef, setChat] = useState(null)
 
   const onChange = () => {
-    data = RequestStore.getData(event.GET_CLUB_INFO)
-    console.log('THIS DATA', data)
-    id = data.club_id
-    console.log('updating id', id)
-    setChat(db.collection(id))
+    const club_info = RequestStore.getData(event.REQ_CLUB_INFO)
+    console.log('updating id', club_info.club_id)
+    setChat(db.collection('messages'))
+    // setChat(db.collection(club_info.club_id))
   }
 
   useEffect(() => {
-    console.log('IN HERE')
+    RequestStore.subscribe(onChange, event.REQ_CLUB_INFO);
     if (chatsRef !== null){
       const unsubscribe = chatsRef.onSnapshot((querySnapshot) => {
         const messagesFirestore = querySnapshot
@@ -41,14 +40,16 @@ const ChatScreen = ({navigation}) => {
         console.log("New Message:", messagesFirestore)
         appendMessages(messagesFirestore)
       })
-      return () => unsubscribe()
+      return (chatsRef) => {
+        unsubscribe()
+        RequestStore.unsubscribe(onChange, event.REQ_CLUB_INFO); 
+      }
     }
-  }, [])
+  }, [chatsRef])
 
-  useEffect(() => {
-    RequestStore.addListener(onChange, event.GET_CLUB_INFO);
-    return () => RequestStore.removeListener(onChange, event.GET_CLUB_INFO);
-  }, []);
+  // useEffect(() => {
+    
+  // }, []);
 
   const appendMessages = useCallback(
     (messages) => {
@@ -66,7 +67,7 @@ const ChatScreen = ({navigation}) => {
   return (
     <View style={[{flex: 1}, lightTheme.background]}>
         <UpcomingGameBox />
-        <GiftedChat messages={messages} user={user} onSend={handleSend}/>
+        {/* <GiftedChat messages={messages} user={user} onSend={handleSend}/> */}
     </View>
 )};
 

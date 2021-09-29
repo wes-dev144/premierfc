@@ -1,5 +1,5 @@
 import dispatcher from "../dispatcher";
-import actions from "../constants/ActionConstants";
+import actions from "../constants/Actions";
 
 export const InputStore = () => {
     const update = (field, data) => {
@@ -12,63 +12,8 @@ export const InputStore = () => {
     return {update};
 }
 
-export const UserStore = () => {
-    const setUID = (uid) => {
-        dispatcher.dispatch({
-            type: actions.UPDATE_UID,
-            uid: uid,
-        });
-    }
-    
-    const setName = (name) => {
-        dispatcher.dispatch({
-            type: actions.UPDATE_NAME,
-            name: name,
-        });
-    }
-    
-    const setZip = (zip) => {
-        dispatcher.dispatch({
-            type: actions.UPDATE_ZIP,
-            zip: zip,
-        });
-    }
-    const setCity = (city) => {
-        dispatcher.dispatch({
-            type: actions.UPDATE_CITY,
-            city: city,
-        });
-    }
-    const setState = (state) => {
-        dispatcher.dispatch({
-            type: actions.UPDATE_STATE,
-            state: state,
-        });
-    }
-    return {
-        setUID,
-        setName,
-        setZip,
-        setCity,
-        setState
-    }
-}
-
-export const ClubStore = () => {
-    const addClub = (club_id, club) => {
-        dispatcher.dispatch({
-            type: actions.ADD_CLUB,
-            club_id: club_id,
-            club: club
-        });
-    }
-    return {
-        addClub
-    }
-}
-
 export const RequestStore = () => {
-    const updateStore = (response, event) => {
+    const update = (response, event) => {
         dispatcher.dispatch({
             type: actions.API_RESPONSE,
             response: response,
@@ -76,6 +21,6 @@ export const RequestStore = () => {
         });
     }
     return {
-        updateStore
+        update
     }
 }

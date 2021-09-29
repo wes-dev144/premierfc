@@ -1,7 +1,6 @@
 import React from 'react';
 import * as Actions from '../actions/StoreActions';
 import {View, TextInput, StyleSheet} from 'react-native';
-import colors from '../themes/Colors';
 
 const StoreInput = ({placeholder, ...rest}) => {
   const onChange = (text) => Actions.InputStore().update(rest.field, text)

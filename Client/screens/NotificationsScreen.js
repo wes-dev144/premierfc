@@ -1,14 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, ImageBackground, StyleSheet, ScrollView} from 'react-native';
-import GameInfoBox from '../components/GameInfoBox';
 import ClubInfoBox from '../components/ClubsBox';
-import NavigationBox from '../components/NavigationBox';
 import lightTheme from '../themes/LightTheme';
-import colors from '../themes/Colors';
-import {LogoBackground} from '../themes/Backgrounds';
 import InputStore from '../stores/InputStore';
 import field from "../constants/InputStoreFields";
-import Api from '../api/Api';
 import NotificationBox from '../components/NotificationBox';
 const onChange = () => {
   data = InputStore.get(field.USER_CLUBS)

@@ -6,9 +6,6 @@ import Api from '../api/Api';
 import * as Actions from '../actions/StoreActions';
 import AuthStack from './AuthStack';
 import AppStack from './AppStack';
-import Club from '../classes/Clubs';
-import Location from '../classes/Locations';
-import User from '../classes/Users';
 import event from '../constants/Events';
 
 const Routes = () => {
@@ -17,20 +14,15 @@ const Routes = () => {
     const onAuthStateChanged = (user) => {
         setUser(user);
         if (user) {
-            console.log("Successfully Logged in")
             Api.request('POST', 'api/users/' + user.uid).then((response) => {
-                Actions.UserStore().setUID(user.uid)
-                Actions.UserStore().setName(user.displayName)
-                Actions.UserStore().setZip(response.data["zip"])
-                Actions.UserStore().setCity(response.data["city"])
-                Actions.UserStore().setState(response.data["state"])
+                response.data.uid = user.uid
+                response.data.name = user.displayName
+                Actions.RequestStore().update(response.data, event.REQ_USER_DATA)
             });
             Api.request('GET', 'api/user/' + user.uid + "/clubs").then((response) => {
-                Actions.RequestStore().updateStore(response.data, event.REQ_INIT_DATA)
+                Actions.RequestStore().update(response.data, event.REQ_INIT_DATA)
             });
 
-          } else {
-            console.log("Error Logging in!!!!")
           }
         if (initializing) setInitializing(false);
     };

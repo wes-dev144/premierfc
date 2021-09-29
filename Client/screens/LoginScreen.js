@@ -8,7 +8,6 @@ import {LogoNameBackground} from '../themes/Backgrounds';
 
 import field from "../constants/InputStoreFields";
 import * as Actions from '../actions/StoreActions';
-import InputStore from "../stores/InputStore";
 import {AuthContext} from '../navigation/AuthProvider';
 
 const LoginScreen = ({navigation}) => {

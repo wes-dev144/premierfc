@@ -2,24 +2,19 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, ImageBackground, StyleSheet, ScrollView} from 'react-native';
 import GameInfoBox from '../components/GameInfoBox';
 import ClubInfoBox from '../components/ClubsBox';
-import NavigationBox from '../components/NavigationBox';
 import lightTheme from '../themes/LightTheme';
-import colors from '../themes/Colors';
-import {LogoBackground} from '../themes/Backgrounds';
 import * as Actions from '../actions/StoreActions';
 import RequestStore from '../stores/RequestsStore';
 import event from '../constants/Events';
 import Api from '../api/Api';
 import { getLocationString } from '../utils/util';
 
-// import { db, auth } from '../api/firebase';
 const getClubInfo = (props) => {
   console.log(props)
   console.log("api", props.club_id)
   Api.request('GET', 'api/club/' + props.club_id).then((response) => {
     console.log("CLUB INFO", response.data)
-    Actions.RequestStore().updateStore(response.data, event.GET_CLUB_INFO)
-    // GlobalActions.setData(response.club_id, response.club_info)
+    Actions.RequestStore().update(response.data, event.REQ_CLUB_INFO)
   });
 }
 
@@ -40,8 +35,8 @@ const getUserClubs = (clubs, navigation) => {
 const HomeScreen = ({navigation}) => {
     [clubs, setClubs] = useState([])
     useEffect(() => {
-      RequestStore.addListener(onChange, event.REQ_INIT_DATA);
-      return () => RequestStore.removeListener(onChange, event.REQ_INIT_DATA);
+      RequestStore.subscribe(onChange, event.REQ_INIT_DATA);
+      return () => RequestStore.unsubscribe(onChange, event.REQ_INIT_DATA);
     }, []);
     console.log('Current clubs', clubs)
     return (
@@ -65,15 +60,6 @@ const HomeScreen = ({navigation}) => {
         <View style={styles.gameview}>
         <Text style={[styles.text, lightTheme.standardFontD]}>Clubs</Text>
           <ScrollView style={[styles.games, {flex:1}]}>
-            {/* <NavigationBox func={getClubInfo} navigation={navigation}>
-              <ClubBox club='SBUD1Soccer' location='Stony Brook, NY' club_numbers='120'/>
-            </NavigationBox> */}
-            {/* <ClubInfoBox club='SBUD1Soccer' location='Stony Brook, NY' func={getClubInfo} club_numbers={600} club_id="aaa123" navigation={navigation} nextScreen="ClubChat"/>
-            <ClubInfoBox club='SBUFutsal' location='Stony Brook, NY' club_numbers={242} club_id="b1243" navigation={navigation} nextScreen="ClubChat"/>
-            <ClubInfoBox club='NYURec' location='New York, NY' club_numbers={321} club_id="aaa123" navigation={navigation} nextScreen="ClubChat"/>
-            <ClubInfoBox club='LongIslandFC' location='Ronkonkoma, NY' club_numbers={501} club_id="b1243"/>
-            <ClubInfoBox club='NYCFooty' location='New York, NY' club_numbers={501} club_id="b1243"/>
-            <ClubInfoBox club='TikiTakFC' location='Ronkonkoma, NY' club_numbers={501} club_id="b1243"/> */}
             {clubs ? getUserClubs(clubs, navigation) : null}
           </ScrollView>
         </View>

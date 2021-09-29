@@ -1,7 +1,6 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, Text} from 'react-native';
 import { runAndNavigate } from '../utils/navigation';
-import NavigationBox from './NavigationBox';
 
 const ClubInfoBox = ({func, ...rest}) => {
   return (
