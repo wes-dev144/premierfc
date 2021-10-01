@@ -7,15 +7,15 @@ import field from "../constants/InputStoreFields";
 import {LogoNameBackground} from '../themes/Backgrounds';
 
 const SignUpScreenPassword = (props) => {
-  return (
-    <View style={[{flex: 1}, lightTheme.background]}>
-        <LogoNameBackground imgOpacity={0.75}/>
-        <View style={{flex:.6}}>
-          <StoreInput placeholder="Create Password" signupKey="passwd" field={field.PASSWD}/>
-          <NavigationButton func={null} navigation={props.navigation} nextScreen='SignUpUser' buttonName='Continue'/>
+    return (
+        <View style={[{flex: 1}, lightTheme.background]}>
+            <LogoNameBackground imgOpacity={0.75}/>
+            <View style={{flex:.6}}>
+                <StoreInput placeholder="Create Password" signupKey="passwd" field={field.PASSWD}/>
+                <NavigationButton func={null} navigation={props.navigation} nextScreen='SignUpUser' buttonName='Continue'/>
+            </View>
         </View>
-    </View>
-  );
+    );
 };
 
 export default SignUpScreenPassword;
