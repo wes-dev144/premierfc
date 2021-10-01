@@ -3,46 +3,32 @@ import {View, Text, ImageBackground, StyleSheet, ScrollView} from 'react-native'
 import GameInfoBox from '../components/GameInfoBox';
 import ClubInfoBox from '../components/ClubsBox';
 import lightTheme from '../themes/LightTheme';
-import * as Actions from '../actions/StoreActions';
 import RequestStore from '../stores/RequestsStore';
 import event from '../constants/Events';
-import Api from '../api/Api';
 import { getLocationString } from '../utils/util';
 
-const getClubInfo = (props) => {
-  console.log(props)
-  console.log("api", props.club_id)
-  Api.request('GET', 'api/club/' + props.club_id).then((response) => {
-    console.log("CLUB INFO", response.data)
-    Actions.RequestStore().update(response.data, event.REQ_CLUB_INFO)
-  });
-}
-
 const onChange = () => {
-  data = RequestStore.getData(event.REQ_INIT_DATA)
-  console.log(data)
-  setClubs(data['clubs'])
+  data = RequestStore.get(event.REQ_INIT_DATA)
+  setClubs(data.clubs)
 }
 
 const getUserClubs = (clubs, navigation) => {
-  // var clubData = Object.values(clubs)
   return clubs.map((club) => {
-    return <ClubInfoBox key={club.id} club={club.club_name} location={getLocationString(club)} func={getClubInfo} 
-        club_numbers={club.members.length} club_id={club.id} navigation={navigation} nextScreen="ClubChat"/>
+    return <ClubInfoBox key={club.id} club={club.club_name} location={getLocationString(club)} func={null} 
+            club_numbers={club.members.length} club_id={club.id} navigation={navigation}
+            nextScreen="ClubChat" route_params={{club_id: club.id}}/>
   })
 }
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = (props) => {
     [clubs, setClubs] = useState([])
     useEffect(() => {
       RequestStore.subscribe(onChange, event.REQ_INIT_DATA);
       return () => RequestStore.unsubscribe(onChange, event.REQ_INIT_DATA);
     }, []);
-    console.log('Current clubs', clubs)
     return (
       <View style={[styles.container, lightTheme.background]}>
         <View style={styles.gameview}>
-          {/* <LogoBackground imgOpacity={0.5}/> */}
           <Text style={[styles.text, lightTheme.standardFontD]}>Upcoming Games</Text>
           <ScrollView style={[styles.games]}>
             <GameInfoBox club='NYCFooty' time='7:00PM-9:00PM' location='Brooklyn Bridge Pier 5'/>
@@ -60,7 +46,7 @@ const HomeScreen = ({navigation}) => {
         <View style={styles.gameview}>
         <Text style={[styles.text, lightTheme.standardFontD]}>Clubs</Text>
           <ScrollView style={[styles.games, {flex:1}]}>
-            {clubs ? getUserClubs(clubs, navigation) : null}
+            {clubs ? getUserClubs(clubs, props.navigation) : null}
           </ScrollView>
         </View>
       </View>

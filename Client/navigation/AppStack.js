@@ -19,7 +19,7 @@ const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 const HomeDrawer = createDrawerNavigator();
 
-const HomeDrawerStack = ({navigation}) => {
+const HomeDrawerStack = () => {
     return(
         <HomeDrawer.Navigator drawerContent={props => <DrawerUserProfile {...props} />}>
             <HomeDrawer.Screen name="DrawerHome" component={HomeStack} />
@@ -27,7 +27,7 @@ const HomeDrawerStack = ({navigation}) => {
     );
 }
 
-const ClubChatDrawerStack = ({navigation}) => {
+const ClubChatDrawerStack = () => {
     return (
         <Drawer.Navigator drawerContent={props => <DrawerClubProfile {...props} />} drawerPosition="right">
             <Drawer.Screen name="ClubChat" component={ChatScreen}/>
@@ -35,7 +35,7 @@ const ClubChatDrawerStack = ({navigation}) => {
     );
 }
 
-const HomeStack = ({navigation}) => {
+const HomeStack = () => {
     return (
         <HStack.Navigator initialRouteName="Home">
             <HStack.Screen
@@ -55,7 +55,7 @@ const HomeStack = ({navigation}) => {
     );
 }
 
-const SearchStack = ({navigation}) => {
+const SearchStack = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen

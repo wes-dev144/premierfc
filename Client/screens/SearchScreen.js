@@ -3,7 +3,7 @@ import lightTheme from '../themes/LightTheme';
 import {LogoBackground} from '../themes/Backgrounds';
 import {View, TextInput, StyleSheet, Text} from 'react-native';
 import colors from '../themes/Colors';
-const SearchScreen = ({navigation}) => {
+const SearchScreen = (props) => {
   const onChange = (text) => console.log(text)
   return (
     <View style={[{flex: 1}, lightTheme.background]}>

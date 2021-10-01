@@ -22,7 +22,7 @@ const getUserClubs = (clubs, navigation) => {
   })
 }
 
-const NotificationsScreen = ({navigation}) => {
+const NotificationsScreen = (props) => {
     // [clubs, setClubs] = useState({})
     // useEffect(() => {
     //   InputStore.addChangeListener(onChange);

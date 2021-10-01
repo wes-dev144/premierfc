@@ -2,7 +2,8 @@ import axios from 'axios';
 
 class Api{
     constructor() {
-        this.url = 'https://c1e04873-b61e-46f7-8c36-12233054c47f.mock.pstmn.io/'
+        // this.url = 'https://c1e04873-b61e-46f7-8c36-12233054c47f.mock.pstmn.io/'
+        this.url = 'https://2a631fa4-8490-4fb4-aeea-d76b0a70b692.mock.pstmn.io'
         this.response = ''
     };
 

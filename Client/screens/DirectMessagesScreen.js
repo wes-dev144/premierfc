@@ -23,7 +23,7 @@ const getUserClubs = (clubs, navigation) => {
   })
 }
 
-const DirectMessagesScreen = ({navigation}) => {
+const DirectMessagesScreen = (props) => {
     // [clubs, setClubs] = useState({})
     // useEffect(() => {
     //   InputStore.addChangeListener(onChange);

@@ -9,7 +9,6 @@ class RequestStore extends EventEmitter {
     };
 
     updateStore(data, event) {
-        console.log('Updating RequestStore', event, data)
         this.store[event] = data
         this.emit(event);
     }
@@ -22,7 +21,7 @@ class RequestStore extends EventEmitter {
         this.removeListener(event, callback)
     }
 
-    getData(key) {
+    get(key) {
         return this.store[key]
     }
 

@@ -7,7 +7,7 @@ import {LogoNameBackground} from '../themes/Backgrounds';
 import field from "../constants/InputStoreFields";
 import {AuthContext} from '../navigation/AuthProvider';
 import InputStore from '../stores/InputStore';
-const SignUpScreenUser = ({navigation}) => {
+const SignUpScreenUser = (props) => {
   const {register} = useContext(AuthContext);
   const Register = () => {    
     const email = InputStore.get(field.EMAIL)
@@ -22,7 +22,7 @@ const SignUpScreenUser = ({navigation}) => {
           <StoreInput placeholder="What's your name" signupKey="name" field={field.NAME}/>
           <StoreInput placeholder="Date of Birth" signupKey="dob" field={field.DOB}/>
           <StoreInput placeholder="Zip Code" signupKey="zipCode" field={field.ZIP}/>
-          <NavigationButton func={Register} navigation={navigation} nextScreen={null} buttonName='Submit'/>
+          <NavigationButton func={Register} navigation={props.navigation} nextScreen={null} buttonName='Submit'/>
         </View>
     </View>
   );

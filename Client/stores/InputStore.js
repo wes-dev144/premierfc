@@ -12,8 +12,8 @@ class InputStore extends EventEmitter {
         this.store[dataType] = data
     }
 
-    get(input) {
-        return this.store[input]
+    get(key) {
+        return this.store[key]
     }
 
     handleActions(action) {

@@ -7,13 +7,13 @@ import lightTheme from '../themes/LightTheme';
 import NavigationButton from '../components/NavigationButton';
 import {LogoNameBackground} from '../themes/Backgrounds';
 
-const SignUpScreenEmail = ({navigation}) => {
+const SignUpScreenEmail = (props) => {
   return (
     <View style={[{flex: 1}, lightTheme.background]}>
         <LogoNameBackground imgOpacity={0.75}/>
         <View style={{flex: .6}}>
           <StoreInput placeholder="Email" field={field.EMAIL}/>
-          <NavigationButton func={null} navigation={navigation} nextScreen='SignUpPassword' buttonName='Continue'/>
+          <NavigationButton func={null} navigation={props.navigation} nextScreen='SignUpPassword' buttonName='Continue'/>
         </View>
     </View>
 )};

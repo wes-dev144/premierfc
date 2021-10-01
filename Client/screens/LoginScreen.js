@@ -10,7 +10,7 @@ import field from "../constants/InputStoreFields";
 import * as Actions from '../actions/StoreActions';
 import {AuthContext} from '../navigation/AuthProvider';
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = (props) => {
   const {login} = useContext(AuthContext);
   const [passwd, setPasswd] = useState("")
   const [email, setEmail] = useState("")
@@ -29,8 +29,8 @@ const LoginScreen = ({navigation}) => {
           <TextInput style={styles.input} label="Password" secureTextEntry right={<TextInput.Icon name="eye"/>} onChangeText={setPasswd}/>
         </View>
         <View style={{flex: .35}}>
-          <NavigationButton func={Login} navigation={navigation} nextScreen={null} buttonName='Login'/>
-          <NavigationButton func={null} navigation={navigation} nextScreen='SignUpEmail' buttonName='Sign Up'/>
+          <NavigationButton func={Login} navigation={props.navigation} nextScreen={null} buttonName='Login'/>
+          <NavigationButton func={null} navigation={props.navigation} nextScreen='SignUpEmail' buttonName='Sign Up'/>
         </View>
     </View>
   );
