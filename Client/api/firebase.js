@@ -1,7 +1,7 @@
 import * as firebase from 'firebase';
 import 'firebase/auth';
 import 'firebase/firestore';
-import { YellowBox } from 'react-native';
+import { LogBox } from 'react-native';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAYi2wLDa1IIdPDViYcEiU1qC_dBGKbdw0",
@@ -14,21 +14,19 @@ const firebaseConfig = {
 
 
 let app;
-YellowBox.ignoreWarnings(['Setting a timer for a long period of time', 
+LogBox.ignoreLogs(['Setting a timer for a long period of time', 
                             'componentWillMount has been renamed',
                             'componentWillReceiveProps has been renamed'])
 
 // Initialize Firebase
 if (firebase.apps.length == 0) {
-    console.log('INIT FIREBASE')
     app = firebase.initializeApp(firebaseConfig)
 } else {
-    console.log('FIREBASE ALREADY STARTED')
     app = firebase.app()
 }
 
 const db = app.firestore();
-db.settings({experimentalForceLongPolling: true});
+db.settings({experimentalForceLongPolling: true, merge: true});
 const auth = firebase.auth();
 
 export {db, auth};

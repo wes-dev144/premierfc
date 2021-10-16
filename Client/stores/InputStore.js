@@ -1,37 +1,25 @@
 import {EventEmitter} from 'events'
-import actions from '../constants/ActionConstants';
-import field from '../constants/InputStoreFields'
+import actions from '../constants/Actions';
 import dispatcher from "../dispatcher";
 
 class InputStore extends EventEmitter {
     constructor() {
         super()
-        this[field.USER_CLUBS] = []
+        this.store = {}
     };
 
-    setData(dataType, data) {
-        let key = dataType
-        this[key] = data
-        this.emit(actions.CHANGE_EVENT);
+    updateStore(dataType, data) {
+        this.store[dataType] = data
     }
 
-    addChangeListener(callback){
-        this.on(actions.CHANGE_EVENT, callback)
-    }
-
-    removeChangeListener(callback){
-        this.removeListener(actions.CHANGE_EVENT, callback)
-    }
-
-    get(field) {
-        console.log('Returning InputStoreData', typeof(this[field]), this[field])
-        return this[field]
+    get(key) {
+        return this.store[key]
     }
 
     handleActions(action) {
         switch(action.type){
             case actions.UPDATE_INPUT: {
-                this.setData(action.field, action.data);
+                this.updateStore(action.field, action.data);
             }
         }
     }

@@ -1,0 +1,5 @@
+export default {
+    REQ_INIT_DATA: "REQ_INIT_DATA",
+    REQ_CLUB_INFO: "REQ_CLUB_INFO",
+    REQ_USER_DATA: "REQ_USER_DATA"
+}

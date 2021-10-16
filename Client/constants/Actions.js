@@ -13,5 +13,7 @@ export default {
     UPDATE_STATE: "UPDATE_STATE",
     REMOVE: "REMOVE",
     CHANGE_EVENT: "change",
-    ADD_CLUB: "ADD_CLUB"
+    ADD_CLUB: "ADD_CLUB",
+    API_RESPONSE: "API_RESPONSE",
+    REQ_INIT_DATA: "REQ_INIT_DATA"
 }

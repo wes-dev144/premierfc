@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-
+import theme from '../themes/Theme';
 import HomeScreen from '../screens/HomeScreen'
 import ChatScreen from '../screens/ChatScreen'
 import { createStackNavigator } from '@react-navigation/stack';
@@ -7,14 +7,11 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SearchScreen from '../screens/SearchScreen';
-import LogOutScreen from '../screens/LogOutScreen';
 import DirectMessagesScreen from '../screens/DirectMessagesScreen';
-import { NavigationActions } from 'react-navigation';
-import NavigationButton from '../components/NavigationButton';
 import DrawerUserProfile from '../screens/UserProfilePanel';
 import DrawerClubProfile from '../screens/ClubProfilePanel';
 import NotificationsScreen from '../screens/NotificationsScreen';
-
+import AppLogo from '../assets/images/Logo.svg'
 // import Icon from 'react-native-ico-material-design';
 const Stack = createStackNavigator();
 const HStack = createStackNavigator();
@@ -22,7 +19,7 @@ const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 const HomeDrawer = createDrawerNavigator();
 
-const HomeDrawerStack = ({navigation}) => {
+const HomeDrawerStack = () => {
     return(
         <HomeDrawer.Navigator drawerContent={props => <DrawerUserProfile {...props} />}>
             <HomeDrawer.Screen name="DrawerHome" component={HomeStack} />
@@ -30,7 +27,7 @@ const HomeDrawerStack = ({navigation}) => {
     );
 }
 
-const ClubChatDrawerStack = ({navigation}) => {
+const ClubChatDrawerStack = () => {
     return (
         <Drawer.Navigator drawerContent={props => <DrawerClubProfile {...props} />} drawerPosition="right">
             <Drawer.Screen name="ClubChat" component={ChatScreen}/>
@@ -38,7 +35,7 @@ const ClubChatDrawerStack = ({navigation}) => {
     );
 }
 
-const HomeStack = ({navigation}) => {
+const HomeStack = () => {
     return (
         <HStack.Navigator initialRouteName="Home">
             <HStack.Screen
@@ -50,15 +47,14 @@ const HomeStack = ({navigation}) => {
                 name="ClubChat"
                 component={ClubChatDrawerStack}
                 options={{
-                    header: () => null,
-                    gestureEnabled: true
+                    header: () => null
                 }}
             />
         </HStack.Navigator>
     );
 }
 
-const SearchStack = ({navigation}) => {
+const SearchStack = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen
@@ -82,6 +78,7 @@ const AppStack = () => {
     return (
         <Tab.Navigator tabBarOptions={{
             activeTintColor: '#e91e63',
+            inactiveBackgroundColor: theme.color.background
         }}>
             <Tab.Screen
                 name="TabHome"

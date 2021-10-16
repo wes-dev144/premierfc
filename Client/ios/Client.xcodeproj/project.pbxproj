@@ -170,6 +170,7 @@
 		94B8B9AFBF2B4A2C8DCCC186 /* Passageway-8qzz.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3AA65E3E60C64F43B024AAB5 /* Passageway-8qzz.otf */; };
 		41B2926B2EE7497C8B4F842B /* semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A605603AF3F340EF97FEB963 /* semibold.otf */; };
 		64F9D9BDE6464BA096163FBE /* thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = A332D791F4BA443FA30D7401 /* thin.otf */; };
+		0721D7E77B73433E8E30A6C5 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F246B77006AC4454922284D0 /* icomoon.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -359,6 +360,7 @@
 		3AA65E3E60C64F43B024AAB5 /* Passageway-8qzz.otf */ = {isa = PBXFileReference; name = "Passageway-8qzz.otf"; path = "../assets/fonts/Passageway-8qzz.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		A605603AF3F340EF97FEB963 /* semibold.otf */ = {isa = PBXFileReference; name = "semibold.otf"; path = "../assets/fonts/semibold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		A332D791F4BA443FA30D7401 /* thin.otf */ = {isa = PBXFileReference; name = "thin.otf"; path = "../assets/fonts/thin.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F246B77006AC4454922284D0 /* icomoon.ttf */ = {isa = PBXFileReference; name = "icomoon.ttf"; path = "../assets/fonts/icomoon.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -623,6 +625,7 @@
 				3AA65E3E60C64F43B024AAB5 /* Passageway-8qzz.otf */,
 				A605603AF3F340EF97FEB963 /* semibold.otf */,
 				A332D791F4BA443FA30D7401 /* thin.otf */,
+				F246B77006AC4454922284D0 /* icomoon.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -920,6 +923,7 @@
 				94B8B9AFBF2B4A2C8DCCC186 /* Passageway-8qzz.otf in Resources */,
 				41B2926B2EE7497C8B4F842B /* semibold.otf in Resources */,
 				64F9D9BDE6464BA096163FBE /* thin.otf in Resources */,
+				0721D7E77B73433E8E30A6C5 /* icomoon.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,50 +1,58 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-import lightTheme from './LightTheme';
+import theme from './Theme';
 import colors from './Colors';
 import AppLogo from '../assets/images/Logo.svg'
 
 const LogoNameBackground = ({imgOpacity=1}) => {
     return (
-        <View style={styles.header}>
-            <Text style={[styles.text, lightTheme.primaryFont]}>Maestri</Text>
-            <Text style={[styles.subtext, lightTheme.primaryFont]}>Let's Play</Text>
+        <View style={styles.mainView}>
+            <View style={styles.secondView}>
+                <Text style={[styles.text, theme.style.primaryFont]}>Maestri</Text>
+                <Text style={[styles.subtext, theme.style.primaryFont]}>Let's Play</Text>
+            </View>
             <AppLogo style={[styles.image, {opacity:imgOpacity}]}/>
+
         </View>
 
 )};
 
 const LogoBackground = ({imgOpacity=1}) => {
     return (
-        <View style={styles.header}>
+        <View style={styles.mainView}>
             <AppLogo style={[styles.image, {opacity:imgOpacity}]}/>
         </View>
 )};
 
 const styles = StyleSheet.create({
     image: {
-      position: 'absolute',
-      top: 200,
-      left: 100,
-      right: 0,
-      bottom: 0,
-      width: 175,
-      height: 175,
+        width: 175,
+        height: 175,
+        alignContent: 'center',
     },
-    header: {
-      flex: .4,
-      justifyContent: 'center',
-      alignItems: 'center',
+    mainView: {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: colors.FILL,
+        position: 'absolute',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingBottom: 450
+    },
+    secondView: {
+        alignItems: 'center',
     },
     text: {
-      fontSize: 60,
-      color: colors.PRIMARY
+        fontSize: 60,
+        color: colors.SECONDARY,
+        paddingTop: 30
     },
     subtext: {
-      padding: 5,
-      fontSize: 30,
-      color: colors.PRIMARY
+        fontSize: 30,
+        color: colors.SECONDARY
     }
   });
 export {

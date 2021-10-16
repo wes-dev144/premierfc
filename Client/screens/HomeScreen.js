@@ -1,119 +1,82 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, ImageBackground, StyleSheet, ScrollView} from 'react-native';
-import GameInfoBox from '../components/GameInfoBox';
+import Header from '../components/Header';
 import ClubInfoBox from '../components/ClubsBox';
-import NavigationBox from '../components/NavigationBox';
-import lightTheme from '../themes/LightTheme';
-import colors from '../themes/Colors';
-import {LogoBackground} from '../themes/Backgrounds';
-import ClubStore from '../stores/ClubStore';
-import field from "../constants/InputStoreFields";
-import Api from '../api/Api';
-// import { db, auth } from '../api/firebase';
-const getClubInfo = (props) => {
-  console.log(props)
-  console.log("api", props.club_id)
-  Api.request('GET', 'api/club/' + props.club_id).then((response) => {
-    console.log("CLUB INFO", response.data)
-    // GlobalActions.setData(response.club_id, response.club_info)
-  });
-}
+import theme from '../themes/Theme';
+import RequestStore from '../stores/RequestsStore';
+import event from '../constants/Events';
+import { getLocationString } from '../utils/util';
+import { baseProps } from 'react-native-gesture-handler/dist/src/handlers/gestureHandlers';
 
 const onChange = () => {
-  data = ClubStore.getClubs()
-  setClubs(data)
+    data = RequestStore.get(event.REQ_INIT_DATA)
+    setClubs(data.clubs)
 }
 
 const getUserClubs = (clubs, navigation) => {
-  var clubData = Object.values(clubs)
-  return clubData.map((club) => {
-    return <ClubInfoBox key={club.id} club={club.name} location={club.location.string()} func={null} 
-        club_numbers={club.members.length} club_id={club.id} navigation={navigation} nextScreen="ClubChat"/>
-  })
+    return clubs.map((club) => {
+        return <ClubInfoBox key={club.id} club={club.club_name} location={getLocationString(club)} func={null} 
+                        club_numbers={club.members.length} club_id={club.id} navigation={navigation}
+                        nextScreen="ClubChat" route_params={{club_id: club.id, club_name: club.club_name}}/>
+    })
 }
 
-const HomeScreen = ({navigation}) => {
-    [clubs, setClubs] = useState({})
+const HomeScreen = (props) => {
+    [clubs, setClubs] = useState([])
     useEffect(() => {
-      ClubStore.addChangeListener(onChange);
-      return () => ClubStore.removeChangeListener(onChange);
+        RequestStore.subscribe(onChange, event.REQ_INIT_DATA);
+        return () => RequestStore.unsubscribe(onChange, event.REQ_INIT_DATA);
     }, []);
-    console.log('Current clubs', clubs)
     return (
-      <View style={[styles.container, lightTheme.background]}>
-        <View style={styles.gameview}>
-          {/* <LogoBackground imgOpacity={0.5}/> */}
-          <Text style={[styles.text, lightTheme.standardFontD]}>Upcoming Games</Text>
-          <ScrollView style={[styles.games]}>
-            <GameInfoBox club='NYCFooty' time='7:00PM-9:00PM' location='Brooklyn Bridge Pier 5'/>
-            <GameInfoBox club='NYCFooty' time='7:00PM-9:00PM' location='Brooklyn Bridge Pier 5'/>
-            <GameInfoBox club='NYCFooty' time='7:00PM-9:00PM' location='Brooklyn Bridge Pier 5'/>
-            <GameInfoBox club='NYCFooty' time='7:00PM-9:00PM' location='Brooklyn Bridge Pier 5'/>
-            <GameInfoBox club='LongIslandFC' time='5:30PM-8:30PM' location='Queens College Soccer Field'/>
-            <GameInfoBox club='TikiTakFC' time='7:00AM-9:00AM' location='Long Island City High School'/>
-            <GameInfoBox club='NYURec' time='4:00PM-6:00PM' location='Brooklyn Bridge Pier 5'/>
-            <GameInfoBox club='SBUFutsal' time='3:00PM-5:00PM' location='SBU Rec Center'/>
-            <GameInfoBox club='SBUD1Soccer' time='1:00PM-3:00PM' location='South P Lot'/>
-          </ScrollView>
-
+        <View style={[styles.container, theme.style.background]}>
+            <Header title="Clubs"/>
+            <View style={styles.gameview}>
+                <ScrollView style={[styles.games, {flex:1}]}>
+                    {clubs ? getUserClubs(clubs, props.navigation) : null}
+                </ScrollView>
+            </View>
         </View>
-        <View style={styles.gameview}>
-        <Text style={[styles.text, lightTheme.standardFontD]}>Clubs</Text>
-          <ScrollView style={[styles.games, {flex:1}]}>
-            {/* <NavigationBox func={getClubInfo} navigation={navigation}>
-              <ClubBox club='SBUD1Soccer' location='Stony Brook, NY' club_numbers='120'/>
-            </NavigationBox> */}
-            {/* <ClubInfoBox club='SBUD1Soccer' location='Stony Brook, NY' func={getClubInfo} club_numbers={600} club_id="aaa123" navigation={navigation} nextScreen="ClubChat"/>
-            <ClubInfoBox club='SBUFutsal' location='Stony Brook, NY' club_numbers={242} club_id="b1243" navigation={navigation} nextScreen="ClubChat"/>
-            <ClubInfoBox club='NYURec' location='New York, NY' club_numbers={321} club_id="aaa123" navigation={navigation} nextScreen="ClubChat"/>
-            <ClubInfoBox club='LongIslandFC' location='Ronkonkoma, NY' club_numbers={501} club_id="b1243"/>
-            <ClubInfoBox club='NYCFooty' location='New York, NY' club_numbers={501} club_id="b1243"/>
-            <ClubInfoBox club='TikiTakFC' location='Ronkonkoma, NY' club_numbers={501} club_id="b1243"/> */}
-            {clubs ? getUserClubs(clubs, navigation) : null}
-          </ScrollView>
-        </View>
-      </View>
     );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  button: {
-    flex: 0.01
-  },
-  image: {
-    flex: 1,
-    width: '100%',
-    resizeMode: 'cover'
-  },
-  gameview: {
-    flex: .5,
-  },
-  games: {
-    width: '100%',
-    borderRadius: 6
-  },
-  club: {
-    color: 'black',
-    fontSize: 20,
-    textAlign: 'left',
-    fontWeight: 'bold',
-  },
-  subtext: {
-    padding: 5,
-    color: 'springgreen',
-    fontSize: 30,
-    fontFamily: 'Azonix'
-  },
-  text: {
-    textAlign: 'left',
-    fontSize: 25,
-    padding: 10,
-    marginTop: 20
-    
-  }
+    container: {
+        flex: 1,
+    },
+    button: {
+        flex: 0.01
+    },
+    image: {
+        flex: 1,
+        width: '100%',
+        resizeMode: 'cover'
+    },
+    gameview: {
+        flex: .5,
+    },
+    games: {
+        width: '100%',
+        borderRadius: 6
+    },
+    club: {
+        color: 'black',
+        fontSize: 20,
+        textAlign: 'left',
+        fontWeight: 'bold',
+    },
+    subtext: {
+        padding: 5,
+        color: 'springgreen',
+        fontSize: 30,
+        fontFamily: 'Azonix'
+    },
+    text: {
+        textAlign: 'left',
+        fontSize: 25,
+        padding: 10,
+        marginTop: 20
+        
+    }
 
 });
 
