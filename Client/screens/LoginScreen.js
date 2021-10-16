@@ -3,7 +3,6 @@ import { View, StyleSheet } from 'react-native';
 import {TextInput} from 'react-native-paper';
 
 import NavigationButton from '../components/NavigationButton';
-import lightTheme from '../themes/LightTheme';
 import {LogoNameBackground} from '../themes/Backgrounds';
 
 import field from "../constants/InputStoreFields";
@@ -22,27 +21,27 @@ const LoginScreen = (props) => {
         login(email, passwd)
     };
     return (
-        <View style={[{flex: 1}, lightTheme.background]}>
-                <LogoNameBackground />
-                <View style={{flex: .25}}>
-                    <TextInput style={styles.input} label="Email" onChangeText={setEmail}/>
-                    <TextInput style={styles.input} label="Password" secureTextEntry right={<TextInput.Icon name="eye"/>} onChangeText={setPasswd}/>
-                </View>
-                <View style={{flex: .35}}>
-                    <NavigationButton func={Login} navigation={props.navigation} nextScreen={null} buttonName='Login'/>
-                    <NavigationButton func={null} navigation={props.navigation} nextScreen='SignUpEmail' buttonName='Sign Up'/>
-                </View>
-        </View>
+        <View style={{flex: 1}}>
+            <LogoNameBackground />
+            <View style={{paddingTop: 325}}>
+                <TextInput style={styles.input} label="Email" onChangeText={setEmail}/>
+                <TextInput style={styles.input} label="Password" secureTextEntry right={<TextInput.Icon name="eye"/>} onChangeText={setPasswd}/>
+
+                <NavigationButton func={Login} navigation={props.navigation} nextScreen={null} buttonName='Login'/>
+                <NavigationButton func={null} navigation={props.navigation} nextScreen='SignUpEmail' buttonName='Sign Up'/>
+            </View>
+         </View> 
     );
 };
 const styles = StyleSheet.create({
     input: {
-        height: 60,
+        height: 50,
         width: '100%',
-        backgroundColor: 'white',
+        backgroundColor: '#e0defa',
         fontSize: 16,
         opacity: 0.75,
-        marginBottom: 10
+        marginBottom: 10,
     }
+
 });
 export default LoginScreen;

@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, ImageBackground, StyleSheet, ScrollView} from 'react-native';
-import GameInfoBox from '../components/GameInfoBox';
+import Header from '../components/Header';
 import ClubInfoBox from '../components/ClubsBox';
-import lightTheme from '../themes/LightTheme';
+import theme from '../themes/Theme';
 import RequestStore from '../stores/RequestsStore';
 import event from '../constants/Events';
 import { getLocationString } from '../utils/util';
+import { baseProps } from 'react-native-gesture-handler/dist/src/handlers/gestureHandlers';
 
 const onChange = () => {
     data = RequestStore.get(event.REQ_INIT_DATA)
@@ -16,7 +17,7 @@ const getUserClubs = (clubs, navigation) => {
     return clubs.map((club) => {
         return <ClubInfoBox key={club.id} club={club.club_name} location={getLocationString(club)} func={null} 
                         club_numbers={club.members.length} club_id={club.id} navigation={navigation}
-                        nextScreen="ClubChat" route_params={{club_id: club.id}}/>
+                        nextScreen="ClubChat" route_params={{club_id: club.id, club_name: club.club_name}}/>
     })
 }
 
@@ -27,24 +28,9 @@ const HomeScreen = (props) => {
         return () => RequestStore.unsubscribe(onChange, event.REQ_INIT_DATA);
     }, []);
     return (
-        <View style={[styles.container, lightTheme.background]}>
+        <View style={[styles.container, theme.style.background]}>
+            <Header title="Clubs"/>
             <View style={styles.gameview}>
-                <Text style={[styles.text, lightTheme.standardFontD]}>Upcoming Games</Text>
-                <ScrollView style={[styles.games]}>
-                    <GameInfoBox club='NYCFooty' time='7:00PM-9:00PM' location='Brooklyn Bridge Pier 5'/>
-                    <GameInfoBox club='NYCFooty' time='7:00PM-9:00PM' location='Brooklyn Bridge Pier 5'/>
-                    <GameInfoBox club='NYCFooty' time='7:00PM-9:00PM' location='Brooklyn Bridge Pier 5'/>
-                    <GameInfoBox club='NYCFooty' time='7:00PM-9:00PM' location='Brooklyn Bridge Pier 5'/>
-                    <GameInfoBox club='LongIslandFC' time='5:30PM-8:30PM' location='Queens College Soccer Field'/>
-                    <GameInfoBox club='TikiTakFC' time='7:00AM-9:00AM' location='Long Island City High School'/>
-                    <GameInfoBox club='NYURec' time='4:00PM-6:00PM' location='Brooklyn Bridge Pier 5'/>
-                    <GameInfoBox club='SBUFutsal' time='3:00PM-5:00PM' location='SBU Rec Center'/>
-                    <GameInfoBox club='SBUD1Soccer' time='1:00PM-3:00PM' location='South P Lot'/>
-                </ScrollView>
-
-            </View>
-            <View style={styles.gameview}>
-            <Text style={[styles.text, lightTheme.standardFontD]}>Clubs</Text>
                 <ScrollView style={[styles.games, {flex:1}]}>
                     {clubs ? getUserClubs(clubs, props.navigation) : null}
                 </ScrollView>

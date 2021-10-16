@@ -1,12 +1,12 @@
 import React from 'react';
-import lightTheme from '../themes/LightTheme';
+import theme from '../themes/Theme';
 import {LogoBackground} from '../themes/Backgrounds';
 import {View, TextInput, StyleSheet, Text} from 'react-native';
 import colors from '../themes/Colors';
 const SearchScreen = (props) => {
     const onChange = (text) => console.log(text)
     return (
-        <View style={[{flex: 1}, lightTheme.background]}>
+        <View style={[{flex: 1}, theme.style.background]}>
                 <View>
                     <TextInput style={styles.input} placeholder="Search" 
                                         placeholderTextColor={colors.TEXTD} onChangeText={onChange}/>

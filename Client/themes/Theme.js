@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import colors from './Colors';
 
-const lightTheme = StyleSheet.create({
+const style = StyleSheet.create({
     background: {
       backgroundColor: colors.FILL,
     },
@@ -18,7 +18,7 @@ const lightTheme = StyleSheet.create({
         fontFamily: 'Facon'
     },
     secondaryFont: {
-        fontFamily: 'FallingSkyOblique-n5XV'
+        fontFamily: 'Aqum'
     },
     standardFontD: {
         fontFamily: 'TimeBurner',
@@ -30,4 +30,11 @@ const lightTheme = StyleSheet.create({
     }
   });
 
-  export default lightTheme;
+  const color = {
+      background: colors.FILL,
+      white: colors.TEXTL,
+      primary: colors.PRIMARY,
+      primary_dark: colors.PRIMARYD
+  }
+
+  export default {style, color}

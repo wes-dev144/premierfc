@@ -1,7 +1,7 @@
 import React, {useState, useContext} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import StoreInput from '../components/StoreInput';
-import lightTheme from '../themes/LightTheme';
+import theme from '../themes/Theme';
 import NavigationButton from '../components/NavigationButton';
 import {LogoNameBackground} from '../themes/Backgrounds';
 import field from "../constants/InputStoreFields";
@@ -15,7 +15,7 @@ const SignUpScreenUser = (props) => {
         register(email, passwd)
     }
     return (
-        <View style={[{flex: 1}, lightTheme.background]}>
+        <View style={[{flex: 1}, theme.style.background]}>
             <LogoNameBackground imgOpacity={0.75}/>
             <Text style={styles.subtext}>{'Tell Us About Yourself'}</Text>
             <View style={{flex: 1}}>

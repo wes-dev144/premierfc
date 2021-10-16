@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-
+import theme from '../themes/Theme';
 import HomeScreen from '../screens/HomeScreen'
 import ChatScreen from '../screens/ChatScreen'
 import { createStackNavigator } from '@react-navigation/stack';
@@ -11,7 +11,7 @@ import DirectMessagesScreen from '../screens/DirectMessagesScreen';
 import DrawerUserProfile from '../screens/UserProfilePanel';
 import DrawerClubProfile from '../screens/ClubProfilePanel';
 import NotificationsScreen from '../screens/NotificationsScreen';
-
+import AppLogo from '../assets/images/Logo.svg'
 // import Icon from 'react-native-ico-material-design';
 const Stack = createStackNavigator();
 const HStack = createStackNavigator();
@@ -47,8 +47,7 @@ const HomeStack = () => {
                 name="ClubChat"
                 component={ClubChatDrawerStack}
                 options={{
-                    header: () => null,
-                    gestureEnabled: true
+                    header: () => null
                 }}
             />
         </HStack.Navigator>
@@ -79,6 +78,7 @@ const AppStack = () => {
     return (
         <Tab.Navigator tabBarOptions={{
             activeTintColor: '#e91e63',
+            inactiveBackgroundColor: theme.color.background
         }}>
             <Tab.Screen
                 name="TabHome"

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, ImageBackground, StyleSheet, ScrollView} from 'react-native';
 import ClubInfoBox from '../components/ClubsBox';
-import lightTheme from '../themes/LightTheme';
+import theme from '../themes/Theme';
 import InputStore from '../stores/InputStore';
 import field from "../constants/InputStoreFields";
 import NotificationBox from '../components/NotificationBox';
@@ -30,8 +30,8 @@ const NotificationsScreen = (props) => {
         // }, []);
 
     return (
-        <View style={[styles.container, lightTheme.background]}>
-            <Text style={[styles.text, lightTheme.standardFontD]}>Notifications</Text>
+        <View style={[styles.container, theme.style.background]}>
+            <Text style={[styles.text, theme.style.standardFontD]}>Notifications</Text>
             <ScrollView style={[styles.games]}>
                 <NotificationBox title="RSVP for SBU Soccer" message="RSVP Time: 3:00PM/EST" func={null}/>
             </ScrollView>

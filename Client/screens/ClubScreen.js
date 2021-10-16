@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, ImageBackground, StyleSheet, ScrollView, useWindowDimensions} from 'react-native';
 import GameInfoBox from '../components/GameInfoBox';
 import ClubInfoBox from '../components/ClubsBox';
-import lightTheme from '../themes/LightTheme';
+import theme from '../themes/Theme';
 import colors from '../themes/Colors';
 import {LogoBackground} from '../themes/Backgrounds';
 import Api from '../api/Api';
@@ -40,9 +40,9 @@ const TabView = () => {
 const HomeScreen = ({navigation}) => {
 
     return (
-        <View style={[styles.container, lightTheme.background]}>
+        <View style={[styles.container, theme.style.background]}>
             <View style={styles.gameview}>
-                <Text style={[styles.text, lightTheme.standardFontD]}>Upcoming Games</Text>
+                <Text style={[styles.text, theme.style.standardFontD]}>Upcoming Games</Text>
                 <ScrollView style={[styles.games]}>
                 </ScrollView>
 

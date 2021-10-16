@@ -1,14 +1,16 @@
 // @refresh reset
 import React, { useState, useEffect, useCallback } from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 
-import lightTheme from '../themes/LightTheme';
+import theme from '../themes/Theme';
 import RequestStore from '../stores/RequestsStore';
 import event from '../constants/Events';
 import { db } from '../api/firebase';
 
 import UpcomingGameBox from '../components/UpcomingGameBox';
+import Header from '../components/Header';
+import { Appbar } from 'react-native-paper';
 
 const ChatScreen = (props) => {
     const user_info = RequestStore.get(event.REQ_USER_DATA)
@@ -32,7 +34,10 @@ const ChatScreen = (props) => {
                 console.log("New Message:", messagesFirestore)
                 appendMessages(messagesFirestore)
             })
-            return () => unsubscribe()
+            return () => {
+                console.log('unmounting')
+                unsubscribe()
+            }
         }
     }, [])
 
@@ -50,10 +55,9 @@ const ChatScreen = (props) => {
     }
 
     return (
-        <View style={[{flex: 1}, lightTheme.background]}>
-                <UpcomingGameBox />
-                <GiftedChat messages={messages} user={user} onSend={handleSend}/>
+        <View style={[{flex: 1}, theme.style.background]}>
+            <Header title={props.route.params.club_name} navigation={props.navigation} back_action={true}/>
+            <GiftedChat messages={messages} user={user} onSend={handleSend}/>
         </View>
 )};
-
 export default ChatScreen;

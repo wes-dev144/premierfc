@@ -1,11 +1,11 @@
 export default {
-    PRIMARY: '#7044e3',
-    PRIMARYL: '#a672ff',
+    PRIMARY: '#7344eb',
+    PRIMARYL: '#a27ef4',
     PRIMARYD: '#3415b0',
-    SECONDARY: '#2de2a6',
+    SECONDARY: '#34e8b7',
     SECONDARYL: '#73ffd8',
     SECONDARYD: '#00af77',
     TEXTD: '#000000',
     TEXTL: '#ffffff',
-    FILL: '#d6ffff',
+    FILL: '#232228',
 };

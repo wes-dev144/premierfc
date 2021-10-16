@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, ImageBackground, StyleSheet, ScrollView} from 'react-native';
 import ClubInfoBox from '../components/ClubsBox';
-import lightTheme from '../themes/LightTheme';
+import theme from '../themes/Theme';
 import InputStore from '../stores/InputStore';
 import field from "../constants/InputStoreFields";
 import DirectMessageBox from '../components/DirectMessageBox';
@@ -31,8 +31,8 @@ const DirectMessagesScreen = (props) => {
         // }, []);
 
     return (
-        <View style={[styles.container, lightTheme.background]}>
-            <Text style={[styles.text, lightTheme.standardFontD]}>Messages</Text>
+        <View style={[styles.container, theme.style.background]}>
+            <Text style={[styles.text, theme.style.standardFontD]}>Messages</Text>
             <ScrollView style={[styles.games]}>
                 <DirectMessageBox last_message="Hello Jerry how you doing tonight huh? Long time no see bud? What you trying to pull?" func={null}/>
             </ScrollView>
