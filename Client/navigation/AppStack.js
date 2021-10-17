@@ -1,6 +1,7 @@
 import React from 'react';
 import theme from '../themes/Theme';
 import HomeScreen from '../screens/HomeScreen'
+import ClubHomeScreen from '../screens/ClubHomeScreen'
 import ChatScreen from '../screens/ChatScreen'
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -55,6 +56,11 @@ const HomeStack = () => {
             <HStack.Screen
                 name="Home"
                 component={HomeScreen}
+                options={{header: () => null}}
+            />
+            <HStack.Screen
+                name="ClubHomeScreen"
+                component={ClubHomeScreen}
                 options={{header: () => null}}
             />
             <HStack.Screen
