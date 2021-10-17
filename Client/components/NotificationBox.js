@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, Text, View} from 'react-native';
 import { runAndNavigate } from '../utils/navigation';
+import theme from '../themes/Theme';
 
 const NotificationBox = ({func, ...rest}) => {
     return (
@@ -13,20 +14,23 @@ const NotificationBox = ({func, ...rest}) => {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 8,
-        borderWidth: .3,
-        width: '100%',
+        flex: 1,
+        padding: 10,
+        borderBottomWidth: .75,
+        borderBottomColor: '#808080',
     },
     name: {
-        color: 'black',
-        fontSize: 18,
+        color: theme.color.white,
+        fontSize: 20,
         textAlign: 'left',
         fontWeight: 'bold',
     },
     text: {
-        color: 'black',
+        paddingBottom: 2,
+        paddingTop: 2,
+        color: theme.color.white,
         fontSize: 14,
-        textAlign: 'left',
+        textAlign: 'left'
     }
 });
 

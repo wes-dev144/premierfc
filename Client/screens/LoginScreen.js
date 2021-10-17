@@ -13,6 +13,7 @@ const LoginScreen = (props) => {
     const {login} = useContext(AuthContext);
     const [passwd, setPasswd] = useState("")
     const [email, setEmail] = useState("")
+    const [showPasswd, setShowPasswd] = useState(true)
     const Login = () => {
         console.log("Testing inputstore()")
         Actions.InputStore().update(field.EMAIL, email)
@@ -25,7 +26,13 @@ const LoginScreen = (props) => {
             <LogoNameBackground />
             <View style={{paddingTop: 325}}>
                 <TextInput style={styles.input} label="Email" onChangeText={setEmail}/>
-                <TextInput style={styles.input} label="Password" secureTextEntry right={<TextInput.Icon name="eye"/>} onChangeText={setPasswd}/>
+                <TextInput 
+                    style={styles.input} 
+                    label="Password" 
+                    secureTextEntry={showPasswd ? true : false} 
+                    right={<TextInput.Icon name="eye" onPress={() => setShowPasswd(!showPasswd)}/>} 
+                    onChangeText={setPasswd}
+                />
 
                 <NavigationButton func={Login} navigation={props.navigation} nextScreen={null} buttonName='Login'/>
                 <NavigationButton func={null} navigation={props.navigation} nextScreen='SignUpEmail' buttonName='Sign Up'/>

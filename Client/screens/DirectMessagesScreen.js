@@ -1,40 +1,20 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, ImageBackground, StyleSheet, ScrollView} from 'react-native';
+import {View, TextInput, ImageBackground, StyleSheet, ScrollView} from 'react-native';
 import ClubInfoBox from '../components/ClubsBox';
 import theme from '../themes/Theme';
 import InputStore from '../stores/InputStore';
 import field from "../constants/InputStoreFields";
 import DirectMessageBox from '../components/DirectMessageBox';
-
-const onChange = () => {
-    data = InputStore.get(field.USER_CLUBS)
-    console.log('Getting changed data', typeof(data), data)
-    setClubs(data)
-}
-
-const getUserClubs = (clubs, navigation) => {
-    console.log('Getting club data', typeof(clubs), clubs)
-    var clubData = Object.values(clubs)
-    console.log(clubData)
-    return clubData.map((club) => {
-        // console.log('CLUB INFO', club)
-        return <ClubInfoBox key={club.id} club={club.club_name} location={club.location} func={null} 
-                club_numbers={club.member_count} club_id={club.id} navigation={navigation} nextScreen="ClubChat"/>
-    })
-}
+import { Header } from '../components/Header';
 
 const DirectMessagesScreen = (props) => {
-        // [clubs, setClubs] = useState({})
-        // useEffect(() => {
-        //     InputStore.addChangeListener(onChange);
-        //     return () => InputStore.removeChangeListener(onChange);
-        // }, []);
-
     return (
         <View style={[styles.container, theme.style.background]}>
-            <Text style={[styles.text, theme.style.standardFontD]}>Messages</Text>
+            <Header title="Messages" back_action={true} navigation={props.navigation}/>
+            <TextInput style={styles.input} placeholder="Search" 
+                                        placeholderTextColor={theme.color.text_color_dark}/>
             <ScrollView style={[styles.games]}>
-                <DirectMessageBox last_message="Hello Jerry how you doing tonight huh? Long time no see bud? What you trying to pull?" func={null}/>
+                <DirectMessageBox name="James Dean" last_message="Hello Jerry how you doing tonight huh? Long time no see bud? What you trying to pull?" func={null}/>
             </ScrollView>
         </View>
     );
@@ -44,39 +24,19 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    button: {
-        flex: 0.01
-    },
-    image: {
-        flex: 1,
+
+    input: {
+        height: 40,
         width: '100%',
-        resizeMode: 'cover'
-    },
-    gameview: {
-        flex: .5,
-    },
-    games: {
-        width: '100%',
-        borderRadius: 6
-    },
-    club: {
+        fontSize: 16,
+        margin: 5,
+        alignSelf: 'center',
+        backgroundColor: 'white',
         color: 'black',
-        fontSize: 20,
-        textAlign: 'left',
-        fontWeight: 'bold',
-    },
-    subtext: {
-        padding: 5,
-        color: 'springgreen',
-        fontSize: 30,
-        fontFamily: 'Azonix'
-    },
-    text: {
-        textAlign: 'left',
-        fontSize: 25,
+        opacity: 0.75,
         padding: 10,
-        
-    }
+        borderBottomWidth: 1,
+    },
 
 });
 

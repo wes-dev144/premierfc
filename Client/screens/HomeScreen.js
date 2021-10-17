@@ -1,40 +1,39 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, ImageBackground, StyleSheet, ScrollView} from 'react-native';
-import Header from '../components/Header';
-import ClubInfoBox from '../components/ClubsBox';
+import React from 'react';
+import {View, TextInput, StyleSheet} from 'react-native';
+import { Header } from '../components/Header';
 import theme from '../themes/Theme';
-import RequestStore from '../stores/RequestsStore';
 import event from '../constants/Events';
-import { getLocationString } from '../utils/util';
-import { baseProps } from 'react-native-gesture-handler/dist/src/handlers/gestureHandlers';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import ClubView from '../components/ClubView';
+import AllClubsView from '../components/AllClubsView';
 
-const onChange = () => {
-    data = RequestStore.get(event.REQ_INIT_DATA)
-    setClubs(data.clubs)
-}
-
-const getUserClubs = (clubs, navigation) => {
-    return clubs.map((club) => {
-        return <ClubInfoBox key={club.id} club={club.club_name} location={getLocationString(club)} func={null} 
-                        club_numbers={club.members.length} club_id={club.id} navigation={navigation}
-                        nextScreen="ClubChat" route_params={{club_id: club.id, club_name: club.club_name}}/>
-    })
-}
+const Tab = createMaterialTopTabNavigator()
 
 const HomeScreen = (props) => {
-    [clubs, setClubs] = useState([])
-    useEffect(() => {
-        RequestStore.subscribe(onChange, event.REQ_INIT_DATA);
-        return () => RequestStore.unsubscribe(onChange, event.REQ_INIT_DATA);
-    }, []);
     return (
         <View style={[styles.container, theme.style.background]}>
-            <Header title="Clubs"/>
-            <View style={styles.gameview}>
-                <ScrollView style={[styles.games, {flex:1}]}>
-                    {clubs ? getUserClubs(clubs, props.navigation) : null}
-                </ScrollView>
-            </View>
+            <Header title="Maestri" titleStyle={theme.style.primaryFont} subtitle="Clubs"/>
+            <TextInput style={styles.input} placeholder="Search" 
+                                        placeholderTextColor={theme.color.text_color_dark}/>
+            <Tab.Navigator
+                tabBarOptions={{
+                    activeTintColor: theme.color.secondary,
+                    inactiveTintColor: theme.color.white,
+                    style: theme.style.background,
+                    indicatorStyle: {backgroundColor: theme.color.secondary},
+                    labelStyle: theme.style.textFont
+                    
+                }}
+                >
+                <Tab.Screen 
+                    name="Registered" 
+                    children={() => <ClubView navigation={props.navigation} view_type={event.REQ_MY_CLUBS}/>}
+                />
+                <Tab.Screen 
+                    name="All" 
+                    children={() => <AllClubsView navigation={props.navigation} view_type={event.REQ_ALL_CLUBS}/>}
+                />
+            </Tab.Navigator>
         </View>
     );
 };
@@ -43,40 +42,19 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    button: {
-        flex: 0.01
-    },
-    image: {
-        flex: 1,
+
+    input: {
+        height: 40,
         width: '100%',
-        resizeMode: 'cover'
-    },
-    gameview: {
-        flex: .5,
-    },
-    games: {
-        width: '100%',
-        borderRadius: 6
-    },
-    club: {
+        fontSize: 16,
+        margin: 5,
+        alignSelf: 'center',
+        backgroundColor: 'white',
         color: 'black',
-        fontSize: 20,
-        textAlign: 'left',
-        fontWeight: 'bold',
-    },
-    subtext: {
-        padding: 5,
-        color: 'springgreen',
-        fontSize: 30,
-        fontFamily: 'Azonix'
-    },
-    text: {
-        textAlign: 'left',
-        fontSize: 25,
+        opacity: 0.75,
         padding: 10,
-        marginTop: 20
-        
-    }
+        borderBottomWidth: 1,
+    },
 
 });
 

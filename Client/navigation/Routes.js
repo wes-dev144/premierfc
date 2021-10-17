@@ -1,13 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { AuthContext } from './AuthProvider';
 import { auth } from '../api/firebase';
-import Api from '../api/Api';
-import * as Actions from '../actions/StoreActions';
+
 import AuthStack from './AuthStack';
 import AppStack from './AppStack';
 import event from '../constants/Events';
-
+import Api from '../api/Api';
+import * as Actions from '../actions/StoreActions';
 const Routes = () => {
     const {user, setUser} = useContext(AuthContext);
     const [initializing, setInitializing] = useState(true);
@@ -20,7 +20,10 @@ const Routes = () => {
                 Actions.RequestStore().update(response.data, event.REQ_USER_DATA)
             });
             Api.request('GET', 'api/user/' + user.uid + "/clubs").then((response) => {
-                Actions.RequestStore().update(response.data, event.REQ_INIT_DATA)
+                Actions.RequestStore().update(response.data, event.REQ_MY_CLUBS)
+            });
+            Api.request('GET', 'api/clubs').then((response) => {
+                Actions.RequestStore().update(response.data, event.REQ_ALL_CLUBS)
             });
 
           }
@@ -35,9 +38,10 @@ const Routes = () => {
     if (initializing) return null;
 
     return(
-        <NavigationContainer>
+        <NavigationContainer theme={DarkTheme}>
             {user ? <AppStack /> : <AuthStack />}
         </NavigationContainer>
+
     );
 }
 

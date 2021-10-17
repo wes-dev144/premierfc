@@ -10,7 +10,7 @@ class RequestStore extends EventEmitter {
 
     updateStore(data, event) {
         this.store[event] = data
-        this.emit(event);
+        this.emit(event, event);
     }
 
     subscribe(callback, event){

@@ -7,13 +7,10 @@ import field from "../constants/InputStoreFields";
 import NotificationBox from '../components/NotificationBox';
 import { Header } from '../components/Header';
 
-const NotificationsScreen = (props) => {
+const CreateGameScreen = (props) => {
     return (
         <View style={[styles.container, theme.style.background]}>
-            <Header title="Notifications" back_action={true} navigation={props.navigation}/>
-            <ScrollView style={[styles.view]}>
-                <NotificationBox title="RSVP for SBU Soccer" message="RSVP Time: 3:00PM/EST" func={null}/>
-            </ScrollView>
+            <Header title="Create Game" back_action={true} navigation={props.navigation}/>
         </View>
     );
 };
@@ -28,4 +25,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default NotificationsScreen;
+export default CreateGameScreen;

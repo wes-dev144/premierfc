@@ -1,18 +1,18 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import theme from '../themes/Theme';
 import HomeScreen from '../screens/HomeScreen'
 import ChatScreen from '../screens/ChatScreen'
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import SearchScreen from '../screens/SearchScreen';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import ProfileScreen from '../screens/ProfileScreen';
 import DirectMessagesScreen from '../screens/DirectMessagesScreen';
 import DrawerUserProfile from '../screens/UserProfilePanel';
 import DrawerClubProfile from '../screens/ClubProfilePanel';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import AppLogo from '../assets/images/Logo.svg'
-// import Icon from 'react-native-ico-material-design';
+
 const Stack = createStackNavigator();
 const HStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -35,6 +35,20 @@ const ClubChatDrawerStack = () => {
     );
 }
 
+
+
+const SearchStack = () => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen
+                name="UserProfile"
+                component={ProfileScreen}
+                options={{header: () => null}}
+            />
+        </Stack.Navigator>
+    );
+}
+
 const HomeStack = () => {
     return (
         <HStack.Navigator initialRouteName="Home">
@@ -45,7 +59,7 @@ const HomeStack = () => {
             />
             <HStack.Screen
                 name="ClubChat"
-                component={ClubChatDrawerStack}
+                component={ChatScreen}
                 options={{
                     header: () => null
                 }}
@@ -54,17 +68,6 @@ const HomeStack = () => {
     );
 }
 
-const SearchStack = () => {
-    return (
-        <Stack.Navigator>
-            <Stack.Screen
-                name="Search"
-                component={SearchScreen}
-                options={{header: () => null}}
-            />
-        </Stack.Navigator>
-    );
-}
 const AppStack = () => {
     const getTabBarVisibility = (route) => {
         const routeName = route.state
@@ -77,20 +80,18 @@ const AppStack = () => {
     };
     return (
         <Tab.Navigator tabBarOptions={{
-            activeTintColor: '#e91e63',
-            inactiveBackgroundColor: theme.color.background
+            // activeTintColor: theme.color.secondary,
+            inactiveTintColor: theme.color.background,
+            inactiveBackgroundColor: theme.color.background,
+            showLabel: false
         }}>
             <Tab.Screen
                 name="TabHome"
-                component={HomeDrawerStack}
+                component={HomeStack}
                 options={({route}) => ({
                     tabBarLabel: 'Home',
                     tabBarIcon: ({color, size}) => (
-                        <MaterialCommunityIcons 
-                            name='home'
-                            color={color}
-                            size={size}
-                        />
+                        <AppLogo style={{width: 45, height: 40}}/>
                     )
                 })}
                 listeners={({ navigation }) => ({
@@ -105,39 +106,39 @@ const AppStack = () => {
                 name="Messages"
                 component={DirectMessagesScreen}
                 options={({route}) => ({
-                    tabBarLabel: 'Messages',
                     tabBarIcon: ({color, size}) => (
-                        <MaterialCommunityIcons 
-                            name='message-text-outline'
-                            color={color}
+                        <Ionicons 
+                            name='md-chatbubble-sharp'
+                            color={theme.color.secondary_light}
                             size={size}
                         />
                     ),
                 })}
             />
-            <Tab.Screen
-                name="Search"
-                component={SearchStack}
-                options={({route}) => ({
-                    tabBarLabel: 'Search',
-                    tabBarIcon: ({color, size}) => (
-                        <MaterialCommunityIcons 
-                            name='magnify'
-                            color={color}
-                            size={size}
-                        />
-                    ),
-                })}
-            />
+
             <Tab.Screen
                 name="Notifications"
                 component={NotificationsScreen}
                 options={({route}) => ({
                     tabBarLabel: 'Notifications',
                     tabBarIcon: ({color, size}) => (
-                        <MaterialCommunityIcons 
-                            name='bell-outline'
-                            color={color}
+                        <Ionicons 
+                            name='notifications'
+                            color={theme.color.secondary_light}
+                            size={size}
+                        />
+                    ),
+                })}
+            />
+            <Tab.Screen
+                name="UserProfile"
+                component={ProfileScreen}
+                options={({route}) => ({
+                    tabBarLabel: 'UserProfile',
+                    tabBarIcon: ({color, size}) => (
+                        <Ionicons 
+                            name='person-sharp'
+                            color={theme.color.secondary_light}
                             size={size}
                         />
                     ),

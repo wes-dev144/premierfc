@@ -6,7 +6,7 @@ const style = StyleSheet.create({
       backgroundColor: colors.FILL,
     },
     button: {
-        backgroundColor: colors.SECONDARY,
+        backgroundColor: colors.SECONDARYD,
     },
     darkText: {
         color: colors.TEXTD,
@@ -20,13 +20,11 @@ const style = StyleSheet.create({
     secondaryFont: {
         fontFamily: 'Aqum'
     },
-    standardFontD: {
-        fontFamily: 'TimeBurner',
-        color: colors.TEXTD
+    textFont: {
+        fontFamily: 'Ubuntu-MI'
     },
-    standardFontL: {
-        fontFamily: 'Cursive',
-        color: colors.TEXTL
+    subtextFont: {
+        fontFamily: 'Swansea-M'
     }
   });
 
@@ -34,7 +32,12 @@ const style = StyleSheet.create({
       background: colors.FILL,
       white: colors.TEXTL,
       primary: colors.PRIMARY,
-      primary_dark: colors.PRIMARYD
+      primary_dark: colors.PRIMARYD,
+      primary_light: colors.PRIMARYL,
+      secondary: colors.SECONDARY,
+      secondary_dark: colors.SECONDARYD,
+      secondary_light: colors.SECONDARYL,
+      text_color_dark: colors.TEXTD,
   }
 
   export default {style, color}

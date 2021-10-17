@@ -9,7 +9,7 @@ import event from '../constants/Events';
 import { db } from '../api/firebase';
 
 import UpcomingGameBox from '../components/UpcomingGameBox';
-import Header from '../components/Header';
+import { Header } from '../components/Header';
 import { Appbar } from 'react-native-paper';
 
 const ChatScreen = (props) => {
@@ -18,6 +18,7 @@ const ChatScreen = (props) => {
     const name = user_info.name
     const user = {_id: uid, name: name}
     const [messages, setMessages] = useState([])
+    console.log("PROPS", props)
     const chatsRef = db.collection(props.route.params.club_id)
 
     useEffect(() => {

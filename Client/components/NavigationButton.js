@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         height: 50
     },
     text: {
-        color: colors.TEXTD,
+        color: theme.color.white,
         fontSize: 20,
         fontWeight: 'bold',
     },
