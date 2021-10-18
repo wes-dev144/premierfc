@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, ImageBackground, StyleSheet, ScrollView} from 'react-native';
-import Header from '../components/Header';
+import { Header } from '../components/Header';
 import ClubInfoBox from '../components/ClubsBox';
 import theme from '../themes/Theme';
 import RequestStore from '../stores/RequestsStore';
@@ -21,12 +21,12 @@ function InfoScreen() {
       <ScrollView>
             <View>
                 <ImageSlider 
-                    localImg={true}
+                    // localImg={true}
                     data={[
-                        //{img: 'https://tvline.com/wp-content/uploads/2021/03/the-patrick-star-show-spongebob-squarepants-spinoff.jpg'},
-                        //{img: 'https://tvline.com/wp-content/uploads/2021/03/the-patrick-star-show-spongebob-squarepants-spinoff.jpg'}
-                        require('../assets/images/Patrick_Star_social_image_1.jpg'),
-                        require('../assets/images/mesut-ozil-teammates-gty-mem-180723_hpEmbed_23x15_992.jpg')
+                        {img: 'https://tvline.com/wp-content/uploads/2021/03/the-patrick-star-show-spongebob-squarepants-spinoff.jpg'},
+                        {img: 'https://tvline.com/wp-content/uploads/2021/03/the-patrick-star-show-spongebob-squarepants-spinoff.jpg'}
+                        // require('../assets/images/Patrick_Star_social_image_1.jpg'),
+                        // require('../assets/images/mesut-ozil-teammates-gty-mem-180723_hpEmbed_23x15_992.jpg')
                     ]}
                     autoPlay={false}
                     onItemChanged={(item) => console.log("item", item)}
@@ -98,7 +98,7 @@ const ClubHomeScreen = (props) => {
     const Tab = createMaterialTopTabNavigator();
     return (
         <View style={[styles.container, theme.style.background]}>
-            <Header title="Clubs"/>
+            <Header title="Clubs" back_action={true}/>
             <View>
                 <Banner visible={visible}
                     actions={[
