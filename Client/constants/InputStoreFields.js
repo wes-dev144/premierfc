@@ -8,5 +8,10 @@ export default {
     UID: "UID",
     DOB: "DOB",
     ZIP: "ZIP",
-    USER_CLUBS: "USER_CLUBS"
+    USER_CLUBS: "USER_CLUBS",
+    MIN_GAME_SIZE: "MIN_GAME_SIZE",
+    MAX_GAME_SIZE: "MAX_GAME_SIZE",
+    NUM_TEAMS: "NUM_TEAMS",
+    TEAM_SIZE_1: "TEAM_SIZE_1",
+    TEAM_SIZE_2: "TEAM_SIZE_2"
 }

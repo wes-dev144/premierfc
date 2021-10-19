@@ -6,29 +6,11 @@ import { getLocationString } from '../utils/util';
 import { Avatar } from 'react-native-paper';
 import {UpcomingGameTimeAndLoc, UpcomingGameInfo} from './UpcomingGameBoxes';
 import RequestStore from '../stores/RequestsStore';
-
+import { getNameInitials } from '../utils/util';
 import event from '../constants/Events';
 import Api from '../api/Api';
 import * as Actions from '../actions/StoreActions';
 import { useEffect, useState } from 'react';
-
-const getClubInitials = (club_name) => {
-    const club_split = club_name.split(" ")
-    const prepositions = ["of", "on", "the", "in", "for", "to", "from", "by"]
-    let firstChar = ''
-    let secondChar = ''
-
-    if (club_split.length > 1) {
-        firstChar = club_split[0].charAt(0)
-        for (let i = 1; i < club_split.length; i++) {
-            if (!prepositions.includes(club_split[i].toLowerCase())) {
-                secondChar = club_split[i].charAt(0)
-                break
-            }
-        }
-    }
-    return firstChar + secondChar
-}
 
 const ClubInfoBox = ({func, ...rest}) => {
     const onChange = (event) => {
@@ -43,7 +25,7 @@ const ClubInfoBox = ({func, ...rest}) => {
     
     return (
         <TouchableOpacity style={styles.container} onPress={() => runAndNavigate({func, ...rest})}>
-            <Avatar.Text size={40} label={getClubInitials(rest.club)} style={{backgroundColor: theme.color.secondary_dark}}/>
+            <Avatar.Text size={40} label={getNameInitials(rest.club)} style={{backgroundColor: theme.color.secondary_dark}}/>
             <View style={{paddingLeft: 15, width: '60%', alignItems:'flex-start', justifyContent:'flex-start'}}>
                 <Text textBreakStrategy='simple' style={[styles.club, theme.style.textFont]}>{rest.club}</Text>
                 {gameInfoSet ? <UpcomingGameTimeAndLoc game_id={rest.game_id}/> : null}
@@ -58,7 +40,6 @@ const getClubList = (clubs, navigation) => {
         if (club.games.length != 0) {
             const game_id = club.games[0]
             Api.request('GET', 'api/games/' + club.games[0]).then((response) => {
-                console.log(response.data)
                 Actions.RequestStore().update(response.data, event.GAME_ID + game_id)
             });
             return <ClubInfoBox key={club.id} club={club.club_name} location={getLocationString(club)} func={null} 

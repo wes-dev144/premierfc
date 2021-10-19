@@ -15,8 +15,9 @@ const firebaseConfig = {
 
 let app;
 LogBox.ignoreLogs(['Setting a timer for a long period of time', 
-                            'componentWillMount has been renamed',
-                            'componentWillReceiveProps has been renamed'])
+                    'componentWillMount has been renamed',
+                    'componentWillReceiveProps has been renamed',
+                ])
 
 // Initialize Firebase
 if (firebase.apps.length == 0) {

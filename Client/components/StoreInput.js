@@ -1,35 +1,32 @@
 import React from 'react';
 import * as Actions from '../actions/StoreActions';
-import {View, TextInput, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
+import { TextInput } from 'react-native-paper';
+import theme from '../themes/Theme'
 
-const StoreInput = ({placeholder, ...rest}) => {
+const StoreInput = ({...rest}) => {
     const onChange = (text) => Actions.InputStore().update(rest.field, text)
-    if (rest.style !== undefined){
-        input_style = rest.style
-    } else {
-        input_style = styles.input
-    }
     return (
-        <View style={styles.container}>
-                <TextInput style={input_style} placeholder={placeholder} 
-                                    placeholderTextColor={"grey"} onChangeText={onChange}/>
+        <View style={[rest.containerStyle]}>
+            <TextInput style={[styles.input, rest.textStyle]}
+                label={rest.label? rest.label : null}
+                value={rest.value}
+                maxLength={rest.maxLength}
+                placeholder={rest.placeholder ? rest.placeholder : null}
+                underlineColor={theme.color.secondary}
+                placeholderTextColor={theme.color.gray}
+                theme={theme.textInput}
+                onChangeText={onChange}
+            />
         </View>
     );
 };
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     input: {
-        height: 40,
-        width: '100%',
-        fontSize: 16,
-        backgroundColor: 'white',
-        color: 'black',
-        opacity: 0.75,
-        padding: 8,
-        borderBottomWidth: 0.5
-    },
-    container: {
-        padding: 4
+        height: 60,
+        fontSize: 20,
+        backgroundColor: 'transparent',
     }
 });
 

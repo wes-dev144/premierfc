@@ -10,9 +10,15 @@ const SignUpScreenPassword = (props) => {
     return (
         <View style={[{flex: 1}, theme.style.background]}>
             <LogoNameBackground imgOpacity={0.75}/>
-            <View style={{flex:.6}}>
-                <StoreInput placeholder="Create Password" signupKey="passwd" field={field.PASSWD}/>
-                <NavigationButton func={null} navigation={props.navigation} nextScreen='SignUpUser' buttonName='Continue'/>
+            <View style={{paddingTop: 325, alignItems: 'center'}}>
+                <StoreInput containerStyle={{width: '95%'}} label="Create Password" field={field.PASSWD}/>
+                <NavigationButton
+                    containerStyle={{paddingTop: 15, width: '95%'}} 
+                    func={null}
+                    navigation={props.navigation}
+                    nextScreen='SignUpUser'
+                    buttonName='Continue'
+                />
             </View>
         </View>
     );

@@ -7,6 +7,7 @@ import {LogoNameBackground} from '../themes/Backgrounds';
 import field from "../constants/InputStoreFields";
 import {AuthContext} from '../navigation/AuthProvider';
 import InputStore from '../stores/InputStore';
+
 const SignUpScreenUser = (props) => {
     const {register} = useContext(AuthContext);
     const Register = () => {        
@@ -17,12 +18,17 @@ const SignUpScreenUser = (props) => {
     return (
         <View style={[{flex: 1}, theme.style.background]}>
             <LogoNameBackground imgOpacity={0.75}/>
-            <Text style={styles.subtext}>{'Tell Us About Yourself'}</Text>
-            <View style={{flex: 1}}>
-                <StoreInput placeholder="What's your name" signupKey="name" field={field.NAME}/>
-                <StoreInput placeholder="Date of Birth" signupKey="dob" field={field.DOB}/>
-                <StoreInput placeholder="Zip Code" signupKey="zipCode" field={field.ZIP}/>
-                <NavigationButton func={Register} navigation={props.navigation} nextScreen={null} buttonName='Submit'/>
+            <View style={{paddingTop: 310, alignItems: 'center'}}>
+                <Text style={[styles.subtext, theme.style.subtextFont]}>{'Tell Us About Yourself'}</Text>
+                <StoreInput containerStyle={{width: '95%'}} label="What's your name" field={field.NAME}/>
+                <StoreInput containerStyle={{width: '95%'}} label="Date of Birth" field={field.DOB}/>
+                <StoreInput containerStyle={{width: '95%'}} label="Zip Code" field={field.ZIP}/>
+                <NavigationButton
+                    containerStyle={{paddingTop: 15, width: '95%'}} 
+                    func={Register}
+                    navigation={props.navigation}
+                    buttonName='Submit'
+                />
             </View>
         </View>
     );
@@ -30,10 +36,8 @@ const SignUpScreenUser = (props) => {
 
 const styles = StyleSheet.create({
     subtext: {
-        flex: .2,
         textAlign: 'center',
-        fontWeight: 'bold',
-        color: 'black',
+        color: theme.color.white,
         fontSize: 20
     }
 

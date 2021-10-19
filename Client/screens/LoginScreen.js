@@ -8,6 +8,7 @@ import {LogoNameBackground} from '../themes/Backgrounds';
 import field from "../constants/InputStoreFields";
 import * as Actions from '../actions/StoreActions';
 import {AuthContext} from '../navigation/AuthProvider';
+import theme from '../themes/Theme';
 
 const LoginScreen = (props) => {
     const {login} = useContext(AuthContext);
@@ -24,29 +25,47 @@ const LoginScreen = (props) => {
     return (
         <View style={{flex: 1}}>
             <LogoNameBackground />
-            <View style={{paddingTop: 325}}>
-                <TextInput style={styles.input} label="Email" onChangeText={setEmail}/>
+            <View style={{paddingTop: 325, alignItems: 'center'}}>
+                <TextInput style={styles.input} 
+                    label="Email"
+                    underlineColor={theme.color.secondary}
+                    placeholderTextColor={theme.color.gray}
+                    theme={theme.textInput}
+                    onChangeText={setEmail}/>
                 <TextInput 
-                    style={styles.input} 
+                    style={styles.input}
+                    underlineColor={theme.color.secondary}
+                    placeholderTextColor={theme.color.gray}
+                    theme={theme.textInput}
                     label="Password" 
                     secureTextEntry={showPasswd ? true : false} 
-                    right={<TextInput.Icon name="eye" onPress={() => setShowPasswd(!showPasswd)}/>} 
+                    right={<TextInput.Icon color='white' name="eye" onPress={() => setShowPasswd(!showPasswd)}/>} 
                     onChangeText={setPasswd}
                 />
 
-                <NavigationButton func={Login} navigation={props.navigation} nextScreen={null} buttonName='Login'/>
-                <NavigationButton func={null} navigation={props.navigation} nextScreen='SignUpEmail' buttonName='Sign Up'/>
+                <NavigationButton 
+                    containerStyle={{paddingTop: 5, width: '95%'}} 
+                    func={Login}
+                    navigation={props.navigation}
+                    buttonName='Login'
+                />
+                <NavigationButton
+                    containerStyle={{paddingTop: 10, width: '95%'}} 
+                    func={null}
+                    navigation={props.navigation}
+                    nextScreen='SignUpEmail'
+                    buttonName='Sign Up'
+                />
             </View>
          </View> 
     );
 };
 const styles = StyleSheet.create({
     input: {
-        height: 50,
-        width: '100%',
-        backgroundColor: '#e0defa',
+        justifyContent: 'center',
+        width: '95%',
+        backgroundColor: 'transparent',
         fontSize: 16,
-        opacity: 0.75,
         marginBottom: 10,
     }
 

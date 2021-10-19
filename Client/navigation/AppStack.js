@@ -11,7 +11,7 @@ import DirectMessagesScreen from '../screens/DirectMessagesScreen';
 import DrawerUserProfile from '../screens/UserProfilePanel';
 import DrawerClubProfile from '../screens/ClubProfilePanel';
 import NotificationsScreen from '../screens/NotificationsScreen';
-import AppLogo from '../assets/images/Logo.svg'
+import AppLogo from '../assets/images/Logo.svg';
 
 const Stack = createStackNavigator();
 const HStack = createStackNavigator();

@@ -50,14 +50,7 @@ const ProfileScreen = (props) => {
                 </View>
             </View>
             <Tab.Navigator
-                tabBarOptions={{
-                    activeTintColor: theme.color.secondary,
-                    inactiveTintColor: theme.color.white,
-                    style: theme.style.background,
-                    indicatorStyle: {backgroundColor: theme.color.secondary},
-                    labelStyle: theme.style.textFont
-                    
-                }}>
+                tabBarOptions={theme.tabNavigator}>
                 <Tab.Screen 
                     name="Info" 
                     children={() => <AboutView/>}

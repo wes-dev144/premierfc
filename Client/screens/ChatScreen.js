@@ -18,7 +18,7 @@ const ChatScreen = (props) => {
     const name = user_info.name
     const user = {_id: uid, name: name}
     const [messages, setMessages] = useState([])
-    console.log("PROPS", props)
+
     const chatsRef = db.collection(props.route.params.club_id)
 
     useEffect(() => {

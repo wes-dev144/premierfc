@@ -1,37 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 import { Header } from '../components/Header';
 import theme from '../themes/Theme';
 import event from '../constants/Events';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import ClubView from '../components/ClubView';
-import AllClubsView from '../components/AllClubsView';
-
+import StoreInput from '../components/StoreInput';
 const Tab = createMaterialTopTabNavigator()
 
 const HomeScreen = (props) => {
+    const [registeredClubs, setRegisteredClubs] = useState([])
+    const [allClubs, setAllClubs] = useState([])
     return (
         <View style={[styles.container, theme.style.background]}>
             <Header title="Maestri" titleStyle={theme.style.primaryFont} subtitle="Clubs"/>
-            <TextInput style={styles.input} placeholder="Search" 
-                                        placeholderTextColor={theme.color.text_color_dark}/>
+            <StoreInput textStyle={{fontSize: 16}} label="Search" field={'HOME_SCREEN_SEARCH'}/>
             <Tab.Navigator
-                tabBarOptions={{
-                    activeTintColor: theme.color.secondary,
-                    inactiveTintColor: theme.color.white,
-                    style: theme.style.background,
-                    indicatorStyle: {backgroundColor: theme.color.secondary},
-                    labelStyle: theme.style.textFont
-                    
-                }}
-                >
+                tabBarOptions={theme.tabNavigator}>
                 <Tab.Screen 
                     name="Registered" 
-                    children={() => <ClubView navigation={props.navigation} view_type={event.REQ_MY_CLUBS}/>}
+                    children={() => <ClubView clubs={registeredClubs} setClubs={setRegisteredClubs} navigation={props.navigation} view_type={event.REQ_MY_CLUBS}/>}
                 />
                 <Tab.Screen 
                     name="All" 
-                    children={() => <AllClubsView navigation={props.navigation} view_type={event.REQ_ALL_CLUBS}/>}
+                    children={() => <ClubView clubs={allClubs} setClubs={setAllClubs}  navigation={props.navigation} view_type={event.REQ_ALL_CLUBS}/>}
                 />
             </Tab.Navigator>
         </View>

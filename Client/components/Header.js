@@ -46,7 +46,7 @@ const ProfileHeader = (props) => {
 
 const styles = StyleSheet.create({
     header: {
-        backgroundColor: theme.color.primary
+        backgroundColor: theme.color.primary,
     },
     settings: {
         backgroundColor: 'blue',

@@ -7,9 +7,9 @@ import { runAndNavigate } from '../utils/navigation';
 
 const NavigationButton = ({func, ...rest}) => {
     return (
-        <View style={styles.container}>
-            <TouchableOpacity style={[styles.btn, theme.style.button]} onPress={() => runAndNavigate({func, ...rest})}>
-                <Text style={styles.text}>{rest.buttonName}</Text>
+        <View style={[styles.container, rest.containerStyle]}>
+            <TouchableOpacity style={[styles.btn, theme.style.button, rest.buttonStyle]} onPress={() => runAndNavigate({func, ...rest})}>
+                <Text style={[styles.text, theme.style.subtextFont, rest.textStyle]}>{rest.buttonName}</Text>
             </TouchableOpacity>
         </View>
     );
@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 15,
-        height: 50
+        height: 50,
+        width: '100%'
     },
     text: {
         color: theme.color.white,
@@ -28,7 +29,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     container: {
-        padding: 5
+        padding: 5,
+        alignItems: 'center'
     }
 });
 
