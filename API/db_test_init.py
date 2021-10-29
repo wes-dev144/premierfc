@@ -17,8 +17,7 @@ class DBInit:
     def create_users(self, number, *args):
         for i in range(int(number)):
             index = str(i)
-            email = random_id(8)
-            user = User('new' + index, 'LastName' + index, 'email' + index + '@gmail.com', '1994-12-22', "Flushing", "New York")
+            user = User('new' + index, 'LastName' + index, 'email' + index + '@gmail.com', '1994-12-22', "Flushing", "New York", random_id(28))
             db.session.add(user)
         db.session.commit()
 

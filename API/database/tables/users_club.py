@@ -5,20 +5,20 @@ from enum import Enum
 class ClubRoles(Enum):
     OWNER = "Owner"
     ADMIN = "Admin"
-    PARTICIPANT = "Participant"
+    PLAYER = "Player"
     
 class UserClub(db.Model):
     __tablename__ = "user_club"
     _user_club_id = db.Column('user_club_id', db.String(8), index=True, nullable=False, primary_key=True)
     _user_id = db.Column('user_id', db.String(8), db.ForeignKey('users.user_id'), nullable=False)
     _club_id = db.Column('club_id', db.String(8), db.ForeignKey('club.club_id'), nullable=False)
-    club_role = db.Column(db.Enum(ClubRoles), default=ClubRoles.PARTICIPANT, nullable=False)
+    role = db.Column(db.Enum(ClubRoles, name="CLUB_ROLE"), nullable=False)
 
     def __init__(self, user, club):
         self.set_user_club_id()
         self._user_id = user.user_id()
         self._club_id = club.club_id()
-        self.participant()
+        self.role = ClubRoles.PLAYER
 
     def set_user_club_id(self):
         self._user_club_id = random_id(8)
@@ -42,7 +42,7 @@ class UserClub(db.Model):
         self.club_role = ClubRoles.ADMIN
 
     def participant(self):
-        self.club_role = ClubRoles.PARTICIPANT
+        self.club_role = ClubRoles.PLAYER
 
     def __repr__(self):
         schema = UserClubSchema()

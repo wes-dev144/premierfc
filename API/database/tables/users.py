@@ -3,13 +3,13 @@ from database.tables.locations import get_city_state
 from utils.utils import random_id
 from enum import Enum
 
-class UserRoles(Enum):
+class Role(Enum):
     ORGANIZER = "Organizer"
     PLAYER = "Player"
 
 class User(db.Model):
     __tablename__ = "users"
-    _user_id = db.Column('user_id', db.String(8), index=True, nullable=False, primary_key=True)
+    _user_id = db.Column('user_id', db.String(28), index=True, nullable=False, primary_key=True)
     _api_key = db.Column('api_key', db.String(16), nullable=False)
     _city_state_id = db.Column('city_state_id', db.Integer, db.ForeignKey('city_state.city_state_id'), nullable=False)
     email = db.Column(db.String(64), unique=True, nullable=False)
@@ -19,19 +19,20 @@ class User(db.Model):
     _last_updated = db.Column('last_updated', db.DateTime, default=db.func.now(), onupdate=db.func.now())
     _last_logged_in = db.Column('last_logged_in', db.DateTime, default=db.func.now())
     _date_created = db.Column('date_created', db.DateTime, default=db.func.now())
-    user_role = db.Column(db.Enum(UserRoles), default=UserRoles.PLAYER, nullable=False)
+    role = db.Column(db.Enum(Role, name="ROLE"), nullable=False)
 
-    def __init__(self, first_name, last_name, email, dob, city, state, role):
-        self.set_user_id()
+    def __init__(self, first_name, last_name, email, dob, city, state, user_id, role=Role.PLAYER):
+        print(user_id)
+        self.user_id = user_id
         self.email = email
         self.first_name = first_name
         self.last_name = last_name
         self.date_of_birth = dob
         self._city = city
         self._state = state
+        self.role = role
         self.set_city_state_id()
         self.set_api_key()
-        self.player()
 
     @property
     def city(self):
@@ -70,8 +71,9 @@ class User(db.Model):
     def user_id(self):
         return self._user_id
 
-    def set_user_id(self):
-        self._user_id = random_id(8)
+    @user_id.setter
+    def user_id(self, user_id):
+        self._user_id = user_id
 
     @property
     def last_logged_in(self):
@@ -95,16 +97,6 @@ class User(db.Model):
     @date_of_birth.setter
     def date_of_birth(self, dob):
         self._date_of_birth = datetime.datetime.strptime(dob, '%Y-%m-%d')
-
-    @property
-    def user_role(self):
-        return self.user_role
-
-    def organizer(self):
-        self.user_role = UserRoles.ORGANIZER
-
-    def player(self):
-        self.user_role = UserRoles.PLAYER
 
     def __repr__(self):
         schema = UserSchema()
