@@ -4,17 +4,17 @@ from utils.utils import random_id
 from enum import Enum
 
 class MatchStatus(Enum):
-    SCHEDULED = "Scheduled"
-    STARTED = "Started"
-    CANCELED = "Canceled"
-    PENDING = "Pending"
-    DELAYED = "Delayed"
-    RESCHEDULED = "Rescheduled"
+    SCHEDULED = "SCHEDULED"
+    STARTED = "STARTED"
+    CANCELED = "CANCELED"
+    PENDING = "PENDING"
+    DELAYED = "DELAYED"
+    RESCHEDULED = "RESCHEDULED"
 
 class Game(db.Model):
-    __tablename__ = "games"
+    __tablename__ = "game_info"
     _game_id = db.Column('game_id', db.String(8), index=True, nullable=False, primary_key=True)
-    _series_id = db.Column('series_id', db.String(8), db.ForeignKey('series.series_id'), nullable=False)
+    _series_id = db.Column('series_id', db.String(8), db.ForeignKey('series_info.series_id'), nullable=False)
     _address = db.Column(db.Text)
     game_date = db.Column(db.DateTime, default=db.func.now())
     game_time = db.Column(db.DateTime, default=db.func.now())

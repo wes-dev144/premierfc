@@ -5,8 +5,8 @@ from utils.utils import random_id
 class ClubComment(db.Model):
     __tablename__ = "club_comment"
     _club_comment_id = db.Column('club_comment_id', db.String(8), index=True, nullable=False, primary_key=True)
-    _club_id = db.Column('club_id', db.String(8), db.ForeignKey('club.club_id'), nullable=False)
-    _user_id = db.Column('user_id', db.String(8), db.ForeignKey('users.user_id'), nullable=False)
+    _club_id = db.Column('club_id', db.String(8), db.ForeignKey('club_info.club_id'), nullable=False)
+    _user_id = db.Column('user_id', db.String(8), db.ForeignKey('user_info.user_id'), nullable=False)
     _comment = db.Column(db.Text)
     _publish_date = db.Column('publish_date', db.DateTime, default=db.func.now())
     _publish_time = db.Column('publish_time', db.DateTime, default=db.func.now())

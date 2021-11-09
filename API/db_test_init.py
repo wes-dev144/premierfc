@@ -1,4 +1,6 @@
 from database.tables.users import User
+from database.tables.club import Club
+from database.tables.club_membership import ClubMember, ClubRoles
 from database.tables.locations import *
 from database.tables.api_key import *
 
@@ -11,24 +13,42 @@ import inspect
 
 class DBInit:
     def __init__(self):
+        self.cities = ["Manassas", "Woodbridge", "Fairfax", "Herndon"]
         self.app = init_app(Flask(__name__))
         self.app.app_context().push()
     
-    def create_users(self, number, *args):
+    def create_users(self, number):
+        print("Generating " + str(number) + " Random Users")
         for i in range(int(number)):
             index = str(i)
-            user = User('new' + index, 'LastName' + index, 'email' + index + '@gmail.com', '1994-12-22', "Flushing", "New York", random_id(28))
+            dob = '-'.join([str(random.randrange(1980, 2006)), str(random.randrange(1, 13)), str(random.randrange(1, 29))])
+            user = User('new' + index, 'LastName' + index, 'email' + index + '@gmail.com', dob, self.cities[random.randrange(0, 4)], "Virginia", random_id(28))
             db.session.add(user)
         db.session.commit()
+    
+    def create_clubs(self, number):
+        print("Generating " + str(number) + " Random Clubs")
+        for i in range(int(number)):
+            index = str(i)
+            user = User.query.filter(User.email == 'email' + index + '@gmail.com').first()
+            if not user:
+                user = User.query.filter(User.email == 'email0@gmail.com').first()
+            owner_id = user.user_id
+            club = Club('Futbol-Club-' + index, self.cities[random.randrange(0, 4)], "Virginia", owner_id)
+            new_membership = ClubMember(user, club, ClubRoles.PRESIDENT)
+            db.session.add(club)
+            db.session.add(new_membership)
+        db.session.commit()
 
-    def generate_new_api_key(self, length, *args):
+    def generate_new_api_key(self, length):
         key = random_id(int(length))
         apikey = APIKey(key)
         db.session.add(apikey)
         db.session.commit()
 
-    def load_location_data(self, *args, file="database/us_zips_data/uszips.csv"):
+    def load_location_data(self):
         # Database data from: https://simplemaps.com/data/us-zips.
+        file="database/us_zips_data/uszips.csv"
         states = {}
         cities = set([])
         postal_codes = set([])
@@ -67,16 +87,29 @@ class DBInit:
         for postal_code in postal_codes:
             db.session.add(postal_code)
         db.session.commit()
-    
-    def test(self, user_id, *args):
-        user = User.query.filter(User.user_id == user_id).first()
-        print(user.date_of_birth, type(user.date_of_birth))
-        user.last_logged_in = '12341'
 
-        # print(user.date_of_birth.strftime('%Y-%m-%d'))
-        # user.email = 'new44@gmail.com'
+    def init_club_members(self, num_of_users, num_of_clubs):
+        clubs = Club.query.limit(num_of_clubs).all()
+        users = User.query.all()
+        for club in clubs:
+            print("Adding " + str(num_of_users) + " Users to Club: " + club.name)
+            for i in range(int(num_of_users)):
+                retry = 0
+                while retry < 10:
+                    user = users[random.randrange(0, len(users))]
+                    if ClubMember.query.filter(ClubMember._club_id == club.club_id, ClubMember._user_id == user.user_id).first():
+                        retry += 1
+                        continue
+                    club_membership = ClubMember(user, club)
+                    break
+                db.session.add(club_membership)
         db.session.commit()
-        
+
+    def init_test_database(self):
+        self.load_location_data()
+        self.create_users(120)
+        self.create_clubs(5)
+        self.init_club_members(50, 5)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser("This script is used to help generate test values in the database")
@@ -96,7 +129,9 @@ if __name__ == '__main__':
 
     if args.list_func:
         for func_name, func in methods.items():
-            print(func_name)
+            val = inspect.getfullargspec(func)
+            val.args.remove('self')
+            print(func_name + "(" + ', '.join(val.args) + ")")
     else:
         try:
             if args.args:

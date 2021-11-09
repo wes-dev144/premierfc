@@ -1,25 +1,31 @@
 from database import *
 from database.tables.locations import get_city_state
 from utils.utils import random_id
+from enum import Enum
+
+class ClubStatus(Enum):
+    ACTIVE = "ACTIVE"
+    RETIRED = "RETIRED"
 
 class Club(db.Model):
-    __tablename__ = "club"
+    __tablename__ = "club_info"
     _club_id = db.Column('club_id', db.String(8), index=True, nullable=False, primary_key=True)
-    name = db.Column(db.String(8))
-    user_id = db.Column('user_id', db.String(8), db.ForeignKey('users.user_id'), nullable=False)
+    name = db.Column(db.String(32))
+    owner_id = db.Column('owner_id', db.String(28), db.ForeignKey('user_info.user_id'), nullable=False)
     _city_state_id = db.Column('city_state_id', db.Integer, db.ForeignKey('city_state.city_state_id'), nullable=False)
     _date_created = db.Column('date_created', db.DateTime, default=db.func.now())
     _last_accessed = db.Column('last_accessed', db.DateTime, default=db.func.now())
-    _club_status = db.Column('club_status', db.String(8))
+    club_status = db.Column(db.Enum(ClubStatus, name="CLUB_STATUS"), nullable=False)
 
-    def __init__(self, name, city, state):
+    def __init__(self, name, city, state, owner_id):
         self.set_club_id()
         self.name = name
+        self.owner_id = owner_id
         self._city = city
         self._state = state
         self.set_city_state_id()
-        self._last_accessed()
-        self.club_status = 'active'
+        self.last_accessed()
+        self.club_status = ClubStatus.ACTIVE
 
     @property
     def get_last_accessed(self):

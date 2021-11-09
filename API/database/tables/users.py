@@ -8,7 +8,7 @@ class Role(Enum):
     PLAYER = "Player"
 
 class User(db.Model):
-    __tablename__ = "users"
+    __tablename__ = "user_info"
     _user_id = db.Column('user_id', db.String(28), index=True, nullable=False, primary_key=True)
     _api_key = db.Column('api_key', db.String(16), nullable=False)
     _city_state_id = db.Column('city_state_id', db.Integer, db.ForeignKey('city_state.city_state_id'), nullable=False)
@@ -22,7 +22,6 @@ class User(db.Model):
     role = db.Column(db.Enum(Role, name="ROLE"), nullable=False)
 
     def __init__(self, first_name, last_name, email, dob, city, state, user_id, role=Role.PLAYER):
-        print(user_id)
         self.user_id = user_id
         self.email = email
         self.first_name = first_name

@@ -3,10 +3,10 @@ from database.tables.locations import get_city_state
 from utils.utils import random_id
 
 class Series(db.Model):
-    __tablename__ = "series"
+    __tablename__ = "series_info"
     _series_id = db.Column('series_id', db.String(8), index=True, nullable=False, primary_key=True)
-    user_id = db.Column('user_id', db.String(8), db.ForeignKey('users.user_id'), nullable=False)
-    club_id = db.Column('club_id', db.String(8), db.ForeignKey('club.club_id'), nullable=False)
+    user_id = db.Column('user_id', db.String(28), db.ForeignKey('user_info.user_id'), nullable=False)
+    club_id = db.Column('club_id', db.String(8), db.ForeignKey('club_info.club_id'), nullable=False)
     start_date = db.Column('start_date', db.DateTime, default=db.func.now())
     repetition = db.Column('repetition', db.Integer, default=1)
     _monday = db.Column('monday', db.Boolean, default=False)
@@ -20,8 +20,8 @@ class Series(db.Model):
 
     def __init__(self, user, club):
         self.set_series_id()
-        self.user_id = user.user_id()
-        self.club_id = club.club_id()
+        self.user_id = user.user_id
+        self.club_id = club.club_id
 
     def set_start_date(self,date):
         self.start_date = date
@@ -59,14 +59,6 @@ class Series(db.Model):
     @property
     def series_id(self):
         return self._series_id
-    
-    @property
-    def user_id(self):
-        return self.user_id
-
-    @property
-    def club_id(self):
-        return self.club_id
 
     @property
     def repetiton(self):

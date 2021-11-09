@@ -3,18 +3,18 @@ from utils.utils import random_id
 from enum import Enum
 
 class RelationshipStatus(Enum):
-    FRIEND = "Friend"
-    FRIEND_REQUESTED = "Friend Requested"
-    BLOCKED = "Blocked"
+    FRIEND = "FRIEND"
+    REQUESTED = "REQUESTED"
+    BLOCKED = "BLOCKED"
 
 class UserRelationship(db.Model):
-    __tablename__ = "user_role"
+    __tablename__ = "user_relationship"
     relationship_id = db.Column('relationship_id', db.String(8), nullable=False, primary_key=True)
-    primary_user = db.Column('primary_user_id', db.String(8), db.ForeignKey('users.user_id'), nullable=False, primary_key=True)
-    related_user = db.Column('related_user_id', db.String(8), db.ForeignKey('users.user_id'), nullable=False)
+    primary_user = db.Column('primary_user_id', db.String(8), db.ForeignKey('user_info.user_id'), nullable=False, primary_key=True)
+    related_user = db.Column('related_user_id', db.String(8), db.ForeignKey('user_info.user_id'), nullable=False)
     relationship_status = db.Column(db.Enum(RelationshipStatus, name="RELATIONSHIP_STATUS"), nullable=False)
 
-    def __init__(self, p_user, r_user, status=RelationshipStatus.FRIEND_REQUESTED):
+    def __init__(self, p_user, r_user, status=RelationshipStatus.REQUESTED):
         self.set_relationship_id()
         self.primary_user = p_user.user_id()
         self.related_user = r_user.user_id()
