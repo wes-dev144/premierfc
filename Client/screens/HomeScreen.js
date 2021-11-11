@@ -6,11 +6,16 @@ import event from '../constants/Events';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import ClubView from '../components/ClubView';
 import StoreInput from '../components/StoreInput';
+import * as Actions from '../actions/StoreActions';
+import field from "../constants/InputStoreFields";
+
 const Tab = createMaterialTopTabNavigator()
 
 const HomeScreen = (props) => {
     const [registeredClubs, setRegisteredClubs] = useState([])
     const [allClubs, setAllClubs] = useState([])
+    Actions.InputStore().update(field.PASSWD, "")
+    
     return (
         <View style={[styles.container, theme.style.background]}>
             <Header title="Maestri" titleStyle={theme.style.primaryFont} subtitle="Clubs"/>

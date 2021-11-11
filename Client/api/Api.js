@@ -8,10 +8,13 @@ class Api{
         this.google_api_key = config.GOOGLE_PLACES_API_KEY
     };
 
-    async request(method, endpoint, data) {
+    async request(url=null, method, endpoint, data) {
+        if (url == null) {
+            url = this.url
+        }
         this.response = await axios({
             method: method,
-            url: this.url + '/' + endpoint,
+            url: url + '/' + endpoint,
             data: data
         })
         .then((response) => {

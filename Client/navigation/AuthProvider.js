@@ -20,8 +20,12 @@ export const AuthProvider = ({children}) => {
         console.log('Registering USER', email, passwd)
         auth.createUserWithEmailAndPassword(email, passwd).then((userCredential) => {
             var newUser = userCredential.user;
+            const firstname = InputStore.get(field.FIRSTNAME)
+            const lastname = InputStore.get(field.LASTNAME)
+            const name = firstname + " " + lastname
+            
             newUser.updateProfile({
-                displayName: InputStore.get(field.NAME)
+                displayName: name
             })
         })
     }

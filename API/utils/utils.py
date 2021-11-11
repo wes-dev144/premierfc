@@ -1,5 +1,6 @@
 #!/bin/env
-from utils import *
+from . import *
+
 import jwt
 from functools import wraps
 
@@ -22,7 +23,7 @@ def verify_token(func):
 def validate_json(*params):
     def decorator(func):
         @wraps(func)
-        def wrapper(*args, **kwargs):     
+        def wrapper(*args, **kwargs):
             data = request.get_json()
             for param in params:
                 if param not in data:

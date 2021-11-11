@@ -25,7 +25,7 @@ const StoreInput = ({...rest}) => {
 const styles = StyleSheet.create({
     input: {
         height: 60,
-        fontSize: 20,
+        fontSize: 16,
         backgroundColor: 'transparent',
     }
 });

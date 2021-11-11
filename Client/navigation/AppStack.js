@@ -13,6 +13,8 @@ import DrawerClubProfile from '../screens/ClubProfilePanel';
 import NotificationsScreen from '../screens/NotificationsScreen';
 import AppLogo from '../assets/images/Logo.svg';
 
+navigator.geolocation = require('react-native-geolocation-service')
+
 const Stack = createStackNavigator();
 const HStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
