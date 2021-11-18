@@ -15,32 +15,51 @@ import { IconButton } from 'react-native-paper';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Api from '../api/Api';
 import DatePicker from 'react-native-date-picker'
-
+import {MessageDialog, DialogState} from '../components/MessageDialog';
+import { DialogType } from '../constants/Enums';
 
 const SignUpScreenUser = (props) => {
     const {register} = useContext(AuthContext)
     const [date, setDate] = useState(new Date())
     const [open, setOpen] = useState(false)
-    const ref = useRef();
+    const [place_id, setPlaceId] = useState(false)
 
+    const dialog = new DialogState()
+    const ref = useRef();
+    
     const Register = () => {        
-        const location = ref.current?.getAddressText()
+        var location = ref.current?.getAddressText()
         const urlEncoded = encodeURIComponent(location)
         const endpoint = "api/place/textsearch/json?query=" + urlEncoded + "&key=" + Api.google_api_key
 
-        Api.request("https://maps.googleapis.com/maps", 'POST', endpoint).then((response) => {
+        Api.request("https://maps.googleapis.com/maps", 'POST', endpoint).then(async (response) => {
             const search = response.data.results
-            const found_addr = search[0].formatted_address
-            if (search.length != 1) {
-                alert('Invalid Address: ' + location)
-            } else if ( found_addr != location) {
-                alert('Did You mean: ' + found_addr)
-            }
-            const email = InputStore.get(field.EMAIL)
-            const passwd = InputStore.get(field.PASSWD)
-            register(email, passwd)
-        });
 
+            console.log(response.data)
+            console.log(search[0].geometry.location)
+            var addressConfirmed = true
+            
+            if (search.length != 1) {
+                await dialog.openDialog({title: 'Set Location Error', message: "Invalid Address: " + location})
+                addressConfirmed = false
+            } else if ( search[0].formatted_address != location && search[0].place_id != place_id ) {
+                const found_addr = search[0].formatted_address
+                addressConfirmed = await dialog.openDialog({title: "Confirm Address", message: 'Did You mean: ' + found_addr, mode: DialogType.INTERACTIVE})
+                if (addressConfirmed) {
+                    location = found_addr
+                    ref.current?.setAddressText(found_addr)
+                }
+            }
+
+            if (addressConfirmed) {
+                console.log('ADDY CONFIRMED')
+                const email = InputStore.get(field.EMAIL)
+                const passwd = InputStore.get(field.PASSWD)
+                register(email, passwd)
+            } else {
+                console.log('ADDY NOT CONFIRMED')
+            }
+        });
     }
 
     useEffect(() => {
@@ -53,6 +72,7 @@ const SignUpScreenUser = (props) => {
     return (
         <View style={[{flex: 1}, theme.style.background]}>
             <LogoNameBackground imgOpacity={0.75}/>
+            <MessageDialog props={dialog}/>
             <View style={{paddingTop: 310, alignItems: 'center'}}>
                 <GooglePlacesAutocomplete
                     textInputProps={{
@@ -63,13 +83,16 @@ const SignUpScreenUser = (props) => {
                         label: 'Set Location'
                     }}
                     ref={ref}
-                    fetchDetails={true}
                     renderDescription={row => row.description || row.vicinity}
+                    fetchDetails={true}
                     onPress={(data, details = null) => {
                         // 'details' is provided when fetchDetails = true
-                        console.log(data, details);
+                        console.log(details.formatted_address, data.place_id);
+                        setPlaceId(data.place_id)
                     }}
-                    onChangeText={console.log('hi')}
+                    onChangeText={(text) => {
+                        console.log('Changed text')
+                        console.log(text)}}
                     query={{
                         key: Api.google_api_key,
                         language: 'en',
