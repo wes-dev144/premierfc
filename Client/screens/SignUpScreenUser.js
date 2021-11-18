@@ -34,9 +34,6 @@ const SignUpScreenUser = (props) => {
 
         Api.request("https://maps.googleapis.com/maps", 'POST', endpoint).then(async (response) => {
             const search = response.data.results
-
-            console.log(response.data)
-            console.log(search[0].geometry.location)
             var addressConfirmed = true
             
             if (search.length != 1) {
@@ -52,12 +49,9 @@ const SignUpScreenUser = (props) => {
             }
 
             if (addressConfirmed) {
-                console.log('ADDY CONFIRMED')
                 const email = InputStore.get(field.EMAIL)
                 const passwd = InputStore.get(field.PASSWD)
-                register(email, passwd)
-            } else {
-                console.log('ADDY NOT CONFIRMED')
+                register(email, passwd, location, search[0].place_id, Moment(date).format('MM-DD-YYYY'))
             }
         });
     }
@@ -101,7 +95,7 @@ const SignUpScreenUser = (props) => {
                     styles={search_input_style}
                 />
                 <StoreInput containerStyle={{width: '95%'}} label="First Name" field={field.FIRSTNAME}/>
-                <StoreInput containerStyle={{width: '95%'}} label="Last Name" field={field.FIRSTNAME}/>
+                <StoreInput containerStyle={{width: '95%'}} label="Last Name" field={field.LASTNAME}/>
 
 
             </View>

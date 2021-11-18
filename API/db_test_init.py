@@ -1,7 +1,6 @@
 from database.tables.users import User
 from database.tables.club import Club
 from database.tables.club_membership import ClubMember, ClubRoles
-from database.tables.locations import *
 from database.tables.api_key import *
 
 from utils import *
@@ -13,7 +12,11 @@ import inspect
 
 class DBInit:
     def __init__(self):
-        self.cities = ["Manassas", "Woodbridge", "Fairfax", "Herndon"]
+        # Location, google_places_id
+        self.locations = {"Manassas, VA": "ChIJi9Zl1IBbtokRUuf7tl6bUoM",
+                            "Woodbridge, VA": "ChIJ-28cw5NVtokR4EZeo-gmIwc", 
+                            "Fairfax, VA": "ChIJzZFLOZZOtokRQIZEhecmIwc", 
+                            "Dulles, VA": "ChIJuc_EVAw2tokRvPJtxs0zbpI"}
         self.app = init_app(Flask(__name__))
         self.app.app_context().push()
     
@@ -21,8 +24,9 @@ class DBInit:
         print("Generating " + str(number) + " Random Users")
         for i in range(int(number)):
             index = str(i)
-            dob = '-'.join([str(random.randrange(1980, 2006)), str(random.randrange(1, 13)), str(random.randrange(1, 29))])
-            user = User('new' + index, 'LastName' + index, 'email' + index + '@gmail.com', dob, self.cities[random.randrange(0, 4)], "Virginia", random_id(28))
+            dob = '-'.join([str(random.randrange(1, 13)), str(random.randrange(1, 29)), str(random.randrange(1980, 2006))])
+            location = random.choice(list(self.locations.items()))
+            user = User('new' + index, 'LastName' + index, 'email' + index + '@gmail.com', dob, location[0], location[1], random_id(28))
             db.session.add(user)
         db.session.commit()
     
@@ -34,7 +38,8 @@ class DBInit:
             if not user:
                 user = User.query.filter(User.email == 'email0@gmail.com').first()
             owner_id = user.user_id
-            club = Club('Futbol-Club-' + index, self.cities[random.randrange(0, 4)], "Virginia", owner_id)
+            location = random.choice(list(self.locations.items()))
+            club = Club('Futbol-Club-' + index, location[0], location[1], owner_id)
             new_membership = ClubMember(user, club, ClubRoles.PRESIDENT)
             db.session.add(club)
             db.session.add(new_membership)
@@ -44,48 +49,6 @@ class DBInit:
         key = random_id(int(length))
         apikey = APIKey(key)
         db.session.add(apikey)
-        db.session.commit()
-
-    def load_location_data(self):
-        # Database data from: https://simplemaps.com/data/us-zips.
-        file="database/us_zips_data/uszips.csv"
-        states = {}
-        cities = set([])
-        postal_codes = set([])
-        city_state_id = 0
-        with open(file, 'r') as f:
-            for line in f.readlines()[1:]:
-                city_state_id += 1
-                data = line.split(',')
-                zip = int(data[0].strip('"'))
-                lat = float(data[1].strip('"'))
-                long = float(data[2].strip('"'))
-                city_name = data[3].strip('"')
-                state_code = data[4].strip('"')
-                state_name = data[5].strip('"')
-                timezone = data[-1].strip('\n').strip('"')
-
-                if state_name not in states:
-                    state_id = len(states) + 1
-                    state = State(state_id, state_name, state_code)
-                    states[state_name] = (state, state_id)
-                    db.session.add(state)
-
-                cities.add(City(city_state_id, states[state_name][1], city_name))
-                postal_codes.add(PostalCode(zip, lat, long, timezone, city_state_id, states[state_name][1]))
-        
-        print("Added Database entries from: https://simplemaps.com/data/us-zips")
-        print("Commiting state Data")
-        db.session.commit()
-
-        print("Commiting city_state Data")
-        for city in cities:
-            db.session.add(city)
-        db.session.commit()
-
-        print("Commiting postal_code Data")
-        for postal_code in postal_codes:
-            db.session.add(postal_code)
         db.session.commit()
 
     def init_club_members(self, num_of_users, num_of_clubs):
@@ -106,7 +69,6 @@ class DBInit:
         db.session.commit()
 
     def init_test_database(self):
-        self.load_location_data()
         self.create_users(120)
         self.create_clubs(5)
         self.init_club_members(50, 5)

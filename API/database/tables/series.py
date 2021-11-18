@@ -1,106 +1,73 @@
 from database import *
-from database.tables.locations import get_city_state
 from utils.utils import random_id
+from enum import Enum
+
+class Reccurence(Enum):
+    ONCE = "ONCE"
+    WEEKLY = "WEEKLY"
+    EVERY_OTHER_WEEK = "EVERY_OTHER_WEEK"
+    TWO_WEEKS = "TWO_WEEKS"
+    THREE_WEEKS = "THREE_WEEKS"
+    MONTHLY = "MONTHLY"
 
 class Series(db.Model):
     __tablename__ = "series_info"
     _series_id = db.Column('series_id', db.String(8), index=True, nullable=False, primary_key=True)
-    user_id = db.Column('user_id', db.String(28), db.ForeignKey('user_info.user_id'), nullable=False)
-    club_id = db.Column('club_id', db.String(8), db.ForeignKey('club_info.club_id'), nullable=False)
-    start_date = db.Column('start_date', db.DateTime, default=db.func.now())
-    repetition = db.Column('repetition', db.Integer, default=1)
-    _monday = db.Column('monday', db.Boolean, default=False)
-    _tuesday = db.Column('tuesday', db.Boolean, default=False)
-    _wednesday = db.Column('wednesday', db.Boolean, default=False)
-    _thursday = db.Column('thursday', db.Boolean, default=False)
-    _friday = db.Column('friday', db.Boolean, default=False)
-    _saturday = db.Column('saturday', db.Boolean, default=False)
-    _sunday = db.Column('sunday', db.Boolean, default=False)
-    is_recurring = db.Column('is_recurring', db.Boolean, default=False)
+    _user_id = db.Column('user_id', db.String(28), db.ForeignKey('user_info.user_id'), nullable=False)
+    _club_id = db.Column('club_id', db.String(8), db.ForeignKey('club_info.club_id'), nullable=False)
+    _start_date = db.Column('start_date', db.Date)
+    _end_date = db.Column('end_date', db.Date)
+    reccurence = db.Column(db.Enum(Reccurence, name="RECURRENCE"))
+    monday = db.Column(db.Boolean, default=False)
+    tuesday = db.Column(db.Boolean, default=False)
+    wednesday = db.Column(db.Boolean, default=False)
+    thursday = db.Column(db.Boolean, default=False)
+    friday = db.Column(db.Boolean, default=False)
+    saturday = db.Column(db.Boolean, default=False)
+    sunday = db.Column(db.Boolean, default=False)
 
-    def __init__(self, user, club):
-        self.set_series_id()
-        self.user_id = user.user_id
-        self.club_id = club.club_id
-
-    def set_start_date(self,date):
-        self.start_date = date
-   
-    def set_series_id(self):
+    def __init__(self, user_id, club_id, start_date, end_date, reccurence=Reccurence.ONCE):
         self._series_id = random_id(8)
-   
-    def set_repetition(self,recurrence):
-        self.repetition = recurrence
+        self._user_id = user_id
+        self._club_id = club_id
+        self.start_date = start_date
+        self.end_date = end_date
+        self.monday = False
+        self.tuesday = False
+        self.wednesday = False
+        self.thursday = False
+        self.friday = False
+        self.saturday = False
+        self.sunday = False
+        self.reccurence = reccurence
 
-    def toggel_monday(self):
-        self._monday = not self._monday
+    @property
+    def start_date(self):
+        return self._start_date
 
-    def toggel_tuesday(self):
-        self._tuesday = not self._tuesday
-    
-    def toggel_wednesday(self):
-        self._wednesday = not self._wednesday
+    @start_date.setter
+    def start_date(self, date):
+        self._start_date = datetime.datetime.strptime(date, '%m-%d-%Y')
 
-    def toggel_thursday(self):
-        self._thursday = not self._thursday
+    @property
+    def end_date(self):
+        return self._end_date
 
-    def toggel_friday(self):
-        self._friday = not self._friday
-
-    def toggel_saturday(self):
-        self._saturday = not self._saturday
-
-    def toggel_sunday(self):
-        self._sunday = not self._sunday
-   
-    def toggel_recurring(self):
-        self.is_recurring = not self.is_recurring
+    @end_date.setter
+    def end_date(self, date):
+        self._end_date = datetime.datetime.strptime(date, '%m-%d-%Y')
 
     @property
     def series_id(self):
         return self._series_id
 
     @property
-    def repetiton(self):
-        return self.repetition
+    def user_id(self):
+        return self._user_id
 
     @property
-    def monday(self):
-        return self._monday
-
-    @property
-    def tuesday(self):
-        return self._tuesday
-
-    @property
-    def wednesday(self):
-        return self._wednesday
-
-    @property
-    def thursday(self):
-        return self._thursday
-
-    @property
-    def friday(self):
-        return self._friday
-
-    @property
-    def saturday(self):
-        return self._saturday
-
-    @property
-    def sunday(self):
-        return self._sunday
-
-    @property
-    def name(self):
-        return self.name
-
-    def set_name(self, name):
-        self.name = name
-
-    def date_created(self):
-        return self._date_created
+    def club_id(self):
+        return self._club_id
 
     def __repr__(self):
         schema = SeriesSchema()

@@ -9,27 +9,28 @@ class RelationshipStatus(Enum):
 
 class UserRelationship(db.Model):
     __tablename__ = "user_relationship"
-    relationship_id = db.Column('relationship_id', db.String(8), nullable=False, primary_key=True)
-    primary_user = db.Column('primary_user_id', db.String(8), db.ForeignKey('user_info.user_id'), nullable=False, primary_key=True)
-    related_user = db.Column('related_user_id', db.String(8), db.ForeignKey('user_info.user_id'), nullable=False)
+    _relationship_id = db.Column('relationship_id', db.String(8), nullable=False, primary_key=True)
+    _primary_user_id = db.Column('primary_user_id', db.String(8), db.ForeignKey('user_info.user_id'), nullable=False, primary_key=True)
+    _related_user_id = db.Column('related_user_id', db.String(8), db.ForeignKey('user_info.user_id'), nullable=False)
     relationship_status = db.Column(db.Enum(RelationshipStatus, name="RELATIONSHIP_STATUS"), nullable=False)
 
-    def __init__(self, p_user, r_user, status=RelationshipStatus.REQUESTED):
-        self.set_relationship_id()
-        self.primary_user = p_user.user_id()
-        self.related_user = r_user.user_id()
+    def __init__(self, primary_id, secondary_id, status=RelationshipStatus.REQUESTED):
+        self._relationship_id = random_id(8)
+        self._primary_user_id = primary_id
+        self._related_user_id = secondary_id
         self.relationship_status = status
 
     @property
-    def relationship(self):
-        return self.relationship
+    def relationship_id(self):
+        return self._relationship_id
 
     @property
-    def relationship_id(self):
-        return self.relationship_id
+    def primary_user_id(self):
+        return self._primary_user_id
 
-    def set_relationship_id(self):
-        self.relationship_id = random_id(8)
+    @property
+    def related_user_id(self):
+        return self._related_user_id
 
     def __repr__(self):
         schema = RelationshipSchema()

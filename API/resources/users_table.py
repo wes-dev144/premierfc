@@ -10,23 +10,21 @@ class UserInfo(Resource):
         else:
             return json_message("User Not Found"), 404
 
-    @validate_json('first_name', 'last_name', 'email', 'date_of_birth', 'city', 'state')
+    @validate_json('first_name', 'last_name', 'email', 'date_of_birth', 'location', 'place_id', 'user_id')
     def post(self):
         data = request.get_json()
         if User.query.filter(User.email == data['email']).first():
             return json_message("Email Has Been Registered"), 403
-            
+
         try:
             user = User(data['first_name'], data['last_name'], data['email'], 
-                        data['date_of_birth'], data['city'], data['state'])
+                        data['date_of_birth'], data['location'], data['place_id'], data['user_id'])
         except ValueError as e:
             return json_message("Invalid Data format", e), 400
-        except MissingCityStateID as e:
-            return json_message("Invalid City or State"), 400
 
         db.session.add(user)
         db.session.commit()        
-        return json_message("Added: " + user.__repr__())
+        return json_message("Added User Email: " + user.email)
 
     def patch(self, user_id):
         data = request.get_json()
@@ -44,8 +42,7 @@ class UserInfo(Resource):
                         return json_message("Invalid Attribute Format", "(", attr_meta_data.type,")", e), 400
                     except AttributeError as e:
                         return json_message("Invalid Attribute:", str(e), attribute), 400
-                    except MissingCityStateID as e:
-                        return json_message("Invalid City or State"), 400
+
                 else:
                     return json_message("Cannot Change Value: " + attribute), 400
             db.session.commit()
