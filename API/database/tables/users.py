@@ -2,7 +2,7 @@ from database import *
 from utils.utils import random_id
 from enum import Enum
 
-class Role(Enum):
+class Role(str, Enum):
     ORGANIZER = "Organizer"
     PLAYER = "Player"
 
@@ -66,16 +66,6 @@ class User(db.Model):
     @date_of_birth.setter
     def date_of_birth(self, dob):
         self._date_of_birth = datetime.datetime.strptime(dob, '%m-%d-%Y')
-
-    def __repr__(self):
-        schema = UserSchema()
-        attributes = schema.dump(self)
-        attributes_string = "<" + type(self).__name__ + ".__repr__("
-        for key, value in attributes.items():
-            attributes_string += value + ", "
-
-        attributes_string = attributes_string.strip().strip(",") + ")>"
-        return attributes_string
 
 class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:

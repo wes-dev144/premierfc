@@ -1,7 +1,9 @@
+from database.tables.series import Series
 from database.tables.users import User
 from database.tables.club import Club
 from database.tables.club_membership import ClubMember, ClubRoles
 from database.tables.api_key import *
+from database.tables.game import Game
 
 from utils import *
 from utils.utils import *
@@ -68,10 +70,29 @@ class DBInit:
                 db.session.add(club_membership)
         db.session.commit()
 
+    def init_games(self, num_of_games, num_of_clubs):
+        clubs = Club.query.limit(num_of_clubs).all()
+        for club in clubs:
+            print("Creating " + str(num_of_games) + " Games for Club: " + club.name)
+            month = 4
+            day = 2
+            year = '2021'
+            for i in range(int(num_of_games)):
+                date = str(month) + '-' + str(day) + '-' + year
+                series = Series(club.owner_id, club.club_id, date, date)
+                game = Game(series.series_id, '5000 Stonecroft Blvd, Chantilly, VA 20151', 'ChIJlWOJHUVEtokRsbtZlSaNAhA', date, '19:00', '21:00')
+                db.session.add(series)
+                db.session.commit()
+                db.session.add(game)
+                db.session.commit()
+                day += 1
+            day += 3
+
     def init_test_database(self):
         self.create_users(120)
         self.create_clubs(5)
         self.init_club_members(50, 5)
+        self.init_games(5,5)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser("This script is used to help generate test values in the database")

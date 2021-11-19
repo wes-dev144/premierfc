@@ -2,7 +2,7 @@ from database import *
 from utils.utils import random_id
 from enum import Enum
 
-class Reccurence(Enum):
+class Reccurence(str, Enum):
     ONCE = "ONCE"
     WEEKLY = "WEEKLY"
     EVERY_OTHER_WEEK = "EVERY_OTHER_WEEK"
@@ -13,8 +13,8 @@ class Reccurence(Enum):
 class Series(db.Model):
     __tablename__ = "series_info"
     _series_id = db.Column('series_id', db.String(8), index=True, nullable=False, primary_key=True)
-    _user_id = db.Column('user_id', db.String(28), db.ForeignKey('user_info.user_id'), nullable=False)
-    _club_id = db.Column('club_id', db.String(8), db.ForeignKey('club_info.club_id'), nullable=False)
+    _user_id = db.Column('user_id', db.String(28), db.ForeignKey('user_info.user_id', ondelete="CASCADE"), nullable=False)
+    _club_id = db.Column('club_id', db.String(8), db.ForeignKey('club_info.club_id', ondelete="CASCADE"), nullable=False)
     _start_date = db.Column('start_date', db.Date)
     _end_date = db.Column('end_date', db.Date)
     reccurence = db.Column(db.Enum(Reccurence, name="RECURRENCE"))
@@ -68,16 +68,6 @@ class Series(db.Model):
     @property
     def club_id(self):
         return self._club_id
-
-    def __repr__(self):
-        schema = SeriesSchema()
-        attributes = schema.dump(self)
-        attributes_string = "<" + type(self).__name__ + ".__repr__("
-        for key, value in attributes.items():
-            attributes_string += value + ", "
-
-        attributes_string = attributes_string.strip().strip(",") + ")>"
-        return attributes_string
 
 class SeriesSchema(ma.SQLAlchemyAutoSchema):
     class Meta:

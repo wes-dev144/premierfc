@@ -4,8 +4,8 @@ from utils.utils import random_id
 class GameComment(db.Model):
     __tablename__ = "game_comment"
     _game_comment_id = db.Column('game_comment_id', db.String(8), index=True, nullable=False, primary_key=True)
-    _game_id = db.Column('game_id', db.String(8), db.ForeignKey('game_info.game_id'), nullable=False)
-    _user_id = db.Column('user_id', db.String(8), db.ForeignKey('user_info.user_id'), nullable=False)
+    _game_id = db.Column('game_id', db.String(8), db.ForeignKey('game_info.game_id', ondelete="CASCADE"), nullable=False)
+    _user_id = db.Column('user_id', db.String(8), db.ForeignKey('user_info.user_id', ondelete="CASCADE"), nullable=False)
     _publish_date = db.Column('publish_date', db.DateTime, default=db.func.now())
     comment = db.Column(db.Text)
 
@@ -31,16 +31,6 @@ class GameComment(db.Model):
     @property
     def user_id(self):
         return self._user_id
-
-    def __repr__(self):
-        schema = GameCommentSchema()
-        attributes = schema.dump(self)
-        attributes_string = "<" + type(self).__name__ + ".__repr__("
-        for key, value in attributes.items():
-            attributes_string += value + ", "
-
-        attributes_string = attributes_string.strip().strip(",") + ")>"
-        return attributes_string
 
 class GameCommentSchema(ma.SQLAlchemyAutoSchema):
     class Meta:

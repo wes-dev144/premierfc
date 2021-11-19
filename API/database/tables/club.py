@@ -2,7 +2,7 @@ from database import *
 from utils.utils import random_id
 from enum import Enum
 
-class ClubStatus(Enum):
+class ClubStatus(str, Enum):
     ACTIVE = "ACTIVE"
     RETIRED = "RETIRED"
 
@@ -12,7 +12,7 @@ class Club(db.Model):
     _date_created = db.Column('date_created', db.DateTime, default=db.func.now())
     _last_accessed = db.Column('last_accessed', db.DateTime, default=db.func.now())
     name = db.Column(db.String(32))
-    owner_id = db.Column('owner_id', db.String(28), db.ForeignKey('user_info.user_id'), nullable=False)
+    owner_id = db.Column('owner_id', db.String(28), db.ForeignKey('user_info.user_id', ondelete="CASCADE"), nullable=False)
     location = db.Column('location', db.Text)
     place_id = db.Column(db.String(28), nullable=False)
     club_status = db.Column(db.Enum(ClubStatus, name="CLUB_STATUS"), nullable=False)
@@ -40,16 +40,6 @@ class Club(db.Model):
     @property
     def date_created(self):
         return self._date_created
-
-    def __repr__(self):
-        schema = ClubSchema()
-        attributes = schema.dump(self)
-        attributes_string = "<" + type(self).__name__ + ".__repr__("
-        for key, value in attributes.items():
-            attributes_string += value + ", "
-
-        attributes_string = attributes_string.strip().strip(",") + ")>"
-        return attributes_string
 
 class ClubSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
