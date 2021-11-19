@@ -6,13 +6,19 @@ import theme from '../themes/Theme'
 
 const ClubView = (props) => {
     useEffect(() => {
+        data = RequestStore.get(props.view_type)
+        if (data) {
+            props.setClubs(data.clubs)
+        }
         RequestStore.subscribe(onChange, props.view_type);
         return () => RequestStore.unsubscribe(onChange, props.view_type);
     }, []);
+
     const onChange = (event) => {
         data = RequestStore.get(event)
         props.setClubs(data.clubs)
     }
+
     return (
         <ScrollView style={theme.style.background}>
             {props.clubs ? getClubList(props.clubs, props.navigation) : null}

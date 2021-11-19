@@ -8,7 +8,7 @@ class Api{
         this.google_api_key = config.GOOGLE_PLACES_API_KEY
     };
 
-    async request(url=null, method, endpoint, data) {
+    async request(method, endpoint, {data={}, url=null}={}) {
         if (url == null) {
             url = this.url
         }

@@ -7,17 +7,19 @@ const getNameInitials = (name) => {
     const prepositions = ["of", "on", "the", "in", "for", "to", "from", "by"]
     let firstChar = ''
     let secondChar = ''
-
+    firstChar = name_split[0].charAt(0)
+    
     if (name_split.length > 1) {
-        firstChar = name_split[0].charAt(0)
         for (let i = 1; i < name_split.length; i++) {
             if (!prepositions.includes(name_split[i].toLowerCase())) {
                 secondChar = name_split[i].charAt(0)
                 break
             }
         }
+        return firstChar + secondChar
     }
-    return firstChar + secondChar
+
+    return firstChar
 }
 
 export {

@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import theme from '../themes/Theme';
 import { runAndNavigate } from '../utils/navigation';
-import { getLocationString } from '../utils/util';
 import { Avatar } from 'react-native-paper';
 import {UpcomingGameTimeAndLoc, UpcomingGameInfo} from './UpcomingGameBoxes';
 import RequestStore from '../stores/RequestsStore';
@@ -19,32 +18,32 @@ const ClubInfoBox = ({func, ...rest}) => {
     
     const [gameInfoSet, setGameInfo] = useState(false)
     useEffect(() => {
-        RequestStore.subscribe(onChange, event.GAME_ID + rest.game_id);
-        return () => RequestStore.unsubscribe(onChange, event.GAME_ID + rest.game_id);
+        RequestStore.subscribe(onChange, event.SERIES_ID + rest.series_id);
+        return () => RequestStore.unsubscribe(onChange, event.SERIES_ID + rest.series_id);
     }, []);
     
     return (
         <TouchableOpacity style={styles.container} onPress={() => runAndNavigate({func, ...rest})}>
-            <Avatar.Text size={40} label={getNameInitials(rest.club)} style={{backgroundColor: theme.color.secondary_dark}}/>
+            <Avatar.Text size={40} label={getNameInitials(rest.club_name)} style={{backgroundColor: theme.color.secondary_dark}}/>
             <View style={{paddingLeft: 15, width: '60%', alignItems:'flex-start', justifyContent:'flex-start'}}>
-                <Text textBreakStrategy='simple' style={[styles.club, theme.style.textFont]}>{rest.club}</Text>
-                {gameInfoSet ? <UpcomingGameTimeAndLoc game_id={rest.game_id}/> : null}
+                <Text textBreakStrategy='simple' style={[styles.club, theme.style.textFont]}>{rest.club_name}</Text>
+                {gameInfoSet ? <UpcomingGameTimeAndLoc series_id={rest.series_id}/> : null}
             </View>
-            {gameInfoSet ? <UpcomingGameInfo game_id={rest.game_id}/> : null}
+            {gameInfoSet ? <UpcomingGameInfo series_id={rest.series_id}/> : null}
         </TouchableOpacity>
     );
 };
 
 const getClubList = (clubs, navigation) => {
     return clubs.map((club) => {
-        if (club.games.length != 0) {
-            const game_id = club.games[0]
-            Api.request('GET', 'api/games/' + club.games[0]).then((response) => {
-                Actions.RequestStore().update(response.data, event.GAME_ID + game_id)
+        if (club.series_ids.length != 0) {
+            const series_id = club.series_ids[0]
+            Api.request('GET', 'api/series/' + series_id + '/games').then((response) => {
+                Actions.RequestStore().update(response.data.games, event.SERIES_ID + series_id)
             });
-            return <ClubInfoBox key={club.id} club={club.club_name} location={getLocationString(club)} func={null} 
-                            club_numbers={club.members.length} game_id={game_id} club_id={club.id} navigation={navigation}
-                            nextScreen="ClubChat" route_params={{club_id: club.id, club_name: club.club_name}}/>
+            return <ClubInfoBox key={club.id} club_name={club.name} location={club.location} func={null} 
+                            club_numbers={club.member_count} series_id={series_id} club_id={club.id} navigation={navigation}
+                            nextScreen="ClubChat" route_params={{club_id: club.id, club_name: club.name}}/>
         }
     })
 }

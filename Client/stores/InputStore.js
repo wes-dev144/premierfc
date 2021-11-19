@@ -9,7 +9,6 @@ class InputStore extends EventEmitter {
     };
 
     updateStore(dataType, data) {
-        console.log('Updated Store', data)
         this.store[dataType] = data
     }
 

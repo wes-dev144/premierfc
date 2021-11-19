@@ -37,7 +37,7 @@ export const AuthProvider = ({children}) => {
                 user_id: newUser.uid
             }
             console.log("Registering new user to Server DB")
-            Api.request('POST', 'api/user', user_info)
+            Api.request('POST', 'api/user', {data: user_info})
         })
     }
     return (

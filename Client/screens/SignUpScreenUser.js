@@ -32,7 +32,7 @@ const SignUpScreenUser = (props) => {
         const urlEncoded = encodeURIComponent(location)
         const endpoint = "api/place/textsearch/json?query=" + urlEncoded + "&key=" + Api.google_api_key
 
-        Api.request("https://maps.googleapis.com/maps", 'POST', endpoint).then(async (response) => {
+        Api.request('POST', endpoint, {url: "https://maps.googleapis.com/maps"}).then(async (response) => {
             const search = response.data.results
             var addressConfirmed = true
             

@@ -14,8 +14,7 @@ const Tab = createMaterialTopTabNavigator()
 const HomeScreen = (props) => {
     const [registeredClubs, setRegisteredClubs] = useState([])
     const [allClubs, setAllClubs] = useState([])
-    Actions.InputStore().update(field.PASSWD, "")
-    
+
     return (
         <View style={[styles.container, theme.style.background]}>
             <Header title="Maestri" titleStyle={theme.style.primaryFont} subtitle="Clubs"/>

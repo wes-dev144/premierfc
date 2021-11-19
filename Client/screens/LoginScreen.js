@@ -35,7 +35,7 @@ async function requestPermissions() {
         
                     const endpoint = "api/geocode/json?latlng=" + currentLatitude + "," + currentLongitude + "&key=" + Api.google_api_key
 
-                    Api.request("https://maps.googleapis.com/maps", 'POST', endpoint).then((response) => {
+                    Api.request('POST', endpoint, {url: "https://maps.googleapis.com/maps"}).then((response) => {
                         const location = response.data.results[0].formatted_address
                         Actions.RequestStore().update(location, event.CURRENT_LOCATION)
                     });

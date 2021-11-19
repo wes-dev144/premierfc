@@ -20,7 +20,5 @@ export const RequestStore = () => {
             event: event
         });
     }
-    return {
-        update
-    }
+    return {update}
 }

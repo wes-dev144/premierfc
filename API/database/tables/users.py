@@ -3,8 +3,8 @@ from utils.utils import random_id
 from enum import Enum
 
 class Role(str, Enum):
-    ORGANIZER = "Organizer"
-    PLAYER = "Player"
+    ORGANIZER = "ORGANIZER"
+    PLAYER = "PLAYER"
 
 class User(db.Model):
     __tablename__ = "user_info"
