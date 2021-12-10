@@ -14,9 +14,9 @@ class ClubMember(db.Model):
     _club_id = db.Column('club_id', db.String(8), db.ForeignKey('club_info.club_id', ondelete="CASCADE"), nullable=False)
     role = db.Column(db.Enum(ClubRoles, name="CLUB_ROLE"), nullable=False)
 
-    def __init__(self, user, club, role=ClubRoles.PLAYER):
-        self._user_id = user.user_id
-        self._club_id = club.club_id
+    def __init__(self, user_id, club_id, role=ClubRoles.PLAYER):
+        self._user_id = user_id
+        self._club_id = club_id
         self.role = role
 
     @property

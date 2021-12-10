@@ -2,14 +2,14 @@ if (Test-Path migrations){
     echo "Removing Migrations Folder"
     rm -Recurse -Confirm:$false -Force migrations
 }
-
+$env:FLASK_APP = "API/app.py"
 python API/drop_tables.py -t alembic_version
 
 echo "Initializing Migrations"
-python API/migrate.py db init
+flask db init
 
 echo "Migrating Tables"
-python API/migrate.py db migrate
+flask db migrate
 
 echo "Upgrading DB"
-python API/migrate.py db upgrade
+flask db upgrade

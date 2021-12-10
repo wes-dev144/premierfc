@@ -20,16 +20,16 @@ class WeekDay(str, Enum):
     SUN = "SUN"
 
 class MatchType(str, Enum):
-    FOUR_VS_FOUR = "FOUR_VS_FOUR"
-    FIVE_VS_FIVE = "FIVE_VS_FIVE"
-    SIX_VS_SIX = "SIX_VS_SIX"
-    SEVEN_VS_SEVEN = "SEVEN_VS_SEVEN"
-    EIGHT_VS_EIGHT = "EIGHT_VS_EIGHT"
-    NINE_VS_NINE = "NINE_VS_NINE"
-    TEN_VS_TEN = "TEN_VS_TEN"
-    ELEVEN_VS_ELEVEN = "ELEVEN_VS_ELEVEN"
-    TWELVE_VS_TWELVE = "TWELVE_VS_TWELVE"
-    THIRTEEN_VS_THIRTEEN = "THIRTEEN_VS_THIRTEEN"
+    FOUR_VS_FOUR = "4v4"
+    FIVE_VS_FIVE = "5v5"
+    SIX_VS_SIX = "6v6"
+    SEVEN_VS_SEVEN = "7v7"
+    EIGHT_VS_EIGHT = "8v8"
+    NINE_VS_NINE = "9v9"
+    TEN_VS_TEN = "10v10"
+    ELEVEN_VS_ELEVEN = "11v11"
+    TWELVE_VS_TWELVE = "12v12"
+    THIRTEEN_VS_THIRTEEN = "13v13"
 
 class Game(db.Model):
     __tablename__ = "game_info"

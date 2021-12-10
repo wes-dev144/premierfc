@@ -65,7 +65,7 @@ class DBInit:
                     if ClubMember.query.filter(ClubMember._club_id == club.club_id, ClubMember._user_id == user.user_id).first():
                         retry += 1
                         continue
-                    club_membership = ClubMember(user, club)
+                    club_membership = ClubMember(user.user_id, club.club_id)
                     break
                 db.session.add(club_membership)
         db.session.commit()

@@ -38,3 +38,22 @@ class SeriesGamesList(Resource):
             json_return["games"].append(info)
 
         return json_return
+
+class SignupList(Resource):
+    @validate_json('user_id')
+    def post(self, game_id):
+        data = request.get_json()
+        if Signup.query.filter(Signup._user_id == data['user_id']).filter(Signup._game_id == game_id).first():
+            return json_message("User Already Has Arealdy Registered for the Game!"), 403
+        
+        game_roster = Signup.query.all()
+        current_size = len(game_roster)
+
+        try:
+            signup = Signup(data['user_id'], game_id, current_size + 1)
+        except ValueError as e:
+            return json_message("Invalid Data format", e), 400
+
+        db.session.add(signup)
+        db.session.commit()        
+        return json_message("User Successfully Joined Club!")

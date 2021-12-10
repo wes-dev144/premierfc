@@ -16,6 +16,7 @@ def init_routes():
     api.add_resource(UserClubsList, '/user/<user_id>/clubs')
     api.add_resource(SeriesGamesList, '/series/<series_id>/games')
     api.add_resource(ClubsList, '/clubs')
+    api.add_resource(ClubMembership, '/club/<club_id>')
 
     #TODO: create route to get user relationship 
 
