@@ -9,28 +9,30 @@ import { getLocationString } from '../utils/util';
 import { baseProps } from 'react-native-gesture-handler/dist/src/handlers/gestureHandlers';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { Divider, Title, Paragraph } from 'react-native-paper';
+import { Divider, Title, Subheading, Paragraph } from 'react-native-paper';
 import { Rating } from "react-native-rating-element";
 import { Avatar } from 'react-native-paper';
 import { Banner } from 'react-native-paper';
 import { ImageSlider } from "react-native-image-slider-banner";
+//import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+
+const B = (props) => <Text style={{fontWeight: 'bold'}}>{props.children}</Text>
 
 function InfoScreen() {
     return (
       <View style={[styles.container]}>
       <ScrollView>
-            <View>
+            <View style={[styles.imagecontainer]}>
                 <ImageSlider 
-                    // localImg={true}
                     data={[
-                        {img: 'https://tvline.com/wp-content/uploads/2021/03/the-patrick-star-show-spongebob-squarepants-spinoff.jpg'},
-                        {img: 'https://tvline.com/wp-content/uploads/2021/03/the-patrick-star-show-spongebob-squarepants-spinoff.jpg'}
-                        // require('../assets/images/Patrick_Star_social_image_1.jpg'),
-                        // require('../assets/images/mesut-ozil-teammates-gty-mem-180723_hpEmbed_23x15_992.jpg')
+                        {img: 'https://soccerinteraction.com/wp-content/uploads/2019/01/Soccer-in-Australia.jpg'},
+                        {img: 'https://i.nextmedia.com.au/Utils/ImageResizer.ashx?n=https%3A%2F%2Fi.nextmedia.com.au%2FNews%2FGettyImages-1185984966_Cropped.jpg&h=630&w=1120&c=1&s=1'}
                     ]}
                     autoPlay={false}
                     onItemChanged={(item) => console.log("item", item)}
+                    onClick={(item) => console.log("item", item)}
                     closeIconColor="#fff"
+                    caroselImageStyle={{height: 240}}
                 />
             </View>
         <View style={[styles.rating]}>
@@ -46,16 +48,32 @@ function InfoScreen() {
             />
         </View>
         <Title style={[styles.title]}>Description:</Title>
-            <Paragraph style={[styles.paragraph]}>First Touch FC is open to anyone, male or female. The play is typically at the Intermediate to Advance level. Matches are fast and competitive but friendly and fun. We play for the love of the game. No attitudes, just a great way to start the day with some footie.</Paragraph>
-            <Paragraph style={[styles.paragraph]}>There’s a maximum of 2 games and match size varies from 7v7 to 9v9 depending on sign ups. Matches start promptly at 7:00 AM… we ask players to arrive early enough to suit up, stretch, and allow for team selection before hand so that we have the full hour for a great game</Paragraph>
+            <Paragraph style={[styles.paragraph]}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu nisl nunc mi ipsum faucibus vitae aliquet nec ullamcorper. Nisi scelerisque eu ultrices vitae auctor eu augue ut. Congue eu consequat ac felis donec et odio pellentesque diam. Volutpat diam ut venenatis tellus in. Pharetra convallis posuere morbi leo urna molestie at. Volutpat odio facilisis mauris sit amet massa vitae tortor. Egestas congue quisque egestas diam in arcu cursus. Ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit. Elementum curabitur vitae nunc sed velit dignissim sodales ut. Urna molestie at elementum eu facilisis sed odio morbi.</Paragraph>
+            <Paragraph style={[styles.paragraph]}>Vel pharetra vel turpis nunc. Massa sapien faucibus et molestie ac feugiat. Amet massa vitae tortor condimentum lacinia quis vel eros donec. Libero id faucibus nisl tincidunt eget. Lorem donec massa sapien faucibus et molestie ac feugiat sed. Iaculis at erat pellentesque adipiscing commodo. Molestie nunc non blandit massa enim nec. Eget dolor morbi non arcu risus. Egestas diam in arcu cursus euismod quis viverra. At erat pellentesque adipiscing commodo elit. Egestas maecenas pharetra convallis posuere morbi leo urna molestie at. Vulputate sapien nec sagittis aliquam malesuada bibendum arcu vitae elementum. Risus quis varius quam quisque id.</Paragraph>
         <Divider />
         <Title style={[styles.title]}>Game Details:</Title>
+            <Subheading style={[styles.subheading]}><B>Game Days: </B></Subheading>
+            <Subheading style={[styles.subheading]}><B>Game Time: </B><Text>7:00 - 8:00AM</Text></Subheading>
+            <Subheading style={[styles.subheading]}><B>Field Type: </B><Text>Astroturf</Text></Subheading>
+            <Subheading style={[styles.subheading]}><B>Playing Level: </B><Text>Intermediate - Advanced</Text></Subheading>
+            <Subheading style={[styles.subheading]}><B>Locations: </B><Text>Ben Lomond Regional Park, Signal Hill Park, Dean Park</Text></Subheading>
+            {/* <View>
+                <MapView style={[styles.map]}
+                    provider={PROVIDER_GOOGLE}
+                    region={{
+                        latitude: 37.78825,
+                        longitude: -122.4324,
+                        latitudeDelta: 0.09,
+                        longitudeDelta: 0.035
+                    }}>
+                </MapView>
+            </View> */}
         <Divider />
         <Title style={[styles.title]}>Organizers:</Title>
             <View style={[styles.avatar]}>
-                <Avatar.Text size={50} label="EM" />
                 <Avatar.Text size={50} label="OP" />
                 <Avatar.Text size={50} label="OT" />
+                <Avatar.Text size={50} label="DM" />
             </View>
         <Divider />
         <Title style={[styles.title]}>Members:</Title>
@@ -63,8 +81,6 @@ function InfoScreen() {
                 <Avatar.Text size={50} label="OP" />
                 <Avatar.Text size={50} label="OT" />
                 <Avatar.Text size={50} label="DM" />
-                <Avatar.Text size={50} label="EM" />
-                <Avatar.Text size={50} label="SS" />
             </View>
         <Divider />
       </ScrollView>
@@ -171,17 +187,30 @@ const styles = StyleSheet.create({
         paddingBottom: 8
     },
     bannertext: {
-        fontSize: 18,
+        fontSize: 18
     },
     paragraph: {
         paddingHorizontal: 4,
+        fontSize: 13
     },
     title: {
         paddingHorizontal: 4,
+        fontSize: 16
+    },
+    subheading: {
+        paddingHorizontal: 4,
+        fontSize: 13,
     },
     rating: {
-        alignItems: 'center'
-    }
+        alignItems: 'center',
+        paddingTop: 5
+    },
+    imagecontainer: {
+        paddingTop: 10 
+    },
+    map: {
+        height: '50%' 
+    },
 
 });
 
